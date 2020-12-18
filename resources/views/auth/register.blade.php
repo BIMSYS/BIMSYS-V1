@@ -30,6 +30,23 @@
                 </div>
 
                 <div class="input-group mb-3">
+                    <input type="text" class="form-control border-primary @error('username') is-invalid @enderror"
+                        name="username" placeholder="Username" value="{{ old('username') }}" required autocomplete="username">
+
+                    <div class="input-group-append">
+                        <div class="input-group-text border-primary">
+                            <span class="fas fa-user"></span>
+                        </div>
+
+                        @error('username')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="input-group mb-3">
                     <input type="email" class="form-control border-primary @error('email') is-invalid @enderror"
                         name="email" placeholder="Email" {{ old('email') }} required autocomplete="email">
 

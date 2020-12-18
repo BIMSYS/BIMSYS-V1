@@ -19,9 +19,9 @@ use App\Http\Controllers\Auth\PasswordController;
 
 Route::view('/', 'index')->middleware('guest');
 
-Auth::routes(['verify' => true]);
+Auth::routes();
 
-Route::group(['middleware' => ['verified']], function () {
+Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     Route::get('/profile/{student}', [StudentsController::class, 'show'])->name('profile');
