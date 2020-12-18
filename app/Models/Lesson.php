@@ -2,8 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Grade;
+use App\Models\Module;
+use App\Models\Student;
+use App\Models\Teacher;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Lesson extends Model
 {
@@ -15,16 +19,21 @@ class Lesson extends Model
 
     public function students()
     {
-        return $this->belongsToMany('App\Models\Student');
+        return $this->belongsToMany(Student::class);
     }
 
     public function teachers()
     {
-        return $this->belongsToMany('App\Models\Teacher');
+        return $this->belongsToMany(Teacher::class);
     }
 
     public function modules()
     {
-        return $this->hasMany('App\Models\Module');
+        return $this->hasMany(Module::class);
+    }
+
+    public function grade()
+    {
+        return $this->hasOne(Grade::class);
     }
 }
