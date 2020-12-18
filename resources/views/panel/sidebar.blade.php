@@ -7,6 +7,7 @@
     </a>
   </div>
 
+  @if (Auth::user()->role === 'student')
   <!-- Sidebar -->
   <div class="sidebar">
     <!-- Sidebar Menu -->
@@ -70,4 +71,6 @@
     <!-- /.sidebar-menu -->
   </div>
   <!-- /.sidebar -->
+  @endif
+
 </aside>

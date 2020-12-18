@@ -26,7 +26,13 @@
   <ul class="navbar-nav ml-auto">
     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
       aria-haspopup="true" aria-expanded="false" v-pre>
-      {{ $student->student_fullname }}
+      @if (Auth::user()->role === 'admin')
+          {{ 'Admin' }}
+      @elseif(Auth::user()->role === 'student') 
+          {{ $auth->student_fullname }}
+      @elseif(Auth::user()->role === 'teacher') 
+          {{ $auth->teacher_fullname }}
+      @endif
     </a>
     <div class="image pr-4">
       <img src="{{ URL::asset('/img/profile-user.png') }}" class="img-circle elevation-2" width="35px" height="35px" alt="User Image">
