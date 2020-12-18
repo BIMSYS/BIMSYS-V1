@@ -13,7 +13,7 @@ class Grade extends Model
     use HasFactory;
 
     public $fillable = [
-        'grade'
+        'teacher_id', 'student_id', 'lesson_id', 'grade'
     ];
 
     public function student()

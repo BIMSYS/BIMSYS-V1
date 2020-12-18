@@ -11,7 +11,7 @@ class Module extends Model
     use HasFactory;
 
     protected $fillable = [
-        'module_number', 'module_title', 'module_material', 'module_file', 'module_video'
+        'lesson_id', 'module_number', 'module_title', 'module_material', 'module_file', 'module_video'
     ];
 
     public function lesson()
