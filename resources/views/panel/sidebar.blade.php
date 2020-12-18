@@ -15,13 +15,13 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
-        @if (request()->is("profile/$student->id") || request()->is("profile/$student->id/*"))
+        @if (request()->is("profile/$auth->id") || request()->is("profile/$auth->id/*"))
         <li class="nav-item active">
           @else
         <li class="nav-item">
           @endif
 
-          @if (request()->is("profile/$student->id") || request()->is("profile/$student->id/*"))
+          @if (request()->is("profile/$auth->id") || request()->is("profile/$auth->id/*"))
           <a href="#" class="nav-link active">
             @else
             <a href="#" class="nav-link">
@@ -35,22 +35,22 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('profile', ['student' => $student->id]) }}"
-                  class="nav-link{{ request()->is("profile/$student->id") ? ' active' : '' }}">
+                <a href="{{ route('profile', ['auth' => $auth->id]) }}"
+                  class="nav-link{{ request()->is("profile/$auth->id") ? ' active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>About Me</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('profile.edit', ['student' => $student->id]) }}"
-                  class="nav-link{{ request()->is("profile/$student->id/edit") ? ' active' : '' }}">
+                <a href="{{ route('profile.edit', ['auth' => $auth->id]) }}"
+                  class="nav-link{{ request()->is("profile/$auth->id/edit") ? ' active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Edit Profile</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('password.edit', ['student' => $student->id]) }}"
-                  class="nav-link{{ request()->is("profile/$student->id/password") ? ' active' : '' }}">
+                <a href="{{ route('password.edit', ['auth' => $auth->id]) }}"
+                  class="nav-link{{ request()->is("profile/$auth->id/password") ? ' active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Edit Password</p>
                 </a>

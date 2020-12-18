@@ -26,15 +26,15 @@ class TeacherFactory extends Factory
         return [
             'user_id' => rand(2, 11),
             'teacher_fullname' => $this->faker->name,
-            'teacher_code' => Str::of(Str::random(3))->unique()->upper(),
+            'teacher_code' => Str::of(Str::random(3))->upper(),
         ];
     }
 
-    public function configure()
-    {
-        return $this->afterCreating(function (Teacher $teacher) {
-            $lesson = Lesson::find(rand(1, 10));
-            $teacher->lessons()->attach($lesson);
-        });
-    }
+    // public function configure()
+    // {
+    //     return $this->afterCreating(function (Teacher $teacher) {
+    //         $lesson = Lesson::find(rand(1, 10));
+    //         $teacher->lessons()->attach($lesson);
+    //     });
+    // }
 }

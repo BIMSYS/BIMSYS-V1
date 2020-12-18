@@ -21,12 +21,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-        // $this->call(UserSeeder::class);
-        User::factory()->create();
-        Student::factory(10)->create();
-        Teacher::factory(10)->create();
-        Lesson::factory(10)->create();
-        Module::factory(10)->create();
-        Grade::factory(10)->create();
+        $this->call(UserSeeder::class);
+        User::factory()->times(10)->create();
+        // $lesson = Lesson::factory()->count(10)->create();
+        Student::factory()->times(10)->has(Lesson::factory()->count(5))->create();
+        Teacher::factory()->times(10)->has(Lesson::factory()->count(5))->create();
+        Module::factory()->times(10)->create();
+        Grade::factory()->times(10)->create();
     }
 }

@@ -24,7 +24,7 @@ class LessonFactory extends Factory
     {
         return [
             'lesson_name' => $this->faker->word,
-            'lesson_code' => Str::of(Str::random(3))->unique()->upper(),
+            'lesson_code' => Str::of(Str::random(3))->upper(),
             'lesson_description' => $this->faker->text
         ];
     }

@@ -29,11 +29,11 @@ class StudentFactory extends Factory
         ];
     }
 
-    public function configure()
-    {
-        return $this->afterCreating(function (Student $student) {
-            $lesson = Lesson::find(rand(1, 10));
-            $student->lessons()->attach($lesson);
-        });
-    }
+    // public function configure()
+    // {
+    //     return $this->afterCreating(function (Student $student) {
+    //         $lesson = Lesson::find(rand(1, 10));
+    //         $student->lessons()->attach($lesson);
+    //     });
+    // }
 }
