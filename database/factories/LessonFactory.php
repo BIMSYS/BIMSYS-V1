@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Lesson;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class LessonFactory extends Factory
@@ -22,7 +23,9 @@ class LessonFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'lesson_name' => $this->faker->word,
+            'lesson_code' => Str::of(Str::random(3))->unique()->upper(),
+            'lesson_description' => $this->faker->text
         ];
     }
 }

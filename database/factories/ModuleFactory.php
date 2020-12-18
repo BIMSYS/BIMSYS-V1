@@ -22,7 +22,10 @@ class ModuleFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'lesson_id' => rand(2, 11),
+            'module_number' => rand(1, 10),
+            'module_title' => $this->faker->sentence,
+            'module_material' => $this->faker->text,
         ];
     }
 }

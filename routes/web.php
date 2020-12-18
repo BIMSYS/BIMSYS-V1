@@ -24,11 +24,14 @@ Auth::routes();
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-    Route::get('/profile/{student}', [StudentsController::class, 'show'])->name('profile');
+    // Student Menu
+    Route::group(['middleware' => 'role:student'], function () {
+        Route::get('/profile/{student}', [StudentsController::class, 'show'])->name('profile');
 
-    Route::get('/profile/{student}/edit', [StudentsController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile/{student}/edit', [StudentsController::class, 'update'])->name('profile.edit');
+        Route::get('/profile/{student}/edit', [StudentsController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile/{student}/edit', [StudentsController::class, 'update'])->name('profile.edit');
 
-    Route::get('/profile/{student}/password', [PasswordController::class, 'index'])->name('password.edit');
-    Route::patch('/profile/{student}/password', [PasswordController::class, 'update'])->name('password.edit');
+        Route::get('/profile/{student}/password', [PasswordController::class, 'index'])->name('password.edit');
+        Route::patch('/profile/{student}/password', [PasswordController::class, 'update'])->name('password.edit');
+    });
 });
