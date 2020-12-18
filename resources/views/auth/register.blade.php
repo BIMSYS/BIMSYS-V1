@@ -14,7 +14,7 @@
 
                 <div class="input-group mb-3">
                     <input type="text" class="form-control border-primary @error('name') is-invalid @enderror"
-                        name="name" placeholder="Nama" value="{{ old('name') }}" required autocomplete="name">
+                        name="name" placeholder="Fullname" value="{{ old('name') }}" required autocomplete="name">
 
                     <div class="input-group-append">
                         <div class="input-group-text border-primary">

@@ -2,29 +2,32 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
+use App\Models\Grade;
+use App\Models\Lesson;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Student extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'student_fullname', 'student_class', 'student_image'
+        'user_id', 'student_fullname', 'student_class', 'student_image'
     ];
 
     public function lessons()
     {
-        return $this->belongsToMany('App\Models\Lesson');
+        return $this->belongsToMany(Lesson::class);
     }
 
     public function user()
     {
-        return $this->hasOne('App\Models\User');
+        return $this->belongsTo(User::class);
     }
 
     public function grade()
     {
-        return $this->hasOne('App\Models\Grade');
+        return $this->hasOne(Grade::class);
     }
 }

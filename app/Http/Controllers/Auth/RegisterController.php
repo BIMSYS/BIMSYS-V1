@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+
+use App\Models\User;
 use App\Models\Student;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
@@ -74,7 +75,7 @@ class RegisterController extends Controller
 
         Student::create([
             'user_id' => $user->id,
-            'student_fullname' => $user->name,
+            'student_fullname' => $data['name'],
         ]);
 
         return $user;

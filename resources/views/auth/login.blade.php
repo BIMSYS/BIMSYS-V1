@@ -13,14 +13,14 @@
                 @csrf
 
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control border-primary @error('email') is-invalid @enderror"
-                        name="email" placeholder="Email" required autocomplete="email" autofocus>
+                    <input type="text" class="form-control border-primary @error('username') is-invalid @enderror"
+                        name="username" placeholder="Username" required autocomplete="username" autofocus>
                     <div class="input-group-append">
                         <div class="input-group-text border-primary">
                             <span class="fas fa-envelope"></span>
                         </div>
 
-                        @error('email')
+                        @error('username')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
