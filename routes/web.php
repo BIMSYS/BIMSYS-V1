@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
@@ -20,12 +21,15 @@ use App\Http\Controllers\Auth\PasswordController;
 
 Route::view('/', 'index')->middleware('guest');
 
+
 Auth::routes();
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+
     Route::get('/admin/kelas/create',[AdminController::class, 'create'])->name('admin.create');
     Route::get('/admin/kelas/detail',[AdminController::class, 'detail'])->name('admin.detail');
+    Route::get('/admin',[AdminController::class, 'index'])->name('admin');
 
     Route::get('/profile/{student}', [StudentsController::class, 'show'])->name('profile');
 
