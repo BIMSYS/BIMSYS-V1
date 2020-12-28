@@ -17,6 +17,7 @@ class AdminController extends Controller
     {
         $student = Student::where('user_id', auth()->user()->id )->first();
         return view('admin/kelas/detail', compact('student'));
+    }
       
     public function index()
     {
