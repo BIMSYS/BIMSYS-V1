@@ -1,12 +1,10 @@
 <?php
 
-use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\StudentsController;
-use App\Http\Controllers\Auth\PasswordController;
+use App\Http\Controllers\Auth\ProfileController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,15 +25,21 @@ Auth::routes();
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-    Route::get('/admin/kelas/create',[AdminController::class, 'create'])->name('admin.create');
-    Route::get('/admin/kelas/detail',[AdminController::class, 'detail'])->name('admin.detail');
-    Route::get('/admin',[AdminController::class, 'index'])->name('admin');
+    // Student Menu
+    Route::group(['middleware' => 'role:student'], function () {
+        Route::get('/profile/{auth}', [ProfileController::class, 'show'])->name('profile');
 
-    Route::get('/profile/{student}', [StudentsController::class, 'show'])->name('profile');
+        Route::get('/profile/{student}', [StudentsController::class, 'show'])->name('profile');
+        Route::get('/profile/{auth}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile/{auth}/edit', [ProfileController::class, 'update'])->name('profile.edit');
 
-    Route::get('/profile/{student}/edit', [StudentsController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile/{student}/edit', [StudentsController::class, 'update'])->name('profile.edit');
+        Route::get('/profile/{auth}/password', [PasswordController::class, 'index'])->name('password.edit');
+        Route::patch('/profile/{auth}/password', [PasswordController::class, 'update'])->name('password.edit');
+    });
 
-    Route::get('/profile/{student}/password', [PasswordController::class, 'index'])->name('password.edit');
-    Route::patch('/profile/{student}/password', [PasswordController::class, 'update'])->name('password.edit');
+    Route::group(['middleware' => 'role:admin'], function () {
+        Route::get('/user', [UserController::class, 'index'])->name('user.index');
+        Route::get('/user/kelas/create', [UserController::class, 'create'])->name('user.create');
+        Route::get('/user/kelas/detail', [UserController::class, 'detail'])->name('user.detail');
+    });
 });

@@ -18,6 +18,14 @@
   <link rel="stylesheet" href="{{url('adminLTE/dist/css/adminlte.min.css')}}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+  <style>
+    th {
+      font-family: 'Roboto', sans-serif;
+    }
+  </style>
+
+  @stack('css')
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -44,6 +52,8 @@
   <script src="{{url('adminLTE/dist/js/adminlte.min.js')}}"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="{{url('adminLTE/dist/js/demo.js')}}"></script>
+
+  @stack('js')
 </body>
 
 </html>

@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\AdminController;
 use App\Models\Student;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class AdminController extends Controller
 {
@@ -18,6 +17,7 @@ class AdminController extends Controller
     {
         $student = Student::where('user_id', auth()->user()->id )->first();
         return view('admin/kelas/detail', compact('student'));
+    }
       
     public function index()
     {

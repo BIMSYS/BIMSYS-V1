@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
-use App\Models\Student;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class StudentController extends Controller
+class ProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,12 +41,12 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  Student $student
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Student $student)
+    public function show($id)
     {
-        //
+        return view('profile.about', ['auth' => $id]);
     }
 
     /**

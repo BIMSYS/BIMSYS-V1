@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Student;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class StudentController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,25 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+
+        foreach ($users as $user) {
+            if ($user->role === 'student') {
+                $students[] = $user->student;
+            } elseif ($user->role === 'teacher') {
+                $teachers[] = $user->teacher;
+            }
+        }
+
+        $users = User::paginate(6);
+
+        unset($users[0]);
+
+        return view('admin.user.index', [
+            'users' => $users,
+            'students' => $students,
+            'teachers' => $teachers
+        ]);
     }
 
     /**
@@ -41,10 +59,10 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  Student $student
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Student $student)
+    public function show($id)
     {
         //
     }
