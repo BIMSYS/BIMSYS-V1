@@ -79,15 +79,15 @@
             @foreach ($users as $user)
             <tr>
                 @if ($user->role === 'student')
-                <th scope="row"><img src="{{ URL::asset( $user->student->student_image ) }}"
+                <th scope="row"><img src="{{ URL::asset( $user->student_image ) }}"
                         style="width: 50px; height: 50px;" class="mt-2 mb-2 ml-2"
-                        alt="{{ $user->student->student_fullname }}"></th>
-                <td class="align-middle">{{ $user->student->student_fullname }}</td>
+                        alt="{{ $user->student_fullname }}"></th>
+                <td class="align-middle">{{ $user->student_fullname }}</td>
                 @elseif($user->role === 'teacher')
-                <th scope="row"><img src="{{ URL::asset( $user->teacher->teacher_image ) }}"
+                <th scope="row"><img src="{{ URL::asset( $user->teacher_image ) }}"
                         style="width: 50px; height: 50px;" class="mt-2 mb-2 ml-2"
-                        alt="{{ $user->teacher->teacher_fullname }}"></th>
-                <td class="align-middle">{{ $user->teacher->teacher_fullname }}</td>
+                        alt="{{ $user->teacher_fullname }}"></th>
+                <td class="align-middle">{{ $user->teacher_fullname }}</td>
                 @endif
 
                 <td class="align-middle">{{ $user->email }}</td>

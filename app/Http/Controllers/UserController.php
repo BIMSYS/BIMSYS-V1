@@ -24,9 +24,17 @@ class UserController extends Controller
             }
         }
 
-        $users = User::paginate(6);
+        $users = User::leftJoin('students', 'students.user_id', '=', 'users.id')->orderBy('student_fullname')
+            ->leftJoin('teachers', 'teachers.user_id', '=', 'users.id')->orderBy('teacher_fullname')
+            ->paginate(6);
 
-        unset($users[0]);
+        $i = 0;
+        foreach ($users as $user) {
+            if ($user->role === 'admin') {
+                unset($users[$i]);
+            }
+            $i++;
+        }
 
         return view('admin.user.index', [
             'users' => $users,
