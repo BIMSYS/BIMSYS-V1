@@ -39,7 +39,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['middleware' => 'role:admin'], function () {
         Route::get('/user', [UserController::class, 'index'])->name('user.index');
-        Route::get('/user/kelas/create', [UserController::class, 'create'])->name('user.create');
-        Route::get('/user/kelas/detail', [UserController::class, 'detail'])->name('user.detail');
+        Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
+        Route::post('/user/store', [UserController::class, 'store'])->name('user.store');
+        Route::get('/user/{user}/show', [UserController::class, 'show'])->name('user.detail');
     });
 });

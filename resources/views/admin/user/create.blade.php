@@ -1,60 +1,105 @@
-@extends('layouts.contentLayout', ['title' => 'Super Admin'])
+@extends('layouts.contentLayout', ['title' => 'Create User'])
 
 @section('content')
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
 
-<!doctype html>
-<html lang="en">
-
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://fonts.google.com/specimen/Roboto?query=ROBOTO&selection.family=Roboto:wght@700">
-
-    <style>
-        th {
-            font-family: 'Roboto', sans-serif;
-        }
-    </style>
-
-</head>
-
-<body>
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6" >
-                    
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Admin Menu</li>
-                    </ol>
-                </div>
             </div>
-        </div><!-- /.container-fluid -->
-    </section>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                    <li class="breadcrumb-item active">Create User</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
 
-    <section class="content">
-        <div class="col-md-12 d-flex justify-content-center">
-            <div class="card">
-                <div class="card-header bg-primary"> 
+<section class="content">
+    <div class="col-md-12 d-flex justify-content-center">
+        <div class="card">
+            <div class="card-header bg-primary">
                 <h1 style="text-align:center;">Create New User</h1>
-                </div>
+            </div>
 
-                <div class="card-body">
-                    <fieldset>
+            <div class="card-body">
+                <fieldset>
+                    <form method="POST" action="{{ route('user.store') }}">
+                        @csrf
                         <div class="form-group ">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <button type="" class="btn btn-primary">Nama</button>
+                                    <div class="input-group-text bg-primary">Name</div>
                                 </div>
-                                    <!-- /btn-group -->
-                                <input type="text" name="nama" class="form-control">
+
+                                <input type="text" name="user-name"
+                                    class="form-control @error('user-name') is-invalid @enderror" name="user-name"
+                                    placeholder="Name" value="{{ old('user-name') }}" required autocomplete="user-name"
+                                    autofocus>
+                                @error('user-name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="input-group mb-3 mx-1">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text bg-primary">Role</div>
+                                </div>
+
+                                <select class="form-control custom-select @error('user-role') is-invalid @enderror"
+                                    id="user-role" name="user-role" value="{{ old('user-role') }}" required
+                                    autocomplete="user-role" autofocus>
+                                    <option value="#">Choose Role..</option>
+                                    <option value="teacher">Teacher</option>
+                                    <option value="student">Student</option>
+                                </select>
+                                @error('user-role')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group ">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text bg-primary">Username</div>
+                                </div>
+
+                                <input type="text" name="user-username"
+                                    class="form-control @error('user-username') is-invalid @enderror"
+                                    name="user-username" placeholder="Username" value="{{ old('user-username') }}"
+                                    required autocomplete="user-username" autofocus>
+                                @error('user-username')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group ">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text bg-primary">Email</div>
+                                </div>
+
+                                <input type="email" name="user-email"
+                                    class="form-control @error('user-email') is-invalid @enderror" name="user-email"
+                                    placeholder="Email" value="{{ old('user-email') }}" required
+                                    autocomplete="user-email" autofocus>
+                                @error('user-email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
                         </div>
 
@@ -62,103 +107,84 @@
                             <div class="col-md-6 mb-3">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <button type="" class="btn btn-primary">No HP</button>
+                                        <div class="input-group-text bg-primary">Password</div>
                                     </div>
-                                                <!-- /btn-group -->
-                                    <input type="text" name="" class="form-control">
+
+                                    <input type="password" name="user-password"
+                                        class="form-control @error('user-password') is-invalid @enderror"
+                                        name="user-password" placeholder="Password" value="{{ old('user-password') }}"
+                                        required autocomplete="user-password" autofocus>
+                                    @error('user-password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="col-md-6 mb-3">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <button type="" class="btn btn-primary">Role</button>
+                                        <div class="input-group-text bg-primary">Confirm Password</div>
                                     </div>
-                                                <!-- /btn-group -->
-                                    <input type="text" name="role" class="form-control">
-                                </div>  
-                            </div>
-                        </div>
-                
-                        <div class="form-group ">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <button type="" class="btn btn-primary">Username</button>
-                                </div>
-                                    <!-- /btn-group -->
-                                <input type="text" name="username" class="form-control">
-                            </div>
-                        </div>
 
-                        <div class="form-group ">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <button type="" class="btn btn-primary">Email</button>
-                                </div>
-                                    <!-- /btn-group -->
-                                <input type="text" name="email" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="col-md-6 mb-3">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <button type="" class="btn btn-primary">Password</button>
-                                    </div>
-                                                <!-- /btn-group -->
-                                    <input type="password" name="password" class="form-control">
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 mb-3">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <button type="" class="btn btn-primary">Konfirmasi Password</button>
-                                    </div>
-                                                <!-- /btn-group -->
-                                    <input type="password" name="password" class="form-control">
+                                    <input id="user-confirm-password" type="password" class="form-control"
+                                        name="user-confirm-password" placeholder="Confirm Password" required
+                                        autocomplete="new-password">
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group ">
-                                <label for="gambar">Upload Gambar</label>
-
-                                <div class="custom-file" >
-                                    <input type="file" class="custom-file-input" id="gambar" name="gambar">
-                                    <label class="custom-file-label" for="gambar">Choose file</label>
-                                                    
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text bg-primary">Profile Image</div>
                                 </div>
+
+                                <div class="custom-file">
+                                    <input type="file"
+                                        class="custom-file-input @error('user-image') is-invalid @enderror"
+                                        id="user-image" name="user-image" value="{{ old('user-image') }}">
+                                    <label class="custom-file-label" for="user-image">Choose file</label>
+
+                                    @error('user-image')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
 
+                        <div>
+                            <ul class="nav justify-content-center">
+                                <button type="submit" class="border-0 bg-transparent"><img
+                                        src="{{ URL::asset('/img/check.png') }}" style="width: 50px; height: 50px;"
+                                        class="mb-2 mr-3 mt-3" alt="Submit"></button>
+                                <button type="reset" class="border-0 bg-transparent"><img
+                                        src="{{ URL::asset('/img/cancel.png') }}" style="width: 50px; height: 50px;"
+                                        class="mb-2 mr-3 mt-3" alt="Cancel"></button>
+                            </ul>
+                        </div>
+                    </form>
+                </fieldset>
 
-                                <div>
-                                    <ul class="nav justify-content-center">
-                                    <a class="" href="#" role="button"><img src="{{ URL::asset('/img/check.png') }}" style="width: 50px; height: 50px;" class="mb-2 mr-3 mt-3" alt="Submit"></a>
-                                    <a class="" href="#" role="button"><img src="{{ URL::asset('/img/cancel.png') }}" style="width: 50px; height: 50px;" class="mb-2 mr-3 mt-3" alt="Cancel"></a>
-                                    </ul>
-                                </div>
-                            </fieldset>
-                        
-            
-                        </div> <!-- tutup card body -->
-                </div> <!-- tutup card -->
-            </div> <!-- tutup col -->
 
-    </section>
+            </div> <!-- tutup card body -->
+        </div> <!-- tutup card -->
+    </div> <!-- tutup col -->
 
-    <!-- Optional JavaScript; choose one of the two! -->
-
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
-    -->
-</body>
-
-</html>
+</section>
 @endsection
+
+@push('js')
+<!-- Img JS -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".custom-file-input").on("change", function() {
+            var name = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(name);
+        });
+    });
+</script>
+@endpush
