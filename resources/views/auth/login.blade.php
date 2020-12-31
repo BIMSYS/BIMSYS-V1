@@ -17,7 +17,7 @@
                         name="username" placeholder="Username" required autocomplete="username" autofocus>
                     <div class="input-group-append">
                         <div class="input-group-text border-primary">
-                            <span class="fas fa-envelope"></span>
+                            <span class="fas fa-user"></span>
                         </div>
 
                         @error('username')

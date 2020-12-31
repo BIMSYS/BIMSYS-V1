@@ -36,6 +36,8 @@
     @include('panel.sidebar')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
+      @include('panel.alert')
+
       @yield('content')
     </div>
     <!-- /.content-wrapper -->

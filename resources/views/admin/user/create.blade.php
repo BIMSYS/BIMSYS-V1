@@ -19,26 +19,27 @@
 
 <section class="content">
     <div class="col-md-12 d-flex justify-content-center">
-        <div class="card">
+        <div class="card" style="width: 50rem;">
             <div class="card-header bg-primary">
                 <h1 style="text-align:center;">Create New User</h1>
             </div>
 
             <div class="card-body">
                 <fieldset>
-                    <form method="POST" action="{{ route('user.store') }}">
+                    <form method="POST" action="{{ route('user.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group ">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <div class="input-group-text bg-primary">Name</div>
+                                    <div class="input-group-text bg-primary">
+                                        <span class="far fa-user"></span>
+                                    </div>
                                 </div>
 
-                                <input type="text" name="user-name"
-                                    class="form-control @error('user-name') is-invalid @enderror" name="user-name"
-                                    placeholder="Name" value="{{ old('user-name') }}" required autocomplete="user-name"
+                                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
+                                    name="name" placeholder="Name" value="{{ old('name') }}" autocomplete="name"
                                     autofocus>
-                                @error('user-name')
+                                @error('name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -49,17 +50,18 @@
                         <div class="form-row">
                             <div class="input-group mb-3 mx-1">
                                 <div class="input-group-prepend">
-                                    <div class="input-group-text bg-primary">Role</div>
+                                    <div class="input-group-text bg-primary">
+                                        <span class="fas fa-user-tag"></span>
+                                    </div>
                                 </div>
 
-                                <select class="form-control custom-select @error('user-role') is-invalid @enderror"
-                                    id="user-role" name="user-role" value="{{ old('user-role') }}" required
-                                    autocomplete="user-role" autofocus>
+                                <select class="form-control custom-select @error('role') is-invalid @enderror" id="role"
+                                    name="role" autocomplete="role" autofocus>
                                     <option value="#">Choose Role..</option>
                                     <option value="teacher">Teacher</option>
                                     <option value="student">Student</option>
                                 </select>
-                                @error('user-role')
+                                @error('role')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -70,14 +72,16 @@
                         <div class="form-group ">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <div class="input-group-text bg-primary">Username</div>
+                                    <div class="input-group-text bg-primary">
+                                        <span class="fas fa-user"></span>
+                                    </div>
                                 </div>
 
-                                <input type="text" name="user-username"
-                                    class="form-control @error('user-username') is-invalid @enderror"
-                                    name="user-username" placeholder="Username" value="{{ old('user-username') }}"
-                                    required autocomplete="user-username" autofocus>
-                                @error('user-username')
+                                <input type="text" name="username"
+                                    class="form-control @error('username') is-invalid @enderror" name="username"
+                                    placeholder="Username" value="{{ old('username') }}" autocomplete="username"
+                                    autofocus>
+                                @error('username')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -88,14 +92,15 @@
                         <div class="form-group ">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <div class="input-group-text bg-primary">Email</div>
+                                    <div class="input-group-text bg-primary">
+                                        <span class="fas fa-envelope"></span>
+                                    </div>
                                 </div>
 
-                                <input type="email" name="user-email"
-                                    class="form-control @error('user-email') is-invalid @enderror" name="user-email"
-                                    placeholder="Email" value="{{ old('user-email') }}" required
-                                    autocomplete="user-email" autofocus>
-                                @error('user-email')
+                                <input type="email" name="email"
+                                    class="form-control @error('email') is-invalid @enderror" name="email"
+                                    placeholder="Email" value="{{ old('email') }}" autocomplete="email" autofocus>
+                                @error('email')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -107,14 +112,15 @@
                             <div class="col-md-6 mb-3">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <div class="input-group-text bg-primary">Password</div>
+                                        <div class="input-group-text bg-primary">
+                                            <span class="fas fa-lock"></span>
+                                        </div>
                                     </div>
 
-                                    <input type="password" name="user-password"
-                                        class="form-control @error('user-password') is-invalid @enderror"
-                                        name="user-password" placeholder="Password" value="{{ old('user-password') }}"
-                                        required autocomplete="user-password" autofocus>
-                                    @error('user-password')
+                                    <input type="password" name="password"
+                                        class="form-control @error('password') is-invalid @enderror" name="password"
+                                        placeholder="Password" autocomplete="password" autofocus>
+                                    @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -125,11 +131,13 @@
                             <div class="col-md-6 mb-3">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <div class="input-group-text bg-primary">Confirm Password</div>
+                                        <div class="input-group-text bg-primary">
+                                            <span class="fas fa-check-circle"></span>
+                                        </div>
                                     </div>
 
-                                    <input id="user-confirm-password" type="password" class="form-control"
-                                        name="user-confirm-password" placeholder="Confirm Password" required
+                                    <input id="password_confirmation" type="password" class="form-control"
+                                        name="password_confirmation" placeholder="Confirm Password"
                                         autocomplete="new-password">
                                 </div>
                             </div>
@@ -138,16 +146,17 @@
                         <div class="form-group ">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <div class="input-group-text bg-primary">Profile Image</div>
+                                    <div class="input-group-text bg-primary">
+                                        <span class="fas fa-image"></span>
+                                    </div>
                                 </div>
 
                                 <div class="custom-file">
-                                    <input type="file"
-                                        class="custom-file-input @error('user-image') is-invalid @enderror"
-                                        id="user-image" name="user-image" value="{{ old('user-image') }}">
-                                    <label class="custom-file-label" for="user-image">Choose file</label>
+                                    <input type="file" class="custom-file-input @error('image') is-invalid @enderror"
+                                        id="image" name="image" value="{{ old('image') }}">
+                                    <label class="custom-file-label" for="image">Choose Profile Image</label>
 
-                                    @error('user-image')
+                                    @error('image')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
