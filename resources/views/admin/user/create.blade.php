@@ -10,6 +10,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('user.index') }}">Users</a></li>
                     <li class="breadcrumb-item active">Create User</li>
                 </ol>
             </div>
@@ -17,7 +18,7 @@
     </div><!-- /.container-fluid -->
 </section>
 
-<section class="content">
+<section class="content mt-5">
     <div class="col-md-12 d-flex justify-content-center">
         <div class="card" style="width: 50rem;">
             <div class="card-header bg-primary">

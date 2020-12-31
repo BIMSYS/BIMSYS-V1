@@ -79,21 +79,21 @@
             @foreach ($users as $user)
             <tr>
                 @if ($user->role === 'student')
-                <th scope="row"><img src="{{ URL::asset( $user->student_image ) }}" style="width: 50px; height: 50px;"
-                        class="mt-2 mb-2 ml-2" alt="{{ $user->student_fullname }}"></th>
-                <td class="align-middle">{{ $user->student_fullname }}</td>
+                <th scope="row"><img src="{{ URL::asset( $user->student->student_image ) }}" style="width: 50px; height: 50px;"
+                        class="mt-2 mb-2 ml-2" alt="{{ $user->student->student_fullname }}"></th>
+                <td class="align-middle">{{ $user->student->student_fullname }}</td>
                 @elseif($user->role === 'teacher')
-                <th scope="row"><img src="{{ URL::asset( $user->teacher_image ) }}" style="width: 50px; height: 50px;"
-                        class="mt-2 mb-2 ml-2" alt="{{ $user->teacher_fullname }}"></th>
-                <td class="align-middle">{{ $user->teacher_fullname }}</td>
+                <th scope="row"><img src="{{ URL::asset( $user->teacher->teacher_image ) }}" style="width: 50px; height: 50px;"
+                        class="mt-2 mb-2 ml-2" alt="{{ $user->teacher->teacher_fullname }}"></th>
+                <td class="align-middle">{{ $user->teacher->teacher_fullname }}</td>
                 @endif
 
                 <td class="align-middle">{{ $user->email }}</td>
                 <td class="align-middle">{{ $user->role }}</td>
                 <td>
-                    <a class="" href="#" role="button"><img src="{{ URL::asset('/img/edit.png') }}"
+                    <a href="{{ route('user.edit', $user) }}" role="button"><img src="{{ URL::asset('/img/edit.png') }}"
                             style="width: 30px; height: 30px;" class="mb-2 mr-3 mt-3" alt="Edit"></a>
-                    <a class="" href="#" role="button"><img src="{{ URL::asset('/img/delete.png') }}"
+                    <a href="#" role="button"><img src="{{ URL::asset('/img/delete.png') }}"
                             style="width: 30px; height: 30px;" class="mb-2 mt-3" alt="Delete"></a>
                 </td>
             </tr>
