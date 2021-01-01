@@ -17,11 +17,13 @@ use App\Http\Controllers\UserController;
 |
 */
 
+// guest home
 Route::view('/', 'index')->middleware('guest');
 
-
+// auth
 Auth::routes();
 
+// middleware login auth
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
@@ -37,9 +39,15 @@ Route::group(['middleware' => ['auth']], function () {
         Route::patch('/profile/{auth}/password', [PasswordController::class, 'update'])->name('password.edit');
     });
 
+    // role admin
     Route::group(['middleware' => 'role:admin'], function () {
-        Route::get('/user', [UserController::class, 'index'])->name('user.index');
-        Route::get('/user/kelas/create', [UserController::class, 'create'])->name('user.create');
-        Route::get('/user/kelas/detail', [UserController::class, 'detail'])->name('user.detail');
+        // user menu
+        Route::group(['prefix' => 'user'], function () {
+            Route::get('/', [UserController::class, 'index'])->name('user.index');
+            Route::get('/create', [UserController::class, 'create'])->name('user.create');
+            Route::post('/store', [UserController::class, 'store'])->name('user.store');
+            Route::get('/{user?}/edit', [UserController::class, 'edit'])->name('user.edit');
+            Route::patch('/{user?}/update', [UserController::class, 'update'])->name('user.update');
+        });
     });
 });

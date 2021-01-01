@@ -24,6 +24,6 @@ class HomeController extends Controller
             $auth = Teacher::where('user_id', auth()->user()->id)->first();
         }
 
-        return view('home', compact('auth'));
+        return view('home', ['auth' => $auth]);
     }
 }

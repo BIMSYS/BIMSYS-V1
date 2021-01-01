@@ -18,7 +18,7 @@ class CreateStudentsTable extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->string('student_fullname');
             $table->string('student_class')->nullable();
-            $table->string('student_image')->default('img/profile-user.png');
+            $table->string('student_image')->default('img/profile-user.png')->nullable();
             $table->timestamps();
         });
     }
