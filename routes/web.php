@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\LessonController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,14 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/{user?}/edit', [UserController::class, 'edit'])->name('user.edit');
             Route::patch('/{user?}/update', [UserController::class, 'update'])->name('user.update');
             Route::delete('/{user?}/destroy', [UserController::class, 'destroy'])->name('user.destroy');
+        });
+
+        Route::group(['prefix' => 'lesson'], function () {
+            Route::get('/', [LessonController::class, 'index'])->name('lesson.index');
+            Route::get('/create', [LessonController::class, 'create'])->name('lesson.create');
+            Route::post('/store', [LessonController::class, 'store'])->name('lesson.store');
+            Route::get('/{lesson?}/edit', [LessonController::class, 'edit'])->name('lesson.edit');
+            Route::patch('/{lesson?}/update', [LessonController::class, 'update'])->name('lesson.update');
         });
     });
 });

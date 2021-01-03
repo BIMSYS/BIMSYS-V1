@@ -81,6 +81,13 @@
                 Users
               </p>
             </a>
+
+            <a href="" class="nav-link">
+              <i class="nav-icon fas fa-school"></i>
+              <p>
+                Lesson
+              </p>
+            </a>
           </li>
         </div>
         @endif
