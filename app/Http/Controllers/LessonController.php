@@ -71,9 +71,8 @@ class LessonController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Lesson $lesson)
     {
-        //
     }
 
     /**
@@ -82,9 +81,13 @@ class LessonController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Lesson $lesson)
     {
-        //
+        $lesson = $lesson::where('id', $lesson->id)->firstOrFail();
+
+        return view('admin.lesson.update', [
+            'lesson' => $lesson
+        ]);
     }
 
     /**
@@ -94,9 +97,29 @@ class LessonController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Lesson $lesson)
     {
-        //
+        $request->validate([
+            'lesson_name' => 'required|string|max:255',
+            'lesson_code' => 'required|string|max:3|min:3|alpha_dash|unique:lessons,lesson_code',
+            'lesson_description' => 'required|string|max:255'
+        ]);
+
+        // update lesson
+        $lesson->lesson_name = ucwords(Str::lower($request['lesson_name']));
+        $lesson->lesson_code = Str::upper($request['lesson_code']);
+        $lesson->lesson_description = $request['lesson_description'];
+        $lesson->lesson_enroll = Str::random(6);
+
+        // save lesson
+        $lesson->save();
+
+        // message
+        if ($lesson) {
+            return redirect(route('admin.lesson.index'))->with('success', 'Lesson berhasil diupdate');
+        } else {
+            return redirect(route('admin.lesson.create'))->with('danger', 'Lesson gagal diupdate!');
+        }
     }
 
     /**
