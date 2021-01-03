@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lesson;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class LessonController extends Controller
@@ -13,8 +15,12 @@ class LessonController extends Controller
      */
     public function index()
     {
-        
-        return view('admin.lesson.index');
+        $lessons = Lesson::orderBy('lesson_name')
+            ->paginate(5);
+
+        return view('admin.lesson.index', [
+            'lessons' => $lessons
+        ]);
     }
 
     /**
@@ -24,7 +30,6 @@ class LessonController extends Controller
      */
     public function create()
     {
-        //
         return view('admin.lesson.create');
     }
 
@@ -36,7 +41,28 @@ class LessonController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'lesson_name' => 'required|string|max:255',
+            'lesson_code' => 'required|string|max:3|min:3|alpha_dash|unique:lessons,lesson_code',
+            'lesson_description' => 'required|string|max:255'
+        ]);
+
+        // create lesson
+        $lesson = new Lesson;
+        $lesson->lesson_name = ucwords(Str::lower($request['lesson_name']));
+        $lesson->lesson_code = Str::upper($request['lesson_code']);
+        $lesson->lesson_description = $request['lesson_description'];
+        $lesson->lesson_enroll = Str::random(6);
+
+        // save lesson
+        $lesson->save();
+
+        // message
+        if ($lesson) {
+            return redirect(route('admin.lesson.index'))->with('success', 'Lesson berhasil ditambah');
+        } else {
+            return redirect(route('admin.lesson.create'))->with('danger', 'Lesson gagal ditambah!');
+        }
     }
 
     /**
