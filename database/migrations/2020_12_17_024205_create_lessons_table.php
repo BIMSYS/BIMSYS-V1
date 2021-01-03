@@ -17,6 +17,7 @@ class CreateLessonsTable extends Migration
             $table->id();
             $table->string('lesson_name');
             $table->string('lesson_code', 3)->unique();
+            $table->string('lesson_enroll', 6)->unique();
             $table->string('lesson_description');
             $table->timestamps();
         });

@@ -24,6 +24,10 @@ class UserController extends Controller
         // fetch all data
         $users = User::all();
 
+        // set array students and teachers
+        $students = [];
+        $teachers = [];
+
         // for count data
         foreach ($users as $user) {
             if ($user->role === 'student') {
@@ -38,6 +42,7 @@ class UserController extends Controller
             ->with(['student', 'teacher'])
             ->orderBy('created_at', 'DESC')
             ->paginate(5);
+
 
         return view('admin.user.index', [
             'users' => $users,
@@ -156,9 +161,13 @@ class UserController extends Controller
             $image = $user->teacher->teacher_image;
         }
 
-        // image name
-        list($images, $uploads, $imgNameRand) = explode("/", $image);
-        list($rand, $imgName) = explode("_", $imgNameRand);
+        if ($image !== "img/profile-user.png") {
+            // image name
+            list($images, $uploads, $imgNameRand) = explode("/", $image);
+            list($rand, $imgName) = explode("_", $imgNameRand);
+        } else {
+            $imgName = $image;
+        }
 
         return view('admin.user.update', [
             'user' => $user,
@@ -241,7 +250,7 @@ class UserController extends Controller
         }
 
         // delete image from public
-        if (File::exists(public_path($image))) {
+        if (File::exists(public_path($image)) && $image !== "img/profile-user.png") {
             File::delete(public_path($image));
         }
 
@@ -261,6 +270,27 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        $username = $user->username;
         
+        if ($user->role === "student") {
+            $image = $user->student->student_image;
+        } elseif ($user->role === "teacher") {
+            $image = $user->teacher->teacher_image;
+        }
+
+        // delete user
+        $user::where('id', $user->id)->delete();
+
+        // delete image from public
+        if (File::exists(public_path($image)) && $image !== "img/profile-user.png") {
+            File::delete(public_path($image));
+        }
+
+        // message
+        if ($user) {
+            return redirect(route('user.index'))->with('success', 'User berhasil dihapus');
+        } else {
+            return redirect(route('user.index'))->with('danger', 'User gagal dihapus!');
+        }
     }
 }

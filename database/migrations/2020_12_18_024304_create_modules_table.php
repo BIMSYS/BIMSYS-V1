@@ -15,12 +15,11 @@ class CreateModulesTable extends Migration
     {
         Schema::create('modules', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lesson_id')->constrained('lessons');
-            $table->integer('module_number');
+            $table->foreignId('lesson_id')->constrained('lessons')->onUpdate("cascade")->onDelete("cascade");
             $table->string('module_title');
-            $table->string('module_material');
+            $table->string('module_description');
             $table->string('module_file')->nullable();
-            $table->string('module_video')->nullable();
+            $table->string('module_link')->nullable();
             $table->timestamps();
         });
     }
