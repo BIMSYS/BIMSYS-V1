@@ -87,7 +87,7 @@
             </tr>
 
             <!-- Delete Modal -->
-            <div class="modal fade" id="#delete{{ $module->id }}" tabindex="-1"
+            <div class="modal fade" id="delete{{ $module->id }}" tabindex="-1"
                 aria-labelledby="delete{{ $module->id }}" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -100,7 +100,7 @@
                         <div class="modal-body">
                             Are You Sure Want to Delete?
                         </div>
-                        <form action="{{ route('admin.module.destroy') }}" method="POST">
+                        <form action="{{ route('admin.module.destroy', $module) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <div class="modal-footer text-right">

@@ -174,9 +174,24 @@ class ModuleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Module $module)
     {
-        //
+        // file path
+        $oldFile = "uploads/$module->module_file";
+
+        $module->delete();
+
+        // delete file from public
+        if (File::exists(public_path($oldFile))) {
+            File::delete(public_path($oldFile));
+        }
+
+        // message
+        if ($module) {
+            return redirect(route('admin.module.index'))->with('success', 'Module berhasil didelete');
+        } else {
+            return redirect(route('admin.module.index'))->with('danger', 'Module gagal didelete!');
+        }
     }
 
     public function download(Module $module)
