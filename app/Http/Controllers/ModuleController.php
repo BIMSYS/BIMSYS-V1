@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lesson;
+use App\Models\Module;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class ModuleController extends Controller
@@ -13,8 +16,13 @@ class ModuleController extends Controller
      */
     public function index()
     {
-        //
-        return view('admin.module.index');
+        // fetch all module and paginate
+        $modules = Module::orderBy('module_title')
+            ->paginate(5);
+
+        return view('admin.module.index', [
+            'modules' => $modules
+        ]);
     }
 
     /**
@@ -24,8 +32,12 @@ class ModuleController extends Controller
      */
     public function create()
     {
-        //
-        return view('admin.module.create');
+        // fetch all lesson
+        $lessons = Lesson::all();
+
+        return view('admin.module.create', [
+            'lessons' => $lessons
+        ]);
     }
 
     /**
@@ -36,7 +48,39 @@ class ModuleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validation
+        $request->validate([
+            'module_title' => 'required|string|max:255',
+            'module_lesson' => 'required',
+            'module_file' => 'required|mimetypes:application/pdf,application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint',
+            'module_description' => 'required|max:255',
+            'module_link' => 'max:255'
+        ]);
+
+        // cek file
+        $file = $request->file('module_file');
+        $fileName = rand() . '_' . $file->getClientOriginalName();
+        $path = $file->storeAs('uploads', $fileName);
+        $file->move('uploads', $fileName);
+
+        // create module
+        $module = new Module;
+        $module->module_title = ucwords(Str::lower($request['module_title']));
+        $module->lesson_id = $request['module_lesson'];
+        $module->module_description = $request['module_description'];
+        $module->module_link = $request['module_link'];
+        // file
+        $module->module_file = $path;
+
+        // save module
+        $module->save();
+
+        // message
+        if ($module) {
+            return redirect(route('admin.module.index'))->with('success', 'Module berhasil ditambah');
+        } else {
+            return redirect(route('admin.module.create'))->with('danger', 'Module gagal ditambah!');
+        }
     }
 
     /**

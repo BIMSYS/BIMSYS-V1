@@ -18,8 +18,8 @@ class CreateModulesTable extends Migration
             $table->foreignId('lesson_id')->constrained('lessons')->onUpdate("cascade")->onDelete("cascade");
             $table->string('module_title');
             $table->string('module_description');
-            $table->string('module_file')->nullable();
-            $table->string('module_link')->nullable();
+            $table->string('module_file');
+            $table->text('module_link')->nullable();
             $table->timestamps();
         });
     }

@@ -27,8 +27,8 @@
 
             <div class="card-body">
                 <fieldset>
-                    <form method="POST" action="{{ route('admin.lesson.store') }}">
-                      
+                    <form method="POST" action="{{ route('admin.module.store') }}" enctype="multipart/form-data">
+                        @csrf
                         <div class="form-group ">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -57,12 +57,14 @@
                                     </div>
                                 </div>
 
-                                <select class="form-control custom-select @error('lesson_id') is-invalid @enderror" id="lesson_id"
-                                    name="role" autocomplete="role" autofocus>
+                                <select class="form-control custom-select @error('module_lesson') is-invalid @enderror"
+                                    id="module_lesson" name="module_lesson" autocomplete="role" autofocus>
                                     <option value="#">Choose Lesson..</option>
-                                    <option value="">lesson 1</option>
+                                    @foreach ($lessons as $lesson)
+                                    <option value="{{ $lesson->id }}">{{ $lesson->lesson_name }}</option>
+                                    @endforeach
                                 </select>
-                                @error('role')
+                                @error('module_lesson')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -79,9 +81,9 @@
                                 </div>
 
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input @error('image') is-invalid @enderror"
-                                        id="module_file" name="module_file" value="{{ old('image') }}">
-                                    <label class="custom-file-label" for="module_file">Choose Module File</label>
+                                    <input type="file" class="custom-file-input @error('module_file') is-invalid @enderror"
+                                        id="module_file" name="module_file" value="{{ old('module_file') }}">
+                                    <label class="custom-file-label" for="module_file">Choose File</label>
 
                                     @error('module_file')
                                     <span class="invalid-feedback" role="alert">
@@ -96,15 +98,15 @@
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text bg-primary">
-                                        <span class="fas fa-link"></span>
+                                        <span class="fas fa-quote-right"></span>
                                     </div>
                                 </div>
 
-                                <input type="text" name="module_link"
-                                    class="form-control @error('module_link') is-invalid @enderror"
-                                    placeholder="Link Module" value="{{ old('module_link') }}"
-                                    autocomplete="module_link" autofocus>
-                                @error('module_link')
+                                <input type="text" name="module_description"
+                                    class="form-control @error('module_description') is-invalid @enderror"
+                                    name="module_description" placeholder="Module Description"
+                                    value="{{ old('module_description') }}" autocomplete="module_description" autofocus>
+                                @error('module_description')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -112,19 +114,21 @@
                             </div>
                         </div>
 
+                        <h6 class="ml-5">Optional</h6>
+
                         <div class="form-group ">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text bg-primary">
-                                        <span class="fas fa-quote-right"></span>
+                                        <span class="fas fa-link"></span>
                                     </div>
                                 </div>
 
-                                <input type="text" name="lesson_description"
-                                    class="form-control @error('lesson_description') is-invalid @enderror"
-                                    name="lesson_description" placeholder="Lesson Description"
-                                    value="{{ old('lesson_description') }}" autocomplete="lesson_description" autofocus>
-                                @error('lesson_description')
+                                <input type="text" name="module_link"
+                                    class="form-control @error('module_link') is-invalid @enderror"
+                                    placeholder="Link Lesson" value="{{ old('module_link') }}"
+                                    autocomplete="module_link" autofocus>
+                                @error('module_link')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -150,3 +154,15 @@
 
 </section>
 @endsection
+
+@push('js')
+<!-- File JS -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".custom-file-input").on("change", function() {
+            var name = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(name);
+        });
+    });
+</script>
+@endpush

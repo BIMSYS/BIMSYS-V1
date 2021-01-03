@@ -29,9 +29,9 @@
                                 alt="Murid">
                         </div>
                         <div class="col-8">
-                           
+                            {{-- count module --}}
                             <span class="text-end"><b style="font-size: 50px;">
-                                 
+                                    {{ count($modules) }}
                                 </b> Module</span>
                         </div>
                     </div>
@@ -40,8 +40,8 @@
         </div>
 
         <div class="col-5 d-flex justify-content-end" style="height: 100px; left:400px;">
-            <a class="btn btn-primary mt-5" href="{{ route('admin.module.create') }}" role="button"> <img src="{{ URL::asset('/img/plus.png') }}"
-                    alt="Create New Data" style="width: 35px; height: 35px;">
+            <a class="btn btn-primary mt-5" href="{{ route('admin.module.create') }}" role="button"> <img
+                    src="{{ URL::asset('/img/plus.png') }}" alt="Create New Data" style="width: 35px; height: 35px;">
                 &nbsp; Create New Data</a>
         </div>
     </div>
@@ -53,33 +53,34 @@
             <tr>
                 <th scope="col">MODULE TITLE</th>
                 <th scope="col">LESSON</th>
-                <th scope="col">MODULE LINK</th>
+                <th scope="col">MODULE FILE</th>
                 <th scope="col">ACTION</th>
             </tr>
         </thead>
         <tbody>
-           
+
+            @forelse ($modules as $module)
             <tr class="align-middle">
-                <td>Sistem Pernapasan Manusia</td>
-                <td>IPA</td>
-                <td>www.youtube.com</td>
+                <td>{{ $module->module_title }}</td>
+                <td>{{ $module->lesson->lesson_name }}</td>
+                <td>test</td>
                 <td>
-                    <a href="" role="button"><img
+                    <a href="{{ route('admin.module.edit') }}" role="button"><img
                             src="{{ URL::asset('/img/edit.png') }}" style="width: 30px; height: 30px;"
                             class="mb-2 mr-3 mt-3" alt="Edit"></a>
-                    <a data-toggle="modal" data-target="" role="button"><img
+                    <a data-toggle="modal" data-target="#delete{{ $module->id }}" role="button"><img
                             src="{{ URL::asset('/img/delete.png') }}" style="width: 30px; height: 30px;"
                             class="mb-2 mt-3" alt="Delete"></a>
                 </td>
             </tr>
 
             <!-- Delete Modal -->
-            <div class="modal fade" id="" tabindex="-1" aria-labelledby=""
-                aria-hidden="true">
+            <div class="modal fade" id="#delete{{ $module->id }}" tabindex="-1"
+                aria-labelledby="delete{{ $module->id }}" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="">Delete Lesson</h5>
+                            <h5 class="modal-title" id="delete{{ $module->id }}">Delete module</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -87,8 +88,9 @@
                         <div class="modal-body">
                             Are You Sure Want to Delete?
                         </div>
-                        <form action="" method="POST">
-                         
+                        <form action="{{ route('admin.module.destroy') }}" method="POST">
+                            @csrf
+                            @method('DELETE')
                             <div class="modal-footer text-right">
                                 <button type="submit" class="btn btn-success">Yes</button>
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
@@ -97,13 +99,14 @@
                     </div>
                 </div>
             </div>
-      
+            @empty
             <tr>
                 <td colspan="5">
                     <h4 class="text-center">Data Empty</h4>
                 </td>
             </tr>
-         
+            @endforelse
+
         </tbody>
     </table>
     <div class="d-flex justify-content-center">
