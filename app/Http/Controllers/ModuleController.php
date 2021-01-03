@@ -6,6 +6,7 @@ use App\Models\Lesson;
 use App\Models\Module;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class ModuleController extends Controller
@@ -53,7 +54,7 @@ class ModuleController extends Controller
         $request->validate([
             'module_title' => 'required|string|max:255',
             'module_lesson' => 'required',
-            'module_file' => 'mimetypes:application/pdf,application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint',
+            'module_file' => 'required|mimetypes:application/pdf,application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint',
             'module_description' => 'required|max:255',
             'module_link' => 'max:255'
         ]);
@@ -62,7 +63,6 @@ class ModuleController extends Controller
             // cek file
             $file = $request->file('module_file');
             $fileName = rand() . '_' . $file->getClientOriginalName();
-            // $path = $file->storeAs('uploads', $fileName);
             $file->move('uploads', $fileName);
         } else {
             $fileName = null;
@@ -105,9 +105,19 @@ class ModuleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Module $module)
     {
-        //
+        $lessons = Lesson::all();
+
+        // cek file name
+        $file = $module->module_file;
+        list($rand, $fileName) = explode("_", $file);
+
+        return view('admin.module.update', [
+            'module' => $module,
+            'lessons' => $lessons,
+            'file' => $fileName
+        ]);
     }
 
     /**
@@ -117,9 +127,45 @@ class ModuleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Module $module)
     {
-        //
+        //validation
+        $request->validate([
+            'module_title' => 'required|string|max:255',
+            'module_lesson' => 'required',
+            'module_file' => 'required|mimetypes:application/pdf,application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint',
+            'module_description' => 'required|max:255',
+            'module_link' => 'max:255'
+        ]);
+
+        // cek file
+        $file = $request->file('module_file');
+        $fileName = rand() . '_' . $file->getClientOriginalName();
+        $file->move('uploads', $fileName);
+        $oldFile = "uploads/$module->module_file";
+
+        // update module
+        $module->module_title = ucwords(Str::lower($request['module_title']));
+        $module->lesson_id = $request['module_lesson'];
+        $module->module_description = $request['module_description'];
+        $module->module_link = $request['module_link'];
+        // file
+        $module->module_file = $fileName;
+
+        // save module
+        $module->save();
+
+        // delete file from public
+        if (File::exists(public_path($oldFile))) {
+            File::delete(public_path($oldFile));
+        }
+
+        // message
+        if ($module) {
+            return redirect(route('admin.module.index'))->with('success', 'Module berhasil diupdate');
+        } else {
+            return redirect(route('admin.module.update'))->with('danger', 'Module gagal diupdate!');
+        }
     }
 
     /**

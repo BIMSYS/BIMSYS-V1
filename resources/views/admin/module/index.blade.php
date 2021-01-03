@@ -54,6 +54,7 @@
                 <th scope="col">MODULE TITLE</th>
                 <th scope="col">LESSON</th>
                 <th scope="col">MODULE FILE</th>
+                <th scope="col">LINK</th>
                 <th scope="col">ACTION</th>
             </tr>
         </thead>
@@ -69,7 +70,14 @@
                     </a>
                 </td>
                 <td>
-                    <a href="{{ route('admin.module.edit') }}" role="button"><img
+                    @if (!empty($module->module_link))
+                    <a href="{{ $module->module_link }}">Link</a>
+                    @else
+                    -
+                    @endif
+                </td>
+                <td>
+                    <a href="{{ route('admin.module.edit', $module) }}" role="button"><img
                             src="{{ URL::asset('/img/edit.png') }}" style="width: 30px; height: 30px;"
                             class="mb-2 mr-3 mt-3" alt="Edit"></a>
                     <a data-toggle="modal" data-target="#delete{{ $module->id }}" role="button"><img
