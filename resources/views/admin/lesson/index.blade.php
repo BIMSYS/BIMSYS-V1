@@ -74,6 +74,32 @@
                             class="mb-2 mt-3" alt="Delete"></a>
                 </td>
             </tr>
+
+            <!-- Delete Modal -->
+            <div class="modal fade" id="delete{{ $lesson->id }}" tabindex="-1" aria-labelledby="delete{{ $lesson->id }}"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="delete{{ $lesson->id }}">Delete Lesson</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Are You Sure Want to Delete?
+                        </div>
+                        <form action="{{ route('admin.lesson.destroy', $lesson) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <div class="modal-footer text-right">
+                                <button type="submit" class="btn btn-success">Yes</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
             @empty
             <tr>
                 <td colspan="5">

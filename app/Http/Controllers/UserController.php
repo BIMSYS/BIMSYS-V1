@@ -256,7 +256,7 @@ class UserController extends Controller
         if ($user || $student || $teacher) {
             return redirect(route('admin.user.index'))->with('success', 'User berhasil diupdate');
         } else {
-            return redirect(route('admin.user.edit'))->with('danger', 'User gagal diupdate!');
+            return redirect(route('admin.user.edit', $user))->with('danger', 'User gagal diupdate!');
         }
     }
 

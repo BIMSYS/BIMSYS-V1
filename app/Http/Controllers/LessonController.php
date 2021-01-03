@@ -118,7 +118,7 @@ class LessonController extends Controller
         if ($lesson) {
             return redirect(route('admin.lesson.index'))->with('success', 'Lesson berhasil diupdate');
         } else {
-            return redirect(route('admin.lesson.create'))->with('danger', 'Lesson gagal diupdate!');
+            return redirect(route('admin.lesson.edit', $lesson))->with('danger', 'Lesson gagal diupdate!');
         }
     }
 
@@ -128,8 +128,16 @@ class LessonController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Lesson $lesson)
     {
-        //
+        // delete lesson
+        $lesson::where('id', $lesson->id)->delete();
+
+        // message
+        if ($lesson) {
+            return redirect(route('admin.lesson.index'))->with('success', 'Lesson berhasil dihapus');
+        } else {
+            return redirect(route('admin.lesson.index'))->with('danger', 'Lesson gagal dihapus!');
+        }
     }
 }
