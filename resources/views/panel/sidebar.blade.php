@@ -75,14 +75,14 @@
         @else
         <div class="admin">
           <li class="nav-item">
-            <a href="{{ route('user.index') }}" class="nav-link">
+            <a href="{{ route('admin.user.index') }}" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
               <p>
                 Users
               </p>
             </a>
 
-            <a href="" class="nav-link">
+            <a href="{{ route('admin.lesson.index') }}" class="nav-link">
               <i class="nav-icon fas fa-school"></i>
               <p>
                 Lesson

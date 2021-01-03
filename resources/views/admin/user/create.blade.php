@@ -10,7 +10,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('user.index') }}">Users</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.user.index') }}">Users</a></li>
                     <li class="breadcrumb-item active">Create User</li>
                 </ol>
             </div>
@@ -27,7 +27,7 @@
 
             <div class="card-body">
                 <fieldset>
-                    <form method="POST" action="{{ route('user.store') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('admin.user.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group ">
                             <div class="input-group mb-3">

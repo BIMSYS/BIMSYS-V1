@@ -44,20 +44,21 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => 'role:admin'], function () {
         // user menu
         Route::group(['prefix' => 'user'], function () {
-            Route::get('/', [UserController::class, 'index'])->name('user.index');
-            Route::get('/create', [UserController::class, 'create'])->name('user.create');
-            Route::post('/store', [UserController::class, 'store'])->name('user.store');
-            Route::get('/{user?}/edit', [UserController::class, 'edit'])->name('user.edit');
-            Route::patch('/{user?}/update', [UserController::class, 'update'])->name('user.update');
-            Route::delete('/{user?}/destroy', [UserController::class, 'destroy'])->name('user.destroy');
+            Route::get('/', [UserController::class, 'index'])->name('admin.user.index');
+            Route::get('/create', [UserController::class, 'create'])->name('admin.user.create');
+            Route::post('/store', [UserController::class, 'store'])->name('admin.user.store');
+            Route::get('/{user?}/edit', [UserController::class, 'edit'])->name('admin.user.edit');
+            Route::patch('/{user?}/update', [UserController::class, 'update'])->name('admin.user.update');
+            Route::delete('/{user?}/destroy', [UserController::class, 'destroy'])->name('admin.user.destroy');
         });
 
         Route::group(['prefix' => 'lesson'], function () {
-            Route::get('/', [LessonController::class, 'index'])->name('lesson.index');
-            Route::get('/create', [LessonController::class, 'create'])->name('lesson.create');
-            Route::post('/store', [LessonController::class, 'store'])->name('lesson.store');
-            Route::get('/{lesson?}/edit', [LessonController::class, 'edit'])->name('lesson.edit');
-            Route::patch('/{lesson?}/update', [LessonController::class, 'update'])->name('lesson.update');
+            Route::get('/', [LessonController::class, 'index'])->name('admin.lesson.index');
+            Route::get('/create', [LessonController::class, 'create'])->name('admin.lesson.create');
+            Route::post('/store', [LessonController::class, 'store'])->name('admin.lesson.store');
+            Route::get('/{lesson?}/edit', [LessonController::class, 'edit'])->name('admin.lesson.edit');
+            Route::patch('/{lesson?}/update', [LessonController::class, 'update'])->name('admin.lesson.update');
+            Route::delete('/{lesson?}/destroy', [LessonController::class, 'destroy'])->name('admin.lesson.destroy');
         });
     });
 });

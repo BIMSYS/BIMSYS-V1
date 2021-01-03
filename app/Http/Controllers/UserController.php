@@ -124,9 +124,9 @@ class UserController extends Controller
 
         // message
         if ($user || $student || $teacher) {
-            return redirect(route('user.index'))->with('success', 'User berhasil ditambah');
+            return redirect(route('admin.user.index'))->with('success', 'User berhasil ditambah');
         } else {
-            return redirect(route('user.create'))->with('danger', 'User gagal ditambah!');
+            return redirect(route('admin.user.create'))->with('danger', 'User gagal ditambah!');
         }
     }
 
@@ -256,9 +256,9 @@ class UserController extends Controller
 
         // message
         if ($user || $student || $teacher) {
-            return redirect(route('user.index'))->with('success', 'User berhasil diupdate');
+            return redirect(route('admin.user.index'))->with('success', 'User berhasil diupdate');
         } else {
-            return redirect(route('user.edit'))->with('danger', 'User gagal diupdate!');
+            return redirect(route('admin.user.edit'))->with('danger', 'User gagal diupdate!');
         }
     }
 
@@ -288,9 +288,9 @@ class UserController extends Controller
 
         // message
         if ($user) {
-            return redirect(route('user.index'))->with('success', 'User berhasil dihapus');
+            return redirect(route('admin.user.index'))->with('success', 'User berhasil dihapus');
         } else {
-            return redirect(route('user.index'))->with('danger', 'User gagal dihapus!');
+            return redirect(route('admin.user.index'))->with('danger', 'User gagal dihapus!');
         }
     }
 }

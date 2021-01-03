@@ -10,7 +10,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('user.index') }}">Users</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.user.index') }}">Users</a></li>
                     <li class="breadcrumb-item active">Update User</li>
                 </ol>
             </div>
@@ -36,7 +36,7 @@
                 <div class="col-md-7">
                     <div class="card-body">
                         <fieldset>
-                            <form method="POST" action="{{ route('user.update', $user) }}"
+                            <form method="POST" action="{{ route('admin.user.update', $user) }}"
                                 enctype="multipart/form-data">
                                 @csrf
                                 @method('PATCH')
