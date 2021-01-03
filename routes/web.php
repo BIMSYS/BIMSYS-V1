@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LessonController;
+use App\Http\Controllers\ModuleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +60,15 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/{lesson?}/edit', [LessonController::class, 'edit'])->name('admin.lesson.edit');
             Route::patch('/{lesson?}/update', [LessonController::class, 'update'])->name('admin.lesson.update');
             Route::delete('/{lesson?}/destroy', [LessonController::class, 'destroy'])->name('admin.lesson.destroy');
+        });
+
+        Route::group(['prefix' => 'module'], function () {
+            Route::get('/', [ModuleController::class, 'index'])->name('admin.module.index');
+            Route::get('/create', [ModuleController::class, 'create'])->name('admin.module.create');
+            Route::post('/store', [ModuleController::class, 'store'])->name('admin.module.store');
+            Route::get('/{module?}/edit', [ModuleController::class, 'edit'])->name('admin.module.edit');
+            Route::patch('/{module?}/update', [ModuleController::class, 'update'])->name('admin.module.update');
+            Route::delete('/{module?}/destroy', [ModuleController::class, 'destroy'])->name('admin.module.destroy');
         });
     });
 });
