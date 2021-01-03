@@ -69,6 +69,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/{module?}/edit', [ModuleController::class, 'edit'])->name('admin.module.edit');
             Route::patch('/{module?}/update', [ModuleController::class, 'update'])->name('admin.module.update');
             Route::delete('/{module?}/destroy', [ModuleController::class, 'destroy'])->name('admin.module.destroy');
+            Route::get('/{module?}/download', [ModuleController::class, 'download'])->name('admin.module.download');
         });
     });
 });

@@ -6,6 +6,7 @@ use App\Models\Lesson;
 use App\Models\Module;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ModuleController extends Controller
 {
@@ -52,16 +53,20 @@ class ModuleController extends Controller
         $request->validate([
             'module_title' => 'required|string|max:255',
             'module_lesson' => 'required',
-            'module_file' => 'required|mimetypes:application/pdf,application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint',
+            'module_file' => 'mimetypes:application/pdf,application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint',
             'module_description' => 'required|max:255',
             'module_link' => 'max:255'
         ]);
 
-        // cek file
-        $file = $request->file('module_file');
-        $fileName = rand() . '_' . $file->getClientOriginalName();
-        $path = $file->storeAs('uploads', $fileName);
-        $file->move('uploads', $fileName);
+        if ($request['module_file']) {
+            // cek file
+            $file = $request->file('module_file');
+            $fileName = rand() . '_' . $file->getClientOriginalName();
+            // $path = $file->storeAs('uploads', $fileName);
+            $file->move('uploads', $fileName);
+        } else {
+            $fileName = null;
+        }
 
         // create module
         $module = new Module;
@@ -70,7 +75,7 @@ class ModuleController extends Controller
         $module->module_description = $request['module_description'];
         $module->module_link = $request['module_link'];
         // file
-        $module->module_file = $path;
+        $module->module_file = $fileName;
 
         // save module
         $module->save();
@@ -126,5 +131,19 @@ class ModuleController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function download(Module $module)
+    {
+        $path = public_path("uploads/$module->module_file");
+        $fileName = $module->module_file;
+        $headers = [
+            'Content-Type: application/pdf',
+            'Content-Type: application/msword',
+            'Content-Type: application/vnd.ms-excel',
+            'Content-Type: application/vnd.ms-powerpoint'
+        ];
+
+        return response()->download($path, $fileName, $headers);
     }
 }

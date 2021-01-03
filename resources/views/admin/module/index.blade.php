@@ -63,7 +63,11 @@
             <tr class="align-middle">
                 <td>{{ $module->module_title }}</td>
                 <td>{{ $module->lesson->lesson_name }}</td>
-                <td>test</td>
+                <td>
+                    <a href="{{ route('admin.module.download', $module) }}">
+                        <span class="fas fa-file-download" style="font-size: 35px"></span>
+                    </a>
+                </td>
                 <td>
                     <a href="{{ route('admin.module.edit') }}" role="button"><img
                             src="{{ URL::asset('/img/edit.png') }}" style="width: 30px; height: 30px;"
