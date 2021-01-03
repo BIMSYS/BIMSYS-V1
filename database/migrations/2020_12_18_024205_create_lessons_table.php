@@ -15,6 +15,7 @@ class CreateLessonsTable extends Migration
     {
         Schema::create('lessons', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('teacher_id')->constrained('teachers')->onUpdate("cascade")->onDelete("cascade");
             $table->string('lesson_name');
             $table->string('lesson_code', 3)->unique();
             $table->string('lesson_enroll', 6)->unique();

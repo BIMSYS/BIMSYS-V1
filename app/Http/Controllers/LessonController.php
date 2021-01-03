@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lesson;
+use App\Models\Teacher;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -15,6 +16,7 @@ class LessonController extends Controller
      */
     public function index()
     {
+        // fetch all lesson and paginate
         $lessons = Lesson::orderBy('lesson_name')
             ->paginate(5);
 
@@ -30,7 +32,12 @@ class LessonController extends Controller
      */
     public function create()
     {
-        return view('admin.lesson.create');
+        // fetch all teacher
+        $teachers = Teacher::all();
+
+        return view('admin.lesson.create', [
+            'teachers' => $teachers
+        ]);
     }
 
     /**
@@ -41,10 +48,12 @@ class LessonController extends Controller
      */
     public function store(Request $request)
     {
+        // validation
         $request->validate([
             'lesson_name' => 'required|string|max:255',
             'lesson_code' => 'required|string|max:3|min:3|alpha_dash|unique:lessons,lesson_code',
-            'lesson_description' => 'required|string|max:255'
+            'lesson_description' => 'required|string|max:255',
+            'lesson_teacher' => 'required'
         ]);
 
         // create lesson
@@ -53,6 +62,7 @@ class LessonController extends Controller
         $lesson->lesson_code = Str::upper($request['lesson_code']);
         $lesson->lesson_description = $request['lesson_description'];
         $lesson->lesson_enroll = Str::random(6);
+        $lesson->teacher_id = $request['lesson_teacher'];
 
         // save lesson
         $lesson->save();
@@ -83,10 +93,15 @@ class LessonController extends Controller
      */
     public function edit(Lesson $lesson)
     {
+        // fetch lesson
         $lesson = $lesson::where('id', $lesson->id)->firstOrFail();
 
+        // fetch all teacher
+        $teachers = Teacher::all();
+
         return view('admin.lesson.update', [
-            'lesson' => $lesson
+            'lesson' => $lesson,
+            'teachers' => $teachers
         ]);
     }
 
@@ -99,10 +114,19 @@ class LessonController extends Controller
      */
     public function update(Request $request, Lesson $lesson)
     {
+        // lesson code unique cek
+        if($request['lesson_code'] != $lesson->lesson_code) {
+            $code = 'unique:lessons,lesson_code';
+        } else {
+            $code = null;
+        }
+
+        // validation
         $request->validate([
             'lesson_name' => 'required|string|max:255',
-            'lesson_code' => 'required|string|max:3|min:3|alpha_dash|unique:lessons,lesson_code',
-            'lesson_description' => 'required|string|max:255'
+            'lesson_code' => "required|string|max:3|min:3|alpha_dash|$code",
+            'lesson_description' => 'required|string|max:255',
+            'lesson_teacher' => 'required'
         ]);
 
         // update lesson
@@ -110,6 +134,7 @@ class LessonController extends Controller
         $lesson->lesson_code = Str::upper($request['lesson_code']);
         $lesson->lesson_description = $request['lesson_description'];
         $lesson->lesson_enroll = Str::random(6);
+        $lesson->teacher_id = $request['lesson_teacher'];
 
         // save lesson
         $lesson->save();

@@ -40,8 +40,8 @@
         </div>
 
         <div class="col-5 d-flex justify-content-end" style="height: 100px; left:400px;">
-            <a class="btn btn-primary mt-5" href="{{ route('admin.lesson.create') }}" role="button"> <img src="{{ URL::asset('/img/plus.png') }}"
-                    alt="Create New Data" style="width: 35px; height: 35px;">
+            <a class="btn btn-primary mt-5" href="{{ route('admin.lesson.create') }}" role="button"> <img
+                    src="{{ URL::asset('/img/plus.png') }}" alt="Create New Data" style="width: 35px; height: 35px;">
                 &nbsp; Create New Data</a>
         </div>
     </div>
@@ -53,6 +53,7 @@
             <tr>
                 <th scope="col">LESSON NAME</th>
                 <th scope="col">LESSON CODE</th>
+                <th scope="col">LESSON TEACHER</th>
                 <th scope="col">LESSON ENROLL</th>
                 <th scope="col">LESSON DESCRIPTION</th>
                 <th scope="col">ACTION</th>
@@ -63,6 +64,7 @@
             <tr class="align-middle">
                 <td>{{ $lesson->lesson_name }}</td>
                 <td>{{ $lesson->lesson_code }}</td>
+                <td>{{ $lesson->teacher->teacher_fullname }}</td>
                 <td>{{ $lesson->lesson_enroll }}</td>
                 <td>{{ $lesson->lesson_description }}</td>
                 <td>

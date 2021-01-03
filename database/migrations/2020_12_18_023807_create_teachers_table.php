@@ -17,7 +17,6 @@ class CreateTeachersTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onUpdate("cascade")->onDelete("cascade");
             $table->string('teacher_fullname');
-            $table->string('teacher_code', 3)->unique()->nullable();
             $table->string('teacher_image')->default('img/profile-user.png')->nullable();
             $table->timestamps();
         });

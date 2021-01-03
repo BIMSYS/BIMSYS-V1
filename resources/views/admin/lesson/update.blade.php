@@ -50,6 +50,31 @@
                             </div>
                         </div>
 
+                        <div class="form-row">
+                            <div class="input-group mb-3 mx-1">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text bg-primary">
+                                        <span class="fas fa-chalkboard-teacher"></span>
+                                    </div>
+                                </div>
+                                <select class="form-control custom-select @error('lesson_teacher') is-invalid @enderror"
+                                    id="lesson_teacher" name="lesson_teacher" autocomplete="lesson_teacher" autofocus>
+                                    <option value="#">Choose Teacher..</option>
+                                    @foreach ($teachers as $teacher)
+                                    <option value="{{ $teacher->id }}" @if ($lesson->teacher_id === $teacher->id)
+                                        selected
+                                        @endif>{{ $teacher->teacher_fullname }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                                @error('lesson_teacher')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="form-group ">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -81,7 +106,8 @@
                                 <input type="text" name="lesson_description"
                                     class="form-control @error('lesson_description') is-invalid @enderror"
                                     name="lesson_description" placeholder="Lesson Description"
-                                    value="{{ $lesson->lesson_description }}" autocomplete="lesson_description" autofocus>
+                                    value="{{ $lesson->lesson_description }}" autocomplete="lesson_description"
+                                    autofocus>
                                 @error('lesson_description')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
