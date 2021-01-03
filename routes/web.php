@@ -48,6 +48,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/store', [UserController::class, 'store'])->name('user.store');
             Route::get('/{user?}/edit', [UserController::class, 'edit'])->name('user.edit');
             Route::patch('/{user?}/update', [UserController::class, 'update'])->name('user.update');
+            Route::delete('/{user?}/destroy', [UserController::class, 'destroy'])->name('user.destroy');
         });
     });
 });
