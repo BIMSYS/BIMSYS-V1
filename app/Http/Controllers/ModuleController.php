@@ -14,6 +14,7 @@ class ModuleController extends Controller
     public function index()
     {
         //
+        return view('admin.module.index');
     }
 
     /**
@@ -24,6 +25,7 @@ class ModuleController extends Controller
     public function create()
     {
         //
+        return view('admin.module.create');
     }
 
     /**

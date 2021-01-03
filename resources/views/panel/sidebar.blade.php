@@ -83,9 +83,16 @@
             </a>
 
             <a href="{{ route('admin.lesson.index') }}" class="nav-link">
-              <i class="nav-icon fas fa-school"></i>
+              <i class="nav-icon fas fa-book-reader"></i>
               <p>
                 Lesson
+              </p>
+            </a>
+
+            <a href="{{ route('admin.module.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-book-open"></i>
+              <p>
+                Module
               </p>
             </a>
           </li>
