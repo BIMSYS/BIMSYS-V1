@@ -42,7 +42,7 @@
     <section class="content">
 
         <!-- Default box -->
-        <div class="container-start ml-3" style="width: 1715px;">
+        <div class="container-start ml-3">
             <div class="row">
                 <div class="col-3">
                     <div class="card bg-primary">
