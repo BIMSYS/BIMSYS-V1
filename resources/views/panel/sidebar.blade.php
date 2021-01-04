@@ -18,7 +18,29 @@
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
         <div class="student">
-          @if (request()->is("profile/$auth->id") || request()->is("profile/$auth->id/*"))
+          <li class="nav-item">
+            {{-- <a href="{{ route('admin.user.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-user text-primary"></i>
+              <p>
+                Users
+              </p>
+            </a>
+
+            <a href="{{ route('admin.lesson.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-book-reader text-primary"></i>
+              <p>
+                Lesson
+              </p>
+            </a>
+
+            <a href="{{ route('admin.module.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-book-open text-primary"></i>
+              <p>
+                Module
+              </p>
+            </a> --}}
+          </li>
+          {{-- @if (request()->is("profile/$auth->id") || request()->is("profile/$auth->id/*"))
           <li class="nav-item active">
             @else
           <li class="nav-item">
@@ -39,68 +61,68 @@
               <ul class="nav nav-treeview">
                 <li class="nav-item">
                   <a href="{{ route('profile', ['auth' => $auth->id]) }}"
-                    class="nav-link{{ request()->is("profile/$auth->id") ? ' active' : '' }}">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>About Me</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{ route('profile.edit', ['auth' => $auth->id]) }}"
-                    class="nav-link{{ request()->is("profile/$auth->id/edit") ? ' active' : '' }}">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Edit Profile</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{ route('password.edit', ['auth' => $auth->id]) }}"
-                    class="nav-link{{ request()->is("profile/$auth->id/password") ? ' active' : '' }}">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Edit Password</p>
-                  </a>
-                </li>
-              </ul>
+          class="nav-link{{ request()->is("profile/$auth->id") ? ' active' : '' }}">
+          <i class="far fa-circle nav-icon"></i>
+          <p>About Me</p>
+          </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Simple Link
-                <span class="right badge badge-danger">New</span>
-              </p>
+            <a href="{{ route('profile.edit', ['auth' => $auth->id]) }}"
+              class="nav-link{{ request()->is("profile/$auth->id/edit") ? ' active' : '' }}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Edit Profile</p>
             </a>
           </li>
-        </div>
-        @elseif(Auth::user()->role === 'teacher')
-
-        @else
-        <div class="admin">
           <li class="nav-item">
-            <a href="{{ route('admin.user.index') }}" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
-              <p>
-                Users
-              </p>
-            </a>
-
-            <a href="{{ route('admin.lesson.index') }}" class="nav-link">
-              <i class="nav-icon fas fa-book-reader"></i>
-              <p>
-                Lesson
-              </p>
-            </a>
-
-            <a href="{{ route('admin.module.index') }}" class="nav-link">
-              <i class="nav-icon fas fa-book-open"></i>
-              <p>
-                Module
-              </p>
+            <a href="{{ route('password.edit', ['auth' => $auth->id]) }}"
+              class="nav-link{{ request()->is("profile/$auth->id/password") ? ' active' : '' }}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Edit Password</p>
             </a>
           </li>
-        </div>
-        @endif
       </ul>
-    </nav>
-    <!-- /.sidebar-menu -->
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link">
+          <i class="nav-icon fas fa-th"></i>
+          <p>
+            Simple Link
+            <span class="right badge badge-danger">New</span>
+          </p>
+        </a>
+      </li>
+  </div> --}}
+  @elseif(Auth::user()->role === 'teacher')
+
+  @else
+  <div class="admin">
+    <li class="nav-item">
+      <a href="{{ route('admin.user.index') }}" class="nav-link">
+        <i class="nav-icon fas fa-user text-primary"></i>
+        <p>
+          Users
+        </p>
+      </a>
+
+      <a href="{{ route('admin.lesson.index') }}" class="nav-link">
+        <i class="nav-icon fas fa-book-reader text-primary"></i>
+        <p>
+          Lesson
+        </p>
+      </a>
+
+      <a href="{{ route('admin.module.index') }}" class="nav-link">
+        <i class="nav-icon fas fa-book-open text-primary"></i>
+        <p>
+          Module
+        </p>
+      </a>
+    </li>
+  </div>
+  @endif
+  </ul>
+  </nav>
+  <!-- /.sidebar-menu -->
   </div>
   <!-- /.sidebar -->
 

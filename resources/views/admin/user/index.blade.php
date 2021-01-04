@@ -70,6 +70,7 @@
             <tr>
                 <th scope="col">FOTO</th>
                 <th scope="col">NAMA LENGKAP</th>
+                <th scope="col">USERNAME</th>
                 <th scope="col">EMAIL</th>
                 <th scope="col">ROLE</th>
                 <th scope="col">ACTION</th>
@@ -77,21 +78,22 @@
         </thead>
         <tbody>
             @forelse ($users as $user)
-            <tr>
+            <tr class="align-middle">
                 @if ($user->role === 'student')
                 <th scope="row"><img src="{{ URL::asset( $user->student->student_image ) }}"
                         style="width: 50px; height: 50px;" class="mt-2 mb-2 ml-2 rounded-circle"
                         alt="{{ $user->student->student_fullname }}"></th>
-                <td class="align-middle">{{ $user->student->student_fullname }}</td>
+                <td>{{ $user->student->student_fullname }}</td>
                 @elseif($user->role === 'teacher')
                 <th scope="row"><img src="{{ URL::asset( $user->teacher->teacher_image ) }}"
                         style="width: 50px; height: 50px;" class="mt-2 mb-2 ml-2 rounded-circle"
                         alt="{{ $user->teacher->teacher_fullname }}"></th>
-                <td class="align-middle">{{ $user->teacher->teacher_fullname }}</td>
+                <td>{{ $user->teacher->teacher_fullname }}</td>
                 @endif
-
-                <td class="align-middle">{{ $user->email }}</td>
-                <td class="align-middle">{{ $user->role }}</td>
+                
+                <td>{{ $user->username }}</td>
+                <td>{{ $user->email }}</td>
+                <td>{{ $user->role }}</td>
                 <td>
                     <a href="{{ route('admin.user.edit', $user) }}" role="button"><img
                             src="{{ URL::asset('/img/edit.png') }}" style="width: 30px; height: 30px;"

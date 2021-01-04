@@ -13,14 +13,14 @@
                 @csrf
 
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control border-primary @error('username') is-invalid @enderror"
-                        name="username" placeholder="Username" required autocomplete="username" autofocus>
+                    <input type="text" class="form-control border-primary @error('login') is-invalid @enderror"
+                        name="login" placeholder="Username or Email" required autocomplete="login" autofocus>
                     <div class="input-group-append">
                         <div class="input-group-text border-primary">
                             <span class="fas fa-user"></span>
                         </div>
 
-                        @error('username')
+                        @error('login')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -67,7 +67,7 @@
                         </a>
                     </p>
                     @endif
-                    <hr>
+                    {{-- <hr>
                     @if (Route::has('register'))
                     <p class="mb-0 text-center">
                         Belum Punya Akun?
@@ -75,7 +75,7 @@
                             {{ __('Registrasi') }}
                         </a>
                     </p>
-                    @endif
+                    @endif --}}
                 </div>
             </form>
         </div>

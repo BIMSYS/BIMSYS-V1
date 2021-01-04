@@ -12,9 +12,9 @@
                     <li class="nav-item">
                         <a href="{{ route('login') }}" class="nav-link">{{ __('LOGIN')}}</a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ route('register') }}">{{ __('REGISTER') }}</a>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
         </nav>
