@@ -49,7 +49,7 @@
                 </p>
                 @endif
 
-                <hr>
+                {{-- <hr>
 
                 @if (Route::has('register'))
                 <p class="mb-0 text-center">
@@ -58,7 +58,7 @@
                         {{ __('Registrasi') }}
                     </a>
                 </p>
-                @endif
+                @endif --}}
             </form>
         </div>
         <!-- /.login-card-body -->

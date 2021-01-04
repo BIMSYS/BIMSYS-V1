@@ -14,7 +14,7 @@ class Lesson extends Model
     use HasFactory;
 
     protected $fillable = [
-        'lesson_name', 'lesson_code', 'lesson_description'
+        'teacher_id', 'lesson_name', 'lesson_code','lesson_enroll', 'lesson_description'
     ];
 
     public function students()
@@ -22,9 +22,9 @@ class Lesson extends Model
         return $this->belongsToMany(Student::class);
     }
 
-    public function teachers()
+    public function teacher()
     {
-        return $this->belongsToMany(Teacher::class);
+        return $this->belongsTo(Teacher::class);
     }
 
     public function modules()
