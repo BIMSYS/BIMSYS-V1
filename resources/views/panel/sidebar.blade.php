@@ -126,21 +126,21 @@
   <div class="admin">
     <li class="nav-item">
       <a href="{{ route('admin.user.index') }}" class="nav-link {{ request()->is('admin/user') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-user text-primary"></i>
+        <i class="nav-icon fas fa-user"></i>
         <p>
           Users
         </p>
       </a>
 
       <a href="{{ route('admin.lesson.index') }}" class="nav-link {{ request()->is('admin/lesson') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-book-reader text-primary"></i>
+        <i class="nav-icon fas fa-book-reader"></i>
         <p>
           Lesson
         </p>
       </a>
 
       <a href="{{ route('admin.module.index') }}" class="nav-link {{ request()->is('admin/module') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-book-open text-primary"></i>
+        <i class="nav-icon fas fa-book-open"></i>
         <p>
           Module
         </p>

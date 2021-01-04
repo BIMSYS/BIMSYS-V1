@@ -32,12 +32,15 @@ class LessonController extends Controller
                 'lessons_count' => $lessons_count
             ]);
         } elseif (auth()->user()->role === 'teacher') {
+            // teacher
+            $teacher = Teacher::where('user_id', auth()->user()->id)->firstOrFail();
+
             // count data
-            $lessons_count = Lesson::where('teacher_id', auth()->user()->id)->get();
+            $lessons_count = Lesson::where('teacher_id', $teacher->id)->get();
             $lessons_count = count($lessons_count);
 
             // fetch lesson
-            $lessons = Lesson::where('teacher_id', auth()->user()->id)->orderBy('lesson_name')->paginate(5);
+            $lessons = Lesson::where('teacher_id', $teacher->id)->orderBy('lesson_name')->paginate(5);
 
             return view('teacher.lesson.index', [
                 'lessons' => $lessons,
