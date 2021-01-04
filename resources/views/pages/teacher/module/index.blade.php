@@ -56,6 +56,7 @@
                 <th scope="col">MODULE DESCRIPTION</th>
                 <th scope="col">MODULE FILE</th>
                 <th scope="col">LINK</th>
+                <th scope="col">TASK MODULE</th>
                 <th scope="col">ACTION</th>
             </tr>
         </thead>
@@ -75,6 +76,9 @@
                     @else
                     -
                     @endif
+                </td>
+                <td>
+                    <a href="{{ route('teacher.task.index') }}" role="button">Click here for ur task</a>
                 </td>
                 <td>
                     <a href="{{ route('teacher.module.edit', $module) }}" role="button"><img
