@@ -31,7 +31,7 @@
                         <div class="col-8">
                             {{-- count lesson --}}
                             <span class="text-end"><b style="font-size: 50px;">
-                                    {{ count($lessons) }}
+                                    {{ $lessons_count }}
                                 </b> Lessons</span>
                         </div>
                     </div>
@@ -112,7 +112,7 @@
         </tbody>
     </table>
     <div class="d-flex justify-content-center">
-
+        {{ $lessons->links('vendor.pagination.bootstrap-4', ['elements' => $lessons]) }}
     </div>
 </div>
 @endsection

@@ -1,16 +1,17 @@
-@extends('layouts.contentLayout', ['title' => 'Module'])
+@extends('layouts.contentLayout', ['title' => 'Modules'])
 
 @section('content')
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Module Menu</h1>
+                <h1>{{ $lesson->lesson_name }} Modules</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Module Menu</li>
+                    <li class="breadcrumb-item"><a href="{{ route('teacher.lesson.index') }}">Lessons</a></li>
+                    <li class="breadcrumb-item active">Lesson Modules</li>
                 </ol>
             </div>
         </div>
@@ -40,9 +41,9 @@
         </div>
 
         <div class="col-5 d-flex justify-content-end" style="height: 100px; left:400px;">
-            <a class="btn btn-primary mt-5" href="{{ route('admin.module.create') }}" role="button"> <img
+            <a class="btn btn-primary mt-5" href="{{ route('teacher.module.create', $lesson) }}" role="button"> <img
                     src="{{ URL::asset('/img/plus.png') }}" alt="Create New Data" style="width: 35px; height: 35px;">
-                &nbsp; Create New Data</a>
+                &nbsp; Create New Modul</a>
         </div>
     </div>
 </div>
@@ -52,20 +53,19 @@
         <thead>
             <tr>
                 <th scope="col">MODULE TITLE</th>
-                <th scope="col">LESSON</th>
+                <th scope="col">MODULE DESCRIPTION</th>
                 <th scope="col">MODULE FILE</th>
                 <th scope="col">LINK</th>
                 <th scope="col">ACTION</th>
             </tr>
         </thead>
         <tbody>
-
             @forelse ($modules as $module)
             <tr class="align-middle">
                 <td>{{ $module->module_title }}</td>
-                <td>{{ $module->lesson->lesson_name }}</td>
+                <td>{{ $module->module_description }}</td>
                 <td>
-                    <a href="{{ route('admin.module.download', $module) }}">
+                    <a href="{{ route('teacher.module.download', $module) }}">
                         <span class="fas fa-file-download" style="font-size: 35px"></span>
                     </a>
                 </td>
@@ -77,7 +77,7 @@
                     @endif
                 </td>
                 <td>
-                    <a href="{{ route('admin.module.edit', $module) }}" role="button"><img
+                    <a href="{{ route('teacher.module.edit', $module) }}" role="button"><img
                             src="{{ URL::asset('/img/edit.png') }}" style="width: 30px; height: 30px;"
                             class="mb-2 mr-3 mt-3" alt="Edit"></a>
                     <a data-toggle="modal" data-target="#delete{{ $module->id }}" role="button"><img
@@ -87,8 +87,8 @@
             </tr>
 
             <!-- Delete Modal -->
-            <div class="modal fade" id="delete{{ $module->id }}" tabindex="-1"
-                aria-labelledby="delete{{ $module->id }}" aria-hidden="true">
+            <div class="modal fade" id="delete{{ $module->id }}" tabindex="-1" aria-labelledby="delete{{ $module->id }}"
+                aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -100,7 +100,7 @@
                         <div class="modal-body">
                             Are You Sure Want to Delete?
                         </div>
-                        <form action="{{ route('admin.module.destroy', $module) }}" method="POST">
+                        <form action="{{ route('teacher.module.destroy', $module) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <div class="modal-footer text-right">

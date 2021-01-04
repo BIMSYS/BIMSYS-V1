@@ -19,9 +19,9 @@ class HomeController extends Controller
         if ($role === 'admin') {
             $auth = Auth::user();
         } else if ($role === 'student') {
-            $auth = Student::where('user_id', auth()->user()->id)->first();
+            $auth = Student::where('user_id', auth()->user()->id)->firstOrFail();
         } else if ($role === 'teacher') {
-            $auth = Teacher::where('user_id', auth()->user()->id)->first();
+            $auth = Teacher::where('user_id', auth()->user()->id)->firstOrFail();
         }
 
         return view('home', ['auth' => $auth]);

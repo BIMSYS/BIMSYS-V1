@@ -20,10 +20,10 @@
         <div class="student">
           <li class="nav-item">
             {{-- <a href="{{ route('admin.user.index') }}" class="nav-link">
-              <i class="nav-icon fas fa-user text-primary"></i>
-              <p>
-                Users
-              </p>
+            <i class="nav-icon fas fa-user text-primary"></i>
+            <p>
+              Users
+            </p>
             </a>
 
             <a href="{{ route('admin.lesson.index') }}" class="nav-link">
@@ -93,25 +93,53 @@
       </li>
   </div> --}}
   @elseif(Auth::user()->role === 'teacher')
-
+  <div class="teacher">
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+      <li class="nav-item has-treeview menu-open">
+        <a href="{{ route('teacher.lesson.index') }}"
+          class="nav-link {{ request()->is('teacher/lesson') ? 'active' : '' }}">
+          <i class="nav-icon fas fa-book-reader"></i>
+          <p>
+            Lessons
+            {{-- <i class="right fas fa-angle-left"></i> --}}
+          </p>
+        </a>
+        {{-- <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{{ route('teacher.lesson.index') }}"
+              class="nav-link {{ request()->is('teacher/lesson') ? 'active' : '' }}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Lessons List</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Modules</p>
+            </a>
+          </li>
+        </ul> --}}
+      </li>
+    </ul>
+  </div>
   @else
   <div class="admin">
     <li class="nav-item">
-      <a href="{{ route('admin.user.index') }}" class="nav-link">
+      <a href="{{ route('admin.user.index') }}" class="nav-link {{ request()->is('admin/user') ? 'active' : '' }}">
         <i class="nav-icon fas fa-user text-primary"></i>
         <p>
           Users
         </p>
       </a>
 
-      <a href="{{ route('admin.lesson.index') }}" class="nav-link">
+      <a href="{{ route('admin.lesson.index') }}" class="nav-link {{ request()->is('admin/lesson') ? 'active' : '' }}">
         <i class="nav-icon fas fa-book-reader text-primary"></i>
         <p>
           Lesson
         </p>
       </a>
 
-      <a href="{{ route('admin.module.index') }}" class="nav-link">
+      <a href="{{ route('admin.module.index') }}" class="nav-link {{ request()->is('admin/module') ? 'active' : '' }}">
         <i class="nav-icon fas fa-book-open text-primary"></i>
         <p>
           Module

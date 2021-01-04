@@ -3,10 +3,11 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Auth\ProfileController;
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ModuleController;
+use App\Http\Controllers\Auth\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,8 +30,8 @@ Auth::routes();
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-    // Student Menu
-    Route::group(['middleware' => 'role:student'], function () {
+    // Role Student
+    Route::group(['middleware' => 'student', 'prefix' => 'student'], function () {
         Route::get('/profile/{auth}', [ProfileController::class, 'show'])->name('profile');
 
         Route::get('/profile/{student}', [StudentsController::class, 'show'])->name('profile');
@@ -41,8 +42,23 @@ Route::group(['middleware' => ['auth']], function () {
         Route::patch('/profile/{auth}/password', [PasswordController::class, 'update'])->name('password.edit');
     });
 
-    // role admin
-    Route::group(['middleware' => 'role:admin'], function () {
+    // Role Teacher
+    Route::group(['middleware' => 'role:teacher', 'prefix' => 'teacher'], function () {
+        Route::group(['prefix' => 'lesson'], function () {
+            Route::get('/', [LessonController::class, 'index'])->name('teacher.lesson.index');
+            Route::get('/{lesson?}/show', [LessonController::class, 'show'])->name('teacher.lesson.show');
+
+            Route::get('/{lesson?}/create', [ModuleController::class, 'create'])->name('teacher.module.create');
+            Route::post('/store', [ModuleController::class, 'store'])->name('teacher.module.store');
+            Route::get('/{module?}/edit', [ModuleController::class, 'edit'])->name('teacher.module.edit');
+            Route::patch('/{module?}/update', [ModuleController::class, 'update'])->name('teacher.module.update');
+            Route::delete('/{module?}/destroy', [ModuleController::class, 'destroy'])->name('teacher.module.destroy');
+            Route::get('/{module?}/download', [ModuleController::class, 'download'])->name('teacher.module.download');
+        });
+    });
+
+    // Role admin
+    Route::group(['middleware' => 'role:admin', 'prefix' => 'admin'], function () {
         // user menu
         Route::group(['prefix' => 'user'], function () {
             Route::get('/', [UserController::class, 'index'])->name('admin.user.index');

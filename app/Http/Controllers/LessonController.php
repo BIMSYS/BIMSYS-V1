@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lesson;
+use App\Models\Module;
 use App\Models\Teacher;
+use Dotenv\Parser\Lexer;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -16,13 +18,32 @@ class LessonController extends Controller
      */
     public function index()
     {
-        // fetch all lesson and paginate
-        $lessons = Lesson::orderBy('lesson_name')
-            ->paginate(5);
+        if (auth()->user()->role === 'admin') {
+            // count data
+            $lessons_count = Lesson::all();
+            $lessons_count = count($lessons_count);
 
-        return view('admin.lesson.index', [
-            'lessons' => $lessons
-        ]);
+            // fetch all lesson and paginate
+            $lessons = Lesson::orderBy('lesson_name')
+                ->paginate(5);
+
+            return view('admin.lesson.index', [
+                'lessons' => $lessons,
+                'lessons_count' => $lessons_count
+            ]);
+        } elseif (auth()->user()->role === 'teacher') {
+            // count data
+            $lessons_count = Lesson::where('teacher_id', auth()->user()->id)->get();
+            $lessons_count = count($lessons_count);
+
+            // fetch lesson
+            $lessons = Lesson::where('teacher_id', auth()->user()->id)->orderBy('lesson_name')->paginate(5);
+
+            return view('teacher.lesson.index', [
+                'lessons' => $lessons,
+                'lessons_count' => $lessons_count
+            ]);
+        }
     }
 
     /**
@@ -83,6 +104,16 @@ class LessonController extends Controller
      */
     public function show(Lesson $lesson)
     {
+        $modules = Module::where('lesson_id', $lesson->id);
+        $modules_count = count($modules->get());
+
+        $modules = $modules->paginate(5);
+
+        return view('teacher.module.index', [
+            'lesson' => $lesson,
+            'modules' => $modules,
+            'modules_count' => $modules_count
+        ]);
     }
 
     /**
@@ -115,7 +146,7 @@ class LessonController extends Controller
     public function update(Request $request, Lesson $lesson)
     {
         // lesson code unique cek
-        if($request['lesson_code'] != $lesson->lesson_code) {
+        if ($request['lesson_code'] != $lesson->lesson_code) {
             $code = 'unique:lessons,lesson_code';
         } else {
             $code = null;

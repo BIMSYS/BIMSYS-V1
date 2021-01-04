@@ -18,12 +18,17 @@ class ModuleController extends Controller
      */
     public function index()
     {
+        // count
+        $modules_count = Module::all();
+        $modules_count = count($modules_count);
+
         // fetch all module and paginate
         $modules = Module::orderBy('module_title')
             ->paginate(5);
 
         return view('admin.module.index', [
-            'modules' => $modules
+            'modules' => $modules,
+            'modules_count' => $modules_count,
         ]);
     }
 
@@ -32,14 +37,20 @@ class ModuleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Lesson $lesson)
     {
-        // fetch all lesson
-        $lessons = Lesson::all();
+        if (auth()->user()->role === 'admin') {
+            // fetch all lesson
+            $lessons = Lesson::all();
 
-        return view('admin.module.create', [
-            'lessons' => $lessons
-        ]);
+            return view('admin.module.create', [
+                'lessons' => $lessons
+            ]);
+        } elseif (auth()->user()->role === 'teacher') {
+            return view('teacher.module.create', [
+                'lesson' => $lesson
+            ]);
+        }
     }
 
     /**
@@ -71,9 +82,10 @@ class ModuleController extends Controller
         // create module
         $module = new Module;
         $module->module_title = ucwords(Str::lower($request['module_title']));
-        $module->lesson_id = $request['module_lesson'];
         $module->module_description = $request['module_description'];
         $module->module_link = $request['module_link'];
+        $module->lesson_id = $request['module_lesson'];
+
         // file
         $module->module_file = $fileName;
 
@@ -81,10 +93,18 @@ class ModuleController extends Controller
         $module->save();
 
         // message
-        if ($module) {
-            return redirect(route('admin.module.index'))->with('success', 'Module berhasil ditambah');
-        } else {
-            return redirect(route('admin.module.create'))->with('danger', 'Module gagal ditambah!');
+        if (auth()->user()->role === 'admin') {
+            if ($module) {
+                return redirect(route("admin.module.index"))->with('success', 'Module berhasil ditambah');
+            } else {
+                return redirect(route("admin.module.create"))->with('danger', 'Module gagal ditambah!');
+            }
+        } elseif (auth()->user()->role === 'teacher') {
+            if ($module) {
+                return redirect(route("teacher.lesson.show", $request['module_lesson']))->with('success', 'Module berhasil ditambah');
+            } else {
+                return redirect(route("teacher.module.create", $request['module_lesson']))->with('danger', 'Module gagal ditambah!');
+            }
         }
     }
 
@@ -107,17 +127,18 @@ class ModuleController extends Controller
      */
     public function edit(Module $module)
     {
-        $lessons = Lesson::all();
+        if (auth()->user()->role === 'admin') {
+            $lessons = Lesson::all();
 
-        // cek file name
-        $file = $module->module_file;
-        list($rand, $fileName) = explode("_", $file);
-
-        return view('admin.module.update', [
-            'module' => $module,
-            'lessons' => $lessons,
-            'file' => $fileName
-        ]);
+            return view('admin.module.update', [
+                'module' => $module,
+                'lessons' => $lessons
+            ]);
+        } elseif (auth()->user()->role === 'teacher') {
+            return view('teacher.module.update', [
+                'module' => $module,
+            ]);
+        }
     }
 
     /**
@@ -161,10 +182,18 @@ class ModuleController extends Controller
         }
 
         // message
-        if ($module) {
-            return redirect(route('admin.module.index'))->with('success', 'Module berhasil diupdate');
-        } else {
-            return redirect(route('admin.module.update'))->with('danger', 'Module gagal diupdate!');
+        if (auth()->user()->role === 'admin') {
+            if ($module) {
+                return redirect(route("admin.module.index"))->with('success', 'Module berhasil update');
+            } else {
+                return redirect(route("admin.module.update"))->with('danger', 'Module gagal update!');
+            }
+        } elseif (auth()->user()->role === 'teacher') {
+            if ($module) {
+                return redirect(route("teacher.lesson.show", $request['module_lesson']))->with('success', 'Module berhasil update');
+            } else {
+                return redirect(route("teacher.module.update", $request['module_lesson']))->with('danger', 'Module gagal update!');
+            }
         }
     }
 
@@ -187,10 +216,18 @@ class ModuleController extends Controller
         }
 
         // message
-        if ($module) {
-            return redirect(route('admin.module.index'))->with('success', 'Module berhasil didelete');
-        } else {
-            return redirect(route('admin.module.index'))->with('danger', 'Module gagal didelete!');
+        if (auth()->user()->role === 'admin') {
+            if ($module) {
+                return redirect(route("admin.module.index"))->with('success', 'Module berhasil delete');
+            } else {
+                return redirect(route("admin.module.index"))->with('danger', 'Module gagal delete!');
+            }
+        } elseif (auth()->user()->role === 'teacher') {
+            if ($module) {
+                return redirect(route("teacher.lesson.show", $module->lesson))->with('success', 'Module berhasil delete');
+            } else {
+                return redirect(route("teacher.lesson.show", $module->lesson))->with('danger', 'Module gagal delete!');
+            }
         }
     }
 
