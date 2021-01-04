@@ -25,7 +25,7 @@ class ModuleController extends Controller
         $modules = Module::orderBy('module_title')
             ->paginate(5);
 
-        return view('admin.module.index', [
+        return view('pages.admin.module.index', [
             'modules' => $modules,
             'modules_count' => $modules_count,
         ]);
@@ -42,11 +42,11 @@ class ModuleController extends Controller
             // fetch all lesson
             $lessons = Lesson::all();
 
-            return view('admin.module.create', [
+            return view('pages.admin.module.create', [
                 'lessons' => $lessons
             ]);
         } elseif (auth()->user()->role === 'teacher') {
-            return view('teacher.module.create', [
+            return view('pages.teacher.module.create', [
                 'lesson' => $lesson
             ]);
         }
@@ -129,12 +129,12 @@ class ModuleController extends Controller
         if (auth()->user()->role === 'admin') {
             $lessons = Lesson::all();
 
-            return view('admin.module.update', [
+            return view('pages.admin.module.update', [
                 'module' => $module,
                 'lessons' => $lessons
             ]);
         } elseif (auth()->user()->role === 'teacher') {
-            return view('teacher.module.update', [
+            return view('pages.teacher.module.update', [
                 'module' => $module,
             ]);
         }

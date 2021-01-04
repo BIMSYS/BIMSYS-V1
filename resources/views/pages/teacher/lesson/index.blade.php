@@ -63,7 +63,7 @@
                     <a href="{{ route('teacher.lesson.show', $lesson) }}" role="button">
                         <i class="fas fa-eye mr-2 text-info" style="font-size: 28px"></i>
                     </a>
-                    <a href="" role="button">
+                    <a href="{{ route('teacher.participant.index', $lesson) }}" role="button">
                         <i class="fas fa-users text-success" style="font-size: 28px"></i>
                     </a>
                 </td>

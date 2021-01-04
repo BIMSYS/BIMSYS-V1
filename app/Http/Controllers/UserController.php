@@ -42,7 +42,7 @@ class UserController extends Controller
             ->paginate(5);
 
 
-        return view('admin.user.index', [
+        return view('pages.admin.user.index', [
             'users' => $users,
             'students' => $students,
             'teachers' => $teachers
@@ -56,7 +56,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user.create');
+        return view('pages.admin.user.create');
     }
 
     /**
@@ -167,7 +167,7 @@ class UserController extends Controller
             $imgName = $image;
         }
 
-        return view('admin.user.update', [
+        return view('pages.admin.user.update', [
             'user' => $user,
             'name' => $name,
             'image' => $imgName
@@ -268,8 +268,6 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $username = $user->username;
-        
         if ($user->role === "student") {
             $image = $user->student->student_image;
         } elseif ($user->role === "teacher") {

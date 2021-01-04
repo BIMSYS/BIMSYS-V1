@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lesson;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,16 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Lesson $lesson)
     {
-        //
+        $students_count = count($lesson->students);
+        $students = $lesson->students()->paginate(5);
+
+        return view('pages.teacher.participant.index', [
+            'lesson' => $lesson,
+            'students' => $students,
+            'students_count' => $students_count
+        ]);
     }
 
     /**
@@ -78,8 +86,14 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Student $student)
     {
-        //
+        $student->lessons()->detach($student->lessons);
+
+        if ($student) {
+            return redirect(route('teacher.participant.index'))->with('success', 'Student berhasil dihapus');
+        } else {
+            return redirect(route('teacher.participant.index'))->with('danger', 'Student gagal dihapus!');
+        }
     }
 }

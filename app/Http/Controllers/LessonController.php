@@ -27,7 +27,7 @@ class LessonController extends Controller
             $lessons = Lesson::orderBy('lesson_name')
                 ->paginate(5);
 
-            return view('admin.lesson.index', [
+            return view('pages.admin.lesson.index', [
                 'lessons' => $lessons,
                 'lessons_count' => $lessons_count
             ]);
@@ -42,7 +42,7 @@ class LessonController extends Controller
             // fetch lesson
             $lessons = Lesson::where('teacher_id', $teacher->id)->orderBy('lesson_name')->paginate(5);
 
-            return view('teacher.lesson.index', [
+            return view('pages.teacher.lesson.index', [
                 'lessons' => $lessons,
                 'lessons_count' => $lessons_count
             ]);
@@ -59,7 +59,7 @@ class LessonController extends Controller
         // fetch all teacher
         $teachers = Teacher::all();
 
-        return view('admin.lesson.create', [
+        return view('pages.admin.lesson.create', [
             'teachers' => $teachers
         ]);
     }
@@ -112,7 +112,7 @@ class LessonController extends Controller
 
         $modules = $modules->paginate(5);
 
-        return view('teacher.module.index', [
+        return view('pages.teacher.module.index', [
             'lesson' => $lesson,
             'modules' => $modules,
             'modules_count' => $modules_count
@@ -133,7 +133,7 @@ class LessonController extends Controller
         // fetch all teacher
         $teachers = Teacher::all();
 
-        return view('admin.lesson.update', [
+        return view('pages.admin.lesson.update', [
             'lesson' => $lesson,
             'teachers' => $teachers
         ]);

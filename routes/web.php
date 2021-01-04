@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\Auth\ProfileController;
+use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,15 +46,23 @@ Route::group(['middleware' => ['auth']], function () {
     // Role Teacher
     Route::group(['middleware' => 'role:teacher', 'prefix' => 'teacher'], function () {
         Route::group(['prefix' => 'lesson'], function () {
+            // lesson index and detail
             Route::get('/', [LessonController::class, 'index'])->name('teacher.lesson.index');
             Route::get('/{lesson?}/show', [LessonController::class, 'show'])->name('teacher.lesson.show');
 
+            // lesson module
             Route::get('/{lesson?}/create', [ModuleController::class, 'create'])->name('teacher.module.create');
             Route::post('/store', [ModuleController::class, 'store'])->name('teacher.module.store');
             Route::get('/{module?}/edit', [ModuleController::class, 'edit'])->name('teacher.module.edit');
             Route::patch('/{module?}/update', [ModuleController::class, 'update'])->name('teacher.module.update');
             Route::delete('/{module?}/destroy', [ModuleController::class, 'destroy'])->name('teacher.module.destroy');
             Route::get('/{module?}/download', [ModuleController::class, 'download'])->name('teacher.module.download');
+
+            // lesson participant
+            Route::group(['prefix' => 'participant'], function () {
+                Route::get('/{lesson?}', [StudentController::class, 'index'])->name('teacher.participant.index');
+                Route::delete('/{student?}/destroy', [StudentController::class, 'destroy'])->name('teacher.participant.destroy');
+            });
         });
     });
 
