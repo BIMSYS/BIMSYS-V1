@@ -260,6 +260,12 @@
 
         </tbody>
     </table>
+    <div class="col-6 d-flex" style="height: 100px;">
+                <a class="btn btn-primary mt-5" href="{{ route('teacher.lesson.index') }}" role="button"> <img
+                        src="{{ URL::asset('/img/back.png') }}" alt="Create New Data" style="width: 35px; height: 35px;">
+                    &nbsp; Back</a>
+    </div>
+    
     <div class="d-flex justify-content-center">
       
     </div>
