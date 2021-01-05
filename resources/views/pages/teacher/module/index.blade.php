@@ -56,6 +56,7 @@
                 <th scope="col">MODULE DESCRIPTION</th>
                 <th scope="col">MODULE FILE</th>
                 <th scope="col">LINK</th>
+                <th scope="col">TASK MODULE</th>
                 <th scope="col">ACTION</th>
             </tr>
         </thead>
@@ -75,6 +76,9 @@
                     @else
                     -
                     @endif
+                </td>
+                <td>
+                    <a href="{{ route('teacher.task.index') }}" role="button">Click here for ur task</a>
                 </td>
                 <td>
                     <a href="{{ route('teacher.module.edit', $module) }}" role="button"><img
@@ -118,9 +122,16 @@
                 </td>
             </tr>
             @endforelse
-
+        
         </tbody>
     </table>
+
+    <div class="col-6 d-flex" style="height: 100px;">
+                <a class="btn btn-primary mt-5" href="{{ route('teacher.lesson.index') }}" role="button"> <img
+                        src="{{ URL::asset('/img/back.png') }}" alt="Create New Data" style="width: 35px; height: 35px;">
+                    &nbsp; Back</a>
+    </div>
+
     <div class="d-flex justify-content-center">
         {{ $modules->links('vendor.pagination.bootstrap-4', ['elements' => $modules]) }}
     </div>
