@@ -8,6 +8,7 @@ use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +26,7 @@ Route::view('/', 'index')->middleware('guest');
 
 // auth
 Auth::routes();
-
+Route::view('/profileguru','/teacher/profile/profileguru');
 // middleware login auth
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -62,6 +63,15 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/{lesson?}', [StudentController::class, 'index'])->name('teacher.participant.index');
                 Route::delete('/{student?}/destroy', [StudentController::class, 'destroy'])->name('teacher.participant.destroy');
             });
+        });
+
+        Route::group(['prefix' => 'task'], function () {
+            Route::get('/', [TaskController::class, 'index'])->name('teacher.task.index');
+            Route::get('/create', [TaskController::class, 'create'])->name('teacher.task.create');
+            Route::post('/store', [TaskController::class, 'store'])->name('teacher.task.store');
+            Route::get('/{task?}/edit', [TaskController::class, 'edit'])->name('teacher.task.edit');
+            Route::patch('/{task?}/update', [TaskController::class, 'update'])->name('teacher.task.update');
+            Route::delete('/{task?}/destroy', [TaskController::class, 'destroy'])->name('teacher.task.destroy');
         });
     });
 
