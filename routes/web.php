@@ -27,7 +27,7 @@ Route::view('/', 'index')->middleware('guest');
 
 // auth
 Auth::routes();
-
+Route::view('/profileguru','/teacher/profile/profileguru');
 // middleware login auth
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
