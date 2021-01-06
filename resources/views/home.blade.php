@@ -105,7 +105,7 @@
     </div>
     <div class="col-lg-3 col-6">
       <!-- small card -->
-      <div class="small-box bg-primary">
+      <div class="small-box bg-info">
         <div class="inner">
           <h3>150</h3>
 
@@ -121,7 +121,7 @@
     </div>
     <div class="col-lg-3 col-6">
       <!-- small card -->
-      <div class="small-box bg-primary">
+      <div class="small-box bg-danger">
         <div class="inner">
           <h3>150</h3>
 
@@ -137,7 +137,7 @@
     </div>
     <div class="col-lg-3 col-6">
       <!-- small card -->
-      <div class="small-box bg-primary">
+      <div class="small-box bg-success">
         <div class="inner">
           <h3>150</h3>
 
@@ -151,6 +151,63 @@
         </a>
       </div>
     </div>
+    <div class="col-lg-3 col-6">
+      <!-- small card -->
+      <div class="small-box bg-dark">
+        <div class="inner">
+          <h3>150</h3>
+
+          <p>Partisipan</p>
+        </div>
+        <div class="icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <a href="#" class="small-box-footer">
+          More info <i class="fas fa-arrow-circle-right"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="col mb-4">
+    <p class="text-center">
+      <strong>Goal Completion</strong>
+    </p>
+
+    <div class="progress-group">
+      Biologi
+      <span class="float-right"><b>160</b>/200</span>
+      <div class="progress progress-sm">
+        <div class="progress-bar bg-primary" style="width: 80%"></div>
+      </div>
+    </div>
+    <!-- /.progress-group -->
+
+    <div class="progress-group">
+      Matematika
+      <span class="float-right"><b>310</b>/400</span>
+      <div class="progress progress-sm">
+        <div class="progress-bar bg-danger" style="width: 75%"></div>
+      </div>
+    </div>
+
+    <!-- /.progress-group -->
+    <div class="progress-group">
+      <span class="progress-text">Sejarah</span>
+      <span class="float-right"><b>480</b>/800</span>
+      <div class="progress progress-sm">
+        <div class="progress-bar bg-success" style="width: 60%"></div>
+      </div>
+    </div>
+
+    <!-- /.progress-group -->
+    <div class="progress-group">
+      Fisika
+      <span class="float-right"><b>250</b>/500</span>
+      <div class="progress progress-sm">
+        <div class="progress-bar bg-warning" style="width: 50%"></div>
+      </div>
+    </div>
+    <!-- /.progress-group -->
   </div>
 
 
