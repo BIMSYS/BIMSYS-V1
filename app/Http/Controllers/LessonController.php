@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Lesson;
 use App\Models\Module;
 use App\Models\Teacher;
-use Dotenv\Parser\Lexer;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
