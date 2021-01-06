@@ -1,10 +1,12 @@
 @extends('layouts.contentLayout', ['title' => 'Profile Guru'])
+@push('css')
 <style>
     #id {
         font-weight: 100;
         font-size: x-small;
     }
 </style>
+@endpush
 @section('content')
 <section class="content-header">
     <div class="container">
