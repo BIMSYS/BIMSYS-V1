@@ -146,7 +146,6 @@
             </div> <!-- tutup card body -->
         </div> <!-- tutup card -->
     </div> <!-- tutup col -->
-
 </section>
 @endsection
 
