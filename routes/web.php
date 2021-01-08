@@ -3,13 +3,13 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TeacherController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,14 +23,14 @@ use App\Http\Controllers\TaskController;
 */
 
 // guest home
-Route::view('/', 'index')->middleware('guest');
+Route::view('/', 'pages.index')->middleware('guest');
 
 // auth
 Auth::routes();
-Route::view('/profileguru','/teacher/profile/profileguru');
+Route::view('/profileguru', 'pages/teacher/profile/profileguru');
 // middleware login auth
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    // Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     // Role Student
     Route::group(['middleware' => 'student', 'prefix' => 'student'], function () {
@@ -45,34 +45,43 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     // Role Teacher
-    Route::group(['middleware' => 'role:teacher', 'prefix' => 'teacher'], function () {
-        Route::group(['prefix' => 'lesson'], function () {
-            // lesson index and detail
-            Route::get('/', [LessonController::class, 'index'])->name('teacher.lesson.index');
-            Route::get('/{lesson?}/show', [LessonController::class, 'show'])->name('teacher.lesson.show');
+    Route::group(['middleware' => 'role:teacher'], function () {
+        Route::get('/home', [HomeController::class, 'teacher'])->name('home');
+        Route::get('/profile', [TeacherController::class, 'index'])->name('profile');
 
-            // lesson module
-            Route::get('/{lesson?}/create', [ModuleController::class, 'create'])->name('teacher.module.create');
-            Route::post('/store', [ModuleController::class, 'store'])->name('teacher.module.store');
-            Route::get('/{module?}/edit', [ModuleController::class, 'edit'])->name('teacher.module.edit');
-            Route::patch('/{module?}/update', [ModuleController::class, 'update'])->name('teacher.module.update');
-            Route::delete('/{module?}/destroy', [ModuleController::class, 'destroy'])->name('teacher.module.destroy');
-            Route::get('/{module?}/download', [ModuleController::class, 'download'])->name('teacher.module.download');
+        // profile update
+        Route::patch('/profile/update', [UserController::class, 'update'])->name('profile.update');
 
-            // lesson participant
-            Route::group(['prefix' => 'participant'], function () {
-                Route::get('/{lesson?}', [StudentController::class, 'index'])->name('teacher.participant.index');
-                Route::delete('/{student?}/destroy', [StudentController::class, 'destroy'])->name('teacher.participant.destroy');
+        Route::group(['prefix' => 'teacher'], function () {
+            Route::group(['prefix' => 'lesson'], function () {
+                // lesson index and detail
+                Route::get('/', [LessonController::class, 'index'])->name('teacher.lesson.index');
+                Route::get('/{lesson?}/show', [LessonController::class, 'show'])->name('teacher.lesson.show');
+
+                // lesson module
+                Route::get('/{lesson?}/create', [ModuleController::class, 'create'])->name('teacher.module.create');
+                Route::post('/store', [ModuleController::class, 'store'])->name('teacher.module.store');
+                Route::get('/{module?}/edit', [ModuleController::class, 'edit'])->name('teacher.module.edit');
+                Route::patch('/{module?}/update', [ModuleController::class, 'update'])->name('teacher.module.update');
+                Route::delete('/{module?}/destroy', [ModuleController::class, 'destroy'])->name('teacher.module.destroy');
+                Route::get('/{module?}/download', [ModuleController::class, 'download'])->name('teacher.module.download');
+
+                // lesson participant
+                Route::group(['prefix' => 'participant'], function () {
+                    Route::get('/{lesson?}', [StudentController::class, 'index'])->name('teacher.participant.index');
+                    Route::delete('/{student?}/destroy', [StudentController::class, 'destroy'])->name('teacher.participant.destroy');
+                });
             });
-        });
 
-        Route::group(['prefix' => 'task'], function () {
-            Route::get('/', [TaskController::class, 'index'])->name('teacher.task.index');
-            Route::get('/create', [TaskController::class, 'create'])->name('teacher.task.create');
-            Route::post('/store', [TaskController::class, 'store'])->name('teacher.task.store');
-            Route::get('/{task?}/edit', [TaskController::class, 'edit'])->name('teacher.task.edit');
-            Route::patch('/{task?}/update', [TaskController::class, 'update'])->name('teacher.task.update');
-            Route::delete('/{task?}/destroy', [TaskController::class, 'destroy'])->name('teacher.task.destroy');
+            // lesson task
+            Route::group(['prefix' => 'task'], function () {
+                Route::get('/', [TaskController::class, 'index'])->name('teacher.task.index');
+                Route::get('/create', [TaskController::class, 'create'])->name('teacher.task.create');
+                Route::post('/store', [TaskController::class, 'store'])->name('teacher.task.store');
+                Route::get('/{task?}/edit', [TaskController::class, 'edit'])->name('teacher.task.edit');
+                Route::patch('/{task?}/update', [TaskController::class, 'update'])->name('teacher.task.update');
+                Route::delete('/{task?}/destroy', [TaskController::class, 'destroy'])->name('teacher.task.destroy');
+            });
         });
     });
 
@@ -88,6 +97,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::delete('/{user?}/destroy', [UserController::class, 'destroy'])->name('admin.user.destroy');
         });
 
+        // lesson menu
         Route::group(['prefix' => 'lesson'], function () {
             Route::get('/', [LessonController::class, 'index'])->name('admin.lesson.index');
             Route::get('/create', [LessonController::class, 'create'])->name('admin.lesson.create');
@@ -97,6 +107,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::delete('/{lesson?}/destroy', [LessonController::class, 'destroy'])->name('admin.lesson.destroy');
         });
 
+        // module menu
         Route::group(['prefix' => 'module'], function () {
             Route::get('/', [ModuleController::class, 'index'])->name('admin.module.index');
             Route::get('/create', [ModuleController::class, 'create'])->name('admin.module.create');

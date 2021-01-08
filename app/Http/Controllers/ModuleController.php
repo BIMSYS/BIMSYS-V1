@@ -153,32 +153,36 @@ class ModuleController extends Controller
         $request->validate([
             'module_title' => 'required|string|max:255',
             'module_lesson' => 'required',
-            'module_file' => 'required|mimetypes:application/pdf,application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint',
+            'module_file' => 'mimetypes:application/pdf,application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint',
             'module_description' => 'required|max:255',
             'module_link' => 'max:255'
         ]);
-
-        // cek file
-        $file = $request->file('module_file');
-        $fileName = rand() . '_' . $file->getClientOriginalName();
-        $file->move('uploads', $fileName);
-        $oldFile = "uploads/$module->module_file";
 
         // update module
         $module->module_title = ucwords(Str::lower($request['module_title']));
         $module->lesson_id = $request['module_lesson'];
         $module->module_description = $request['module_description'];
         $module->module_link = $request['module_link'];
-        // file
-        $module->module_file = $fileName;
+
+        if ($request['module_file'] !== null) {
+            // cek file
+            $file = $request->file('module_file');
+            $fileName = rand() . '_' . $file->getClientOriginalName();
+            $file->move('uploads', $fileName);
+            $oldFile = "uploads/$module->module_file";
+
+            // file
+            $module->module_file = $fileName;
+
+            // delete file from public
+            if (File::exists(public_path($oldFile))) {
+                File::delete(public_path($oldFile));
+            }
+        }
 
         // save module
         $module->save();
 
-        // delete file from public
-        if (File::exists(public_path($oldFile))) {
-            File::delete(public_path($oldFile));
-        }
 
         // message
         if (auth()->user()->role === 'admin') {

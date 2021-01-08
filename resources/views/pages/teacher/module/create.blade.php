@@ -29,8 +29,7 @@
 
             <div class="card-body">
                 <fieldset>
-                    <form method="POST" action="{{ route('teacher.module.store') }}"
-                        enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('teacher.module.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group ">
                             <div class="input-group mb-3">
@@ -55,7 +54,7 @@
                                 </div>
 
                                 <input type="text" name="module_title"
-                                    class="form-control @error('module_title') is-invalid @enderror" name="module_title"
+                                    class="form-control @error('module_title') is-invalid @enderror"
                                     placeholder="Module Title" value="{{ old('module_title') }}"
                                     autocomplete="module_title" autofocus>
                                 @error('module_title')
@@ -97,7 +96,7 @@
                                     </div>
                                 </div>
 
-                                <input type="text" name="module_description"
+                                <input type="text"
                                     class="form-control @error('module_description') is-invalid @enderror"
                                     name="module_description" placeholder="Module Description"
                                     value="{{ old('module_description') }}" autocomplete="module_description" autofocus>
@@ -146,7 +145,6 @@
             </div> <!-- tutup card body -->
         </div> <!-- tutup card -->
     </div> <!-- tutup col -->
-
 </section>
 @endsection
 

@@ -196,7 +196,7 @@ class UserController extends Controller
             'role' => 'required|in:teacher,student',
             'username' => "required|alpha_dash|string|max:255|$validation",
             'email' => "required|string|email|max:255|$validation",
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'string|min:8|confirmed',
             'image' => 'image|nullable'
         ]);
 
@@ -222,8 +222,11 @@ class UserController extends Controller
         $user = $user::find($user->id);
         $user->username = Str::lower($request['username']);
         $user->email = $request['email'];
-        $user->password = Hash::make($request['password']);
         $user->role = $request['role'];
+
+        if ($request['password'] !== null) {
+            $user->password = Hash::make($request['password']);
+        }
 
         // save user data
         $user->save();

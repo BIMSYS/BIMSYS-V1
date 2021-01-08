@@ -12,6 +12,14 @@
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-item">
+          <a href="{{ route('home') }}" class="nav-link {{ request()->is('home') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>
+              Home
+            </p>
+          </a>
+        </li>
 
         {{-- Role Student --}}
         @if (Auth::user()->role === 'student')
@@ -95,7 +103,7 @@
   @elseif(Auth::user()->role === 'teacher')
   <div class="teacher">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-      <li class="nav-item has-treeview menu-open">
+      <li class="nav-item">
         <a href="{{ route('teacher.lesson.index') }}"
           class="nav-link {{ request()->is('teacher/lesson') ? 'active' : '' }}">
           <i class="nav-icon fas fa-book-reader"></i>
@@ -107,19 +115,19 @@
         {{-- <ul class="nav nav-treeview">
           <li class="nav-item">
             <a href="{{ route('teacher.lesson.index') }}"
-              class="nav-link {{ request()->is('teacher/lesson') ? 'active' : '' }}">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Lessons List</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Modules</p>
-            </a>
-          </li>
-        </ul> --}}
+        class="nav-link {{ request()->is('teacher/lesson') ? 'active' : '' }}">
+        <i class="far fa-circle nav-icon"></i>
+        <p>Lessons List</p>
+        </a>
       </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link">
+          <i class="far fa-circle nav-icon"></i>
+          <p>Modules</p>
+        </a>
+      </li>
+    </ul> --}}
+    </li>
     </ul>
   </div>
   @else
@@ -148,6 +156,25 @@
     </li>
   </div>
   @endif
+
+  <li class="nav-header"><strong>USER</strong></li>
+  <li class="nav-item">
+    <a href="{{ route('profile') }}" class="nav-link {{ request()->is('profile') ? 'active' : '' }}">
+      <i class="nav-icon fas fa-id-card"></i>
+      Profile
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
+    document.getElementById('logout-form').submit();">
+      <i class="nav-icon fas fa-sign-out-alt"></i>
+      {{ __('Logout') }}
+    </a>
+
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+      @csrf
+    </form>
+  </li>
   </ul>
   </nav>
   <!-- /.sidebar-menu -->
