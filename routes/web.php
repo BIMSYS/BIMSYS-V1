@@ -34,19 +34,21 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Role Student
     Route::group(['middleware' => 'student', 'prefix' => 'student'], function () {
-        Route::get('/profile/{auth}', [ProfileController::class, 'show'])->name('profile');
+        Route::get('/student/profile', [TeacherController::class, 'index'])->name('profile.teacher');
 
-        Route::get('/profile/{student}', [StudentsController::class, 'show'])->name('profile');
-        Route::get('/profile/{auth}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-        Route::patch('/profile/{auth}/edit', [ProfileController::class, 'update'])->name('profile.edit');
+        // Route::get('/profile/{auth}', [ProfileController::class, 'show'])->name('profile');
 
-        Route::get('/profile/{auth}/password', [PasswordController::class, 'index'])->name('password.edit');
-        Route::patch('/profile/{auth}/password', [PasswordController::class, 'update'])->name('password.edit');
+        // Route::get('/profile/{student}', [StudentsController::class, 'show'])->name('profile');
+        // Route::get('/profile/{auth}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+        // Route::patch('/profile/{auth}/edit', [ProfileController::class, 'update'])->name('profile.edit');
+
+        // Route::get('/profile/{auth}/password', [PasswordController::class, 'index'])->name('password.edit');
+        // Route::patch('/profile/{auth}/password', [PasswordController::class, 'update'])->name('password.edit');
     });
 
     // Role Teacher
     Route::group(['middleware' => 'role:teacher'], function () {
-        Route::get('/teacher/profile', [TeacherController::class, 'index'])->name('profile');
+        Route::get('/teacher/profile', [TeacherController::class, 'index'])->name('profile.teacher');
 
         // profile update
         Route::patch('/profile/update', [UserController::class, 'update'])->name('profile.update');
