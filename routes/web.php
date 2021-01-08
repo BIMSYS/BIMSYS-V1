@@ -37,13 +37,18 @@ Route::group(['middleware' => ['auth']], function () {
     Route::patch('/profile/update', [UserController::class, 'update'])->name('profile.update')->middleware('role:student,teacher');
 
     // Role Student
-    Route::group(['middleware' => 'student', 'prefix' => 'student'], function () {
+    Route::group(['middleware' => 'role:student'], function () {
+        // profile
+        Route::get('/student/profile', [UserController::class, 'profile_index'])->name('profile.student');
+        Route::patch('/profile/update', [UserController::class, 'update'])->name('profile.update');
 
     });
 
     // Role Teacher
     Route::group(['middleware' => 'role:teacher'], function () {
-        Route::get('/teacher/profile', [TeacherController::class, 'index'])->name('profile.teacher');
+        // profile
+        Route::get('/teacher/profile', [UserController::class, 'profile_index'])->name('profile.teacher');
+        Route::patch('/profile/update', [UserController::class, 'update'])->name('profile.update');
 
         Route::group(['prefix' => 'teacher'], function () {
             Route::group(['prefix' => 'lesson'], function () {

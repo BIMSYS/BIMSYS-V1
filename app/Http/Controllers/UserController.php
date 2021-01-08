@@ -16,7 +16,7 @@ class UserController extends Controller
     {
         return view('pages.profile.index');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
