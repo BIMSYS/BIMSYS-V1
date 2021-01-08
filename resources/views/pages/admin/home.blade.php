@@ -62,97 +62,58 @@
   <section class="content">
     <div class="container border rounded bg-white p-3 mb-3">
       <div class="row">
-
-        @php
-        $i = 0;
-        @endphp
-        @foreach ($lessons as $lesson)
         <div class="col-lg-3 col-6">
           <!-- small card -->
-          <div class="small-box bg-{{ $colors[$i++] }}">
+          <div class="small-box bg-info">
             <div class="inner">
-              <p>{{ $lesson->lesson_name }}</p>
+              <p>Users</p>
 
-              <h3 class="inline">{{ $lesson->students->count() }} <small>Student</small></h3>
+              <h3 class="inline">{{ $users->count() }} <small>Users</small></h3>
             </div>
             <div class="icon">
               <i class="fas fa-users"></i>
             </div>
-            <a href="{{ route('teacher.participant.index', $lesson) }}" class="small-box-footer">
+            <a href="{{ route('admin.user.index') }}" class="small-box-footer">
               More info <i class="fas fa-arrow-circle-right"></i>
             </a>
           </div>
         </div>
-        @endforeach
 
+        <div class="col-lg-3 col-6">
+          <!-- small card -->
+          <div class="small-box bg-primary">
+            <div class="inner">
+              <p>Lessons</p>
+
+              <h3 class="inline">{{ $lessons->count() }} <small>Lessons</small></h3>
+            </div>
+            <div class="icon">
+              <i class="fas fa-book-reader"></i>
+            </div>
+            <a href="{{ route('admin.lesson.index') }}" class="small-box-footer">
+              More info <i class="fas fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-6">
+          <!-- small card -->
+          <div class="small-box bg-success">
+            <div class="inner">
+              <p>Modules</p>
+
+              <h3 class="inline">{{ $modules->count() }} <small>Modules</small></h3>
+            </div>
+            <div class="icon">
+              <i class="fas fa-book-open"></i>
+            </div>
+            <a href="{{ route('admin.module.index') }}" class="small-box-footer">
+              More info <i class="fas fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
-
-    <div class="container border rounded bg-white p-3 mb-3">
-      {{-- <div class="col mb-4"> --}}
-      <p class="text-center">
-        <strong>Lesson Overview</strong>
-      </p>
-
-      <div class="d-flex justify-content-center pt-2">
-        <div class="list-group list-group-flush lesson-overview">
-
-          @php
-          $i = 0;
-          @endphp
-          @foreach ($lessons as $lesson)
-          <a href="{{ route('teacher.lesson.show', $lesson) }}" class="list-group-item 
-            list-group-item-action 
-            d-flex 
-            justify-content-between 
-            align-items-center 
-            list-group-item-{{ $colors[$i++] }}">
-            {{ $lesson->lesson_name }}
-            <span class="badge badge-primary badge-pill">{{ $lesson->modules->count() }} Modules</span>
-          </a>
-          @endforeach
-
-        </div>
-      </div>
-
-      {{-- <div class="progress-group">
-          Biologi
-          <span class="float-right"><b>160</b>/200</span>
-          <div class="progress progress-sm">
-            <div class="progress-bar bg-primary" style="width: 80%"></div>
-          </div>
-        </div>
-        <!-- /.progress-group -->
-  
-        <div class="progress-group">
-          Matematika
-          <span class="float-right"><b>310</b>/400</span>
-          <div class="progress progress-sm">
-            <div class="progress-bar bg-danger" style="width: 75%"></div>
-          </div>
-        </div>
-  
-        <!-- /.progress-group -->
-        <div class="progress-group">
-          <span class="progress-text">Sejarah</span>
-          <span class="float-right"><b>480</b>/800</span>
-          <div class="progress progress-sm">
-            <div class="progress-bar bg-success" style="width: 60%"></div>
-          </div>
-        </div>
-  
-        <!-- /.progress-group -->
-        <div class="progress-group">
-          Fisika
-          <span class="float-right"><b>250</b>/500</span>
-          <div class="progress progress-sm">
-            <div class="progress-bar bg-warning" style="width: 50%"></div>
-          </div>
-        </div>
-        <!-- /.progress-group --> --}}
-      {{-- </div> --}}
-    </div>
-
   </section>
   <!-- /.content -->
 </div>

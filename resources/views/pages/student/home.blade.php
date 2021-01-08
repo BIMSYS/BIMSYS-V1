@@ -66,19 +66,19 @@
         @php
         $i = 0;
         @endphp
-        @foreach ($lessons as $lesson)
+        @foreach ($student->lessons as $lesson)
         <div class="col-lg-3 col-6">
           <!-- small card -->
           <div class="small-box bg-{{ $colors[$i++] }}">
             <div class="inner">
               <p>{{ $lesson->lesson_name }}</p>
 
-              <h3 class="inline">{{ $lesson->students->count() }} <small>Student</small></h3>
+              <h3 class="inline">{{ $lesson->modules->count() }} <small>Modules</small></h3>
             </div>
             <div class="icon">
-              <i class="fas fa-users"></i>
+              <i class="fas fa-book-reader"></i>
             </div>
-            <a href="{{ route('teacher.participant.index', $lesson) }}" class="small-box-footer">
+            <a href="" class="small-box-footer">
               More info <i class="fas fa-arrow-circle-right"></i>
             </a>
           </div>
@@ -100,8 +100,8 @@
           @php
           $i = 0;
           @endphp
-          @foreach ($lessons as $lesson)
-          <a href="{{ route('teacher.lesson.show', $lesson) }}" class="list-group-item 
+          @foreach ($student->lessons as $lesson)
+          <a href="" class="list-group-item 
             list-group-item-action 
             d-flex 
             justify-content-between 

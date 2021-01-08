@@ -27,7 +27,7 @@ Route::view('/', 'pages.index')->middleware('guest');
 
 // auth
 Auth::routes();
-Route::view('/profileguru', 'pages/teacher/profile/profileguru');
+
 // middleware login auth
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -46,8 +46,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Role Teacher
     Route::group(['middleware' => 'role:teacher'], function () {
-        // Route::get('/home', [HomeController::class, 'teacher'])->name('home');
-        Route::get('/profile', [TeacherController::class, 'index'])->name('profile');
+        Route::get('/teacher/profile', [TeacherController::class, 'index'])->name('profile');
 
         // profile update
         Route::patch('/profile/update', [UserController::class, 'update'])->name('profile.update');
