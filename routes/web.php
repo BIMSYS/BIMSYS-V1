@@ -6,7 +6,6 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ModuleController;
-use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TeacherController;
@@ -30,27 +29,20 @@ Auth::routes();
 
 // middleware login auth
 Route::group(['middleware' => ['auth']], function () {
+    // home
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     // Role Student
-    Route::group(['middleware' => 'student', 'prefix' => 'student'], function () {
-        Route::get('/student/profile', [TeacherController::class, 'index'])->name('profile.teacher');
-
-        // Route::get('/profile/{auth}', [ProfileController::class, 'show'])->name('profile');
-
-        // Route::get('/profile/{student}', [StudentsController::class, 'show'])->name('profile');
-        // Route::get('/profile/{auth}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-        // Route::patch('/profile/{auth}/edit', [ProfileController::class, 'update'])->name('profile.edit');
-
-        // Route::get('/profile/{auth}/password', [PasswordController::class, 'index'])->name('password.edit');
-        // Route::patch('/profile/{auth}/password', [PasswordController::class, 'update'])->name('password.edit');
+    Route::group(['middleware' => 'role:student'], function () {
+        // profile
+        Route::get('/student/profile', [UserController::class, 'profile_index'])->name('profile.student');
+        Route::patch('/profile/update', [UserController::class, 'update'])->name('profile.update');
     });
 
     // Role Teacher
     Route::group(['middleware' => 'role:teacher'], function () {
-        Route::get('/teacher/profile', [TeacherController::class, 'index'])->name('profile.teacher');
-
-        // profile update
+        // profile
+        Route::get('/teacher/profile', [UserController::class, 'profile_index'])->name('profile.teacher');
         Route::patch('/profile/update', [UserController::class, 'update'])->name('profile.update');
 
         Route::group(['prefix' => 'teacher'], function () {

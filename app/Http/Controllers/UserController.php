@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function profile_index()
+    {
+        return view('pages.profile.index');
+    }
     /**
      * Display a listing of the resource.
      *
