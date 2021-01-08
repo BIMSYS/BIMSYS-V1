@@ -31,16 +31,15 @@
 
         @elseif(Auth::user()->role === 'teacher')
         <div class="teacher">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <li class="nav-item">
-              <a href="{{ route('teacher.lesson.index') }}"
-                class="nav-link {{ request()->is('teacher/lesson') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-book-reader"></i>
-                <p>
-                  Lessons
-                </p>
-            </li>
-          </ul>
+          <li class="nav-item">
+            <a href="{{ route('teacher.lesson.index') }}"
+              class="nav-link {{ request()->is('teacher/lesson') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-book-reader"></i>
+              <p>
+                Lessons
+              </p>
+            </a>
+          </li>
         </div>
         @else
         <div class="admin">
@@ -78,7 +77,7 @@
         @endphp
         @if ($role !== 'admin')
         <li class="nav-item">
-          <a href="{{ route("profile.$role") }}" class="nav-link {{ request()->is('profile') ? 'active' : '' }}">
+          <a href="{{ route("profile.$role") }}" class="nav-link {{ request()->is("$role/profile") ? 'active' : '' }}">
             <i class="nav-icon fas fa-id-card"></i>
             Profile
           </a>
