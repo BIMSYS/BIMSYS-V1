@@ -22,7 +22,10 @@ class GradeFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'student_id' => rand(1, 10),
+            'teacher_id' => rand(1, 10),
+            'lesson_id' => rand(1, 10),
+            'grade' => rand(1, 100)
         ];
     }
 }
