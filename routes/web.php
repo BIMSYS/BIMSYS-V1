@@ -32,11 +32,16 @@ Route::group(['middleware' => ['auth']], function () {
     // home
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+    // profile teacher and student
+    Route::get('/profile', [UserController::class, 'profile_index'])->name('profile')->middleware('role:student,teacher');
+    Route::patch('/profile/update', [UserController::class, 'update'])->name('profile.update')->middleware('role:student,teacher');
+
     // Role Student
     Route::group(['middleware' => 'role:student'], function () {
         // profile
         Route::get('/student/profile', [UserController::class, 'profile_index'])->name('profile.student');
         Route::patch('/profile/update', [UserController::class, 'update'])->name('profile.update');
+
     });
 
     // Role Teacher
