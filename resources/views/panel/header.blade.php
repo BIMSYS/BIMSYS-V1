@@ -24,8 +24,8 @@
 
   <!-- Right navbar links -->
   <ul class="navbar-nav ml-auto">
-    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-      aria-haspopup="true" aria-expanded="false" v-pre>
+    <a id="navbarDropdown" class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+      aria-expanded="false" v-pre>
       @if (Auth::user()->role === 'admin')
       {{ 'Admin' }}
       @elseif(Auth::user()->role === 'student')
@@ -35,20 +35,25 @@
       @endif
     </a>
     <div class="image pr-4">
-      <img src="{{ URL::asset('/img/profile-user.png') }}" class="img-circle elevation-2" width="35px" height="35px"
-        alt="User Image">
+      <img src="
+      @if (auth()->user()->role === 'teacher')
+      {{ URL::asset(auth()->user()->teacher->teacher_image)}}
+      @elseif(auth()->user()->role === 'student')
+      {{ URL::asset(auth()->user()->student->student_image)}}
+      @endif
+      " class="img-circle elevation-2" width="35px" height="35px" alt="User Image">
     </div>
 
-    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+    {{-- <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
       <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-      document.getElementById('logout-form').submit();">
-        {{ __('Logout') }}
-      </a>
+    document.getElementById('logout-form').submit();">
+    {{ __('Logout') }}
+    </a>
 
-      <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-        @csrf
-      </form>
-    </div>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+      @csrf
+    </form>
+    </div> --}}
   </ul>
 </nav>
 <!-- /.navbar -->

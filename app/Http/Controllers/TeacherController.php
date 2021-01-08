@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TeacherController extends Controller
 {
@@ -13,7 +15,7 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.profile.index');
     }
 
     /**
@@ -66,7 +68,7 @@ class TeacherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Teacher $teacher)
     {
         //
     }

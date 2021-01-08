@@ -13,12 +13,10 @@
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
-          <a href="{{ route('home') }}"
-            class="nav-link {{ request()->is('home') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-book-reader"></i>
+          <a href="{{ route('home') }}" class="nav-link {{ request()->is('home') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
               Home
-              {{-- <i class="right fas fa-angle-left"></i> --}}
             </p>
           </a>
         </li>
@@ -158,6 +156,25 @@
     </li>
   </div>
   @endif
+
+  <li class="nav-header"><strong>USER</strong></li>
+  <li class="nav-item">
+    <a href="{{ route('profile') }}" class="nav-link {{ request()->is('profile') ? 'active' : '' }}">
+      <i class="nav-icon fas fa-id-card"></i>
+      Profile
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
+    document.getElementById('logout-form').submit();">
+      <i class="nav-icon fas fa-sign-out-alt"></i>
+      {{ __('Logout') }}
+    </a>
+
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+      @csrf
+    </form>
+  </li>
   </ul>
   </nav>
   <!-- /.sidebar-menu -->

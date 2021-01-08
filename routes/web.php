@@ -9,6 +9,7 @@ use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TeacherController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,10 @@ Route::group(['middleware' => ['auth']], function () {
     // Role Teacher
     Route::group(['middleware' => 'role:teacher'], function () {
         Route::get('/home', [HomeController::class, 'teacher'])->name('home');
+        Route::get('/profile', [TeacherController::class, 'index'])->name('profile');
+
+        // profile update
+        Route::patch('/profile/update', [UserController::class, 'update'])->name('profile.update');
 
         Route::group(['prefix' => 'teacher'], function () {
             Route::group(['prefix' => 'lesson'], function () {
