@@ -158,12 +158,14 @@
   @endif
 
   <li class="nav-header"><strong>USER</strong></li>
+  @if (auth()->user()->role !== 'admin')
   <li class="nav-item">
     <a href="{{ route('profile') }}" class="nav-link {{ request()->is('profile') ? 'active' : '' }}">
       <i class="nav-icon fas fa-id-card"></i>
       Profile
     </a>
   </li>
+  @endif
   <li class="nav-item">
     <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
     document.getElementById('logout-form').submit();">

@@ -40,6 +40,8 @@
       {{ URL::asset(auth()->user()->teacher->teacher_image)}}
       @elseif(auth()->user()->role === 'student')
       {{ URL::asset(auth()->user()->student->student_image)}}
+      @else
+      {{ URL::asset('img/profile-user.png') }}
       @endif
       " class="img-circle elevation-2" width="35px" height="35px" alt="User Image">
     </div>

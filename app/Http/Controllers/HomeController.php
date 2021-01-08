@@ -18,17 +18,50 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // colour random
+        $colors_array = [
+            'primary',
+            'success',
+            'danger',
+            'warning',
+            'info',
+            'secondary'
+        ];
+
         // user
         $role = Auth::user()->role;
+
         if ($role === 'admin') {
             $auth = Auth::user();
+            $lessons = Lesson::all();
+
+            $colors = Arr::random($colors_array, $lessons->count());
+
+            return view('pages.admin.home', [
+                'auth' => $auth,
+                'lessons' => $lessons,
+                'colors' => $colors
+            ]);
         } else if ($role === 'student') {
             $auth = Student::where('user_id', auth()->user()->id)->firstOrFail();
         } else if ($role === 'teacher') {
             $auth = Teacher::where('user_id', auth()->user()->id)->firstOrFail();
+            $lessons = Lesson::where('teacher_id', $auth->id)->get();
+
+            // count
+            // $count_lessons = $lessons->count();
+
+            // random array
+            $colors = Arr::random($colors_array, $lessons->count());
+
+            return view('pages.teacher.home', [
+                'auth' => $auth,
+                'lessons' => $lessons,
+                'colors' => $colors
+            ]);
         }
 
-        return view('pages/home', ['auth' => $auth]);
+        // return view('pages/home', ['auth' => $auth]);
     }
 
     public function teacher()
@@ -51,7 +84,7 @@ class HomeController extends Controller
 
         // random array
         $colors = Arr::random($colors_array, $count_lessons);
-        
+
         return view('pages.home', [
             'auth' => $auth,
             'lessons' => $lessons,
