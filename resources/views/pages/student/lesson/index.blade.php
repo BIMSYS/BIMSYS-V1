@@ -34,7 +34,7 @@
                         <div class="col-8">
 
                             <span class="text-end"><b style="font-size: 50px;">
-                                    50
+                                    
                                 </b> Lessons</span>
                         </div>
                     </div>
