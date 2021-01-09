@@ -39,6 +39,12 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/profile', [UserController::class, 'profile_index'])->name('profile.student');
             Route::patch('/profile/{user?}/update', [UserController::class, 'profile_update'])->name('profile.student.update');
             Route::patch('/password/{user?}/update', [UserController::class, 'password_update'])->name('password.student.update');
+
+            // lesson
+            Route::group(['prefix' => 'lesson'], function () {
+                Route::get('/', [LessonController::class, 'index'])->name('student.lesson.index');
+                Route::post('/add', [LessonController::class, 'lesson_add'])->name('student.lesson.add');
+            });
         });
     });
 

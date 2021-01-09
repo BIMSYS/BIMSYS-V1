@@ -25,7 +25,13 @@
         @if (Auth::user()->role === 'student')
         <div class="student">
           <li class="nav-item">
-
+            <a href="{{ route('student.lesson.index') }}"
+              class="nav-link {{ request()->is('student/lesson') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-book-reader"> </i>
+              <p>
+                Lessons
+              </p>
+            </a>
           </li>
         </div>
 
@@ -36,7 +42,7 @@
               class="nav-link {{ request()->is('teacher/lesson') ? 'active' : '' }}">
               <i class="nav-icon fas fa-book-reader"> </i>
               <p>
-              Lessons
+                Lessons
               </p>
             </a>
           </li>
@@ -72,7 +78,7 @@
         @endif
 
         @php
-            $role = auth()->user()->role
+        $role = auth()->user()->role
         @endphp
         <li class="nav-header"><strong>USER</strong></li>
         @if ($role != 'admin')
