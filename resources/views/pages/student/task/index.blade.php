@@ -99,7 +99,7 @@
                                     <button type="submit" class="border-0 bg-transparent"><img
                                             src="{{ URL::asset('/img/check.png') }}" style="width: 40px; height: 40px;"
                                             class="mb-2 mr-3 mt-3" alt="Submit"></button>
-                                    <button type="reset" class="border-0 bg-transparent"><img
+                                    <button type="button" data-dismiss="modal" class="border-0 bg-transparent"><img
                                             src="{{ URL::asset('/img/cancel.png') }}" style="width: 40px; height: 40px;"
                                             class="mb-2 mr-3 mt-3" alt="Cancel"></button>
                                 </ul>
@@ -138,7 +138,11 @@
                     </a>
                 </td>
                 <td>
+                    @if ($task->task_date > $task->task_due)
+                    <p>{{ $task->task_date }} <strong class="text-danger">Overdue</strong></p>
+                    @else
                     {{ $task->task_date }}
+                    @endif
                 </td>
                 <td>
                     @if (!empty($task->grade))
@@ -165,3 +169,15 @@
     </div>
 </div>
 @endsection
+
+@push('js')
+<!-- File JS -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".custom-file-input").on("change", function() {
+            var name = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(name);
+        });
+    });
+</script>
+@endpush
