@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Grade;
 use App\Models\Module;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,5 +18,10 @@ class Task extends Model
     public function module()
     {
         return $this->belongsTo(Module::class);
+    }
+
+    public function grade()
+    {
+        return $this->hasOne(Grade::class);
     }
 }

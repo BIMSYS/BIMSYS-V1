@@ -31,9 +31,4 @@ class Lesson extends Model
     {
         return $this->hasMany(Module::class);
     }
-
-    public function grade()
-    {
-        return $this->hasOne(Grade::class);
-    }
 }

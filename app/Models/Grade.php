@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Lesson;
+use App\Models\Task;
 use App\Models\Student;
 use App\Models\Teacher;
 use Illuminate\Database\Eloquent\Model;
@@ -26,8 +26,8 @@ class Grade extends Model
         return $this->hasOne(Teacher::class);
     }
 
-    public function lesson()
+    public function task()
     {
-        return $this->belongsTo(Lesson::class);
+        return $this->hasOne(Task::class);
     }
 }
