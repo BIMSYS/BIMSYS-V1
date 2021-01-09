@@ -36,27 +36,27 @@
 
 <section>
     <div class="container">
-            <div class="card card-primary card-tabs">
-              <div class="card-header p-0 pt-1">
+        <div class="card card-primary card-tabs">
+            <div class="card-header p-0 pt-1">
                 <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
-                  <li class="nav-item">
-                    <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill"
+                    <li class="nav-item">
+                        <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill"
                             href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home"
                             aria-selected="true">About Me</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
                             href="#custom-tabs-one-profile" role="tab" aria-controls="custom-tabs-one-profile"
                             aria-selected="false">Edit Profile</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill"
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill"
                             href="#custom-tabs-one-messages" role="tab" aria-controls="custom-tabs-one-messages"
                             aria-selected="false">Change Password</a>
-                  </li>
+                    </li>
                 </ul>
-              </div>
-              <div class="card-body">
+            </div>
+            <div class="card-body">
                 <div class="tab-content" id="custom-tabs-one-tabContent">
                     <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel"
                         aria-labelledby="custom-tabs-one-home-tab">
@@ -70,7 +70,11 @@
 
                     <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel"
                         aria-labelledby="custom-tabs-one-profile-tab">
-                        <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
+                        @php
+                        $role = auth()->user()->role
+                        @endphp
+                        <form method="POST" action="{{ route("profile.$role.update", auth()->user()) }}"
+                            enctype="multipart/form-data">
                             @csrf
                             @method('PATCH')
                             <div class="row">
@@ -88,11 +92,15 @@
                                             <div class="input-group-text bg-primary">
                                                 <span class="far fa-user" style="width: 20px;"></span>
                                             </div>
+                                            @php
+                                            $role_fullname = ($role . "_fullname");
+                                            $role_image = ($role . "_image");
+                                            $name = auth()->user()->$role->$role_fullname;
+                                            $image = auth()->user()->$role->$role_image;
+                                            @endphp
                                             <input type="text" name="name"
                                                 class="form-control @error('name') is-invalid @enderror"
-                                                placeholder="Name" value="@if (auth()->user()->role === 'teacher'){{ auth()->user()->teacher->teacher_fullname }}
-                                                @elseif(auth()->user()->role === 'student'){{ auth()->user()->student->student_fullname }}
-                                                @endif" autocomplete="name" autofocus>
+                                                placeholder="Name" value="{{ $name }}" autocomplete="name" autofocus>
                                             @error('name')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -138,7 +146,7 @@
                                         <div class="custom-file">
                                             <input type="file"
                                                 class="custom-file-input @error('image') is-invalid @enderror"
-                                                id="image" name="image" value="{{ old('image') }}">
+                                                id="image" name="image" value="{{ $image }}">
                                             <label class="custom-file-label" for="image">Choose Image</label>
 
                                             @error('image')
@@ -148,7 +156,6 @@
                                             @enderror
                                         </div>
                                     </div>
-
                                     <br>
                                     <button type="submit" class="btn btn-primary" style="border-radius: 5%;"><img
                                             src="{{URL::asset('/img/edit.png')}}" style="width: 25px; height: 25px;"
@@ -156,56 +163,79 @@
                                 </div>
                         </form>
                     </div>
-                  </div>
-
-                  <div class="tab-pane fade" id="custom-tabs-one-messages" role="tabpanel" aria-labelledby="custom-tabs-one-messages-tab">
-                            <div class="container">
-                                <div class="col-md-6 mb-3" style="margin-left:300px;">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text bg-primary">
-                                                <span class="fas fa-lock"></span>
-                                            </div>
-                                        </div>
-
-                                        <input type="password" name="password"
-                                            class="form-control @error('password') is-invalid @enderror" name="password"
-                                            placeholder="New Password" autocomplete="password" autofocus>
-
-                                     
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong></strong>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6 mb-3" style="margin-left:300px;">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text bg-primary">
-                                                <span class="fas fa-lock"></span>
-                                            </div>
-                                        </div>
-
-                                        <input type="password" name="confirmpassword"
-                                            class="form-control @error('password') is-invalid @enderror" name="confirmpassword"
-                                            placeholder="Confirm New Password" autocomplete="confirmpassword" autofocus>
-
-                                     
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong></strong>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <button type="submit" class="btn btn-primary" style="border-radius: 5%; margin-left:310px;"><img
-                                            src="{{URL::asset('/img/edit.png')}}" style="width: 25px; height: 25px;"
-                                            class="mb-1" alt="">&nbsp; &nbsp; OK</button>
-                            </div>
-                  </div>
                 </div>
-              </div>
-              <!-- /.card -->
+
+                <div class="tab-pane fade" id="custom-tabs-one-messages" role="tabpanel"
+                    aria-labelledby="custom-tabs-one-messages-tab">
+                    <form action="{{ route("password.$role.update", auth()->user()) }}" method='POST'>
+                        @csrf
+                        @method('PATCH')
+                        <div class="container">
+                            <h6 class="text-center">Current Password</h6>
+                            <div class="col-md-6 mb-3" style="margin-left:300px;">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text bg-primary">
+                                            <span class="fas fa-lock"></span>
+                                        </div>
+                                    </div>
+
+                                    <input type="password" name="current_password"
+                                        class="form-control @error('current_password') is-invalid @enderror"
+                                        placeholder="Current Password" autocomplete="current_password" autofocus>
+                                    @error('current_password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <h6 class="text-center">New Password</h6>
+                            <div class="col-md-6 mb-3" style="margin-left:300px;">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text bg-primary">
+                                            <span class="fas fa-lock"></span>
+                                        </div>
+                                    </div>
+
+                                    <input type="password" name="password"
+                                        class="form-control @error('password') is-invalid @enderror"
+                                        placeholder="New Password" autocomplete="password" autofocus>
+                                    @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3" style="margin-left:300px;">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text bg-primary">
+                                            <span class="fas fa-check-circle"></span>
+                                        </div>
+                                    </div>
+
+                                    <input id="password_confirmation" type="password" class="form-control"
+                                        name="password_confirmation" placeholder="Confirm Password"
+                                        autocomplete="new-password">
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary rounded"><img
+                                        src="{{URL::asset('/img/edit.png')}}" style="width: 25px; height: 25px;"
+                                        class="mb-1" alt="">&nbsp; &nbsp; Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- /.card -->
     </div>
 </section>
 @endsection

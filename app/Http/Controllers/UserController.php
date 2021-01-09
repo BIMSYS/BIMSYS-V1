@@ -17,6 +17,106 @@ class UserController extends Controller
         return view('pages.profile.index');
     }
 
+    public function profile_update(Request $request, User $user)
+    {
+        // cek request unique data
+        if ($user->username !== $request['username'] || $user->email !== $request['email']) {
+            $validation = 'unique:users';
+        } else {
+            $validation = null;
+        }
+
+        // validation
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'username' => "required|alpha_dash|string|max:255|$validation",
+            'email' => "required|string|email|max:255|$validation",
+            'image' => 'image|nullable'
+        ]);
+
+        // set image for delete img
+        if ($user->role === 'student') {
+            $image = $user->student->student_image;
+        } elseif ($user->role === 'teacher') {
+            $image = $user->teacher->teacher_image;
+        }
+
+        // cek image
+        if ($request['image']) {
+            // file upload
+            $file = $request->file('image');
+            $fileName = rand() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('img/profile-img', $fileName);
+            $file->move('img/profile-img', $fileName);
+        } else {
+            $path = 'img/profile-user.png';
+        }
+
+        // user update
+        $user = $user::find($user->id);
+        $user->username = Str::lower($request['username']);
+        $user->email = $request['email'];
+
+        // save
+        $user->save();
+
+        // role cek
+        if ($user->role === 'student') {
+            $student = Student::where('user_id', $user->id)->firstOrFail();
+
+            $student->user_id = $user->id;
+            $student->student_fullname = ucwords(Str::lower($request['name']));
+            $student->student_image = $path;
+
+            $user->student()->save($student);
+        } elseif ($user->role === 'teacher') {
+            $teacher = Teacher::where('user_id', $user->id)->firstOrFail();
+
+            $teacher->user_id = $user->id;
+            $teacher->teacher_fullname = ucwords(Str::lower($request['name']));
+            $teacher->teacher_image = $path;
+
+            $user->teacher()->save($teacher);
+        }
+
+        // delete image from public
+        if (File::exists(public_path($image)) && $image !== "img/profile-user.png") {
+            File::delete(public_path($image));
+        }
+
+        // message
+        if ($user || $student || $teacher) {
+            return redirect(route("profile.$user->role"))->with('success', 'Profile berhasil diupdate');
+        } else {
+            return redirect(route("profile.$user->role"))->with('danger', 'Profile gagal diupdate!');
+        }
+    }
+
+    public function password_update(Request $request, User $user)
+    {
+        // validation
+        $request->validate([
+            'current_password' => 'required',
+            'password' => 'required|string|min:8|confirmed'
+        ]);
+
+        if (Hash::check($request['current_password'], $user->password)) {
+            $user->password = Hash::make($request['password']);
+
+            // save
+            $user->save();
+
+            // message
+            if ($user) {
+                return redirect(route("profile.$user->role"))->with('success', 'Password berhasil diupdate');
+            } else {
+                return redirect(route("profile.$user->role"))->with('danger', 'Password gagal diupdate!');
+            }
+        } else {
+            return redirect(route("profile.$user->role"))->with('warning', 'Current Password tidak sesuai!');
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *

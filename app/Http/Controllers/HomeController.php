@@ -19,6 +19,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // dd(auth()->user()->role);
         // colour random
         $colors_array = [
             'primary',
