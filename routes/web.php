@@ -3,12 +3,13 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\GradeController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\StudentController;
-use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TeacherController;
 
 /*
@@ -21,6 +22,7 @@ use App\Http\Controllers\TeacherController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 
 // guest home
 Route::view('/', 'pages.index')->middleware('guest');
@@ -90,10 +92,17 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/{module?}', [TaskController::class, 'index'])->name('teacher.task.index');
                 Route::get('/{module?}/create', [TaskController::class, 'create'])->name('teacher.task.create');
                 Route::post('/store', [TaskController::class, 'store'])->name('teacher.task.store');
-                Route::get('/{task?}/edit', [TaskController::class, 'edit'])->name('teacher.task.edit');
+                Route::get('/{task?}/edit/{module?}', [TaskController::class, 'edit'])->name('teacher.task.edit');
                 Route::patch('/{task?}/update', [TaskController::class, 'update'])->name('teacher.task.update');
-                Route::delete('/{task?}/destroy', [TaskController::class, 'destroy'])->name('teacher.task.destroy');
-                Route::get('/{task?}/download', [TaskController::class, 'download'])->name('teacher.task.download');
+                Route::delete('/{task?}/destroy/{module?}', [TaskController::class, 'destroy'])->name('teacher.task.destroy');
+                Route::get('/{task?}/download', [TaskController::class, 'task_download'])->name('teacher.task.download');
+
+                // task participant grade
+                Route::group(['prefix' => 'participant'], function () {
+                    Route::get('/{task?}/download', [TaskController::class, 'result_download'])->name('teacher.task.participant.download');
+                    Route::post('/{student?}/store/{task?}', [GradeController::class, 'store'])->name('teacher.grade.participant.store');
+                    Route::patch('/{grade?}/update/{task?}/{student?}', [GradeController::class, 'update'])->name('teacher.grade.participant.update');
+                });
             });
         });
     });

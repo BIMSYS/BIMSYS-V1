@@ -16,6 +16,7 @@ class CreateStudentsTable extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onUpdate("cascade")->onDelete("cascade");
+            // $table->foreignId('grade_id')->constrained('grades')->onUpdate("cascade")->onDelete("cascade")->nullable();
             $table->string('student_fullname');
             $table->string('student_image')->default('img/profile-user.png')->nullable();
             $table->timestamps();
