@@ -77,7 +77,7 @@
         <li class="nav-header"><strong>USER</strong></li>
         @if ($role !== 'admin')
         <li class="nav-item">
-          <a href="{{ route('profile') }}" class="nav-link {{ request()->is("$role/profile") ? 'active' : '' }}">
+          <a href="{{ route("profile.$role") }}" class="nav-link {{ request()->is("$role/profile") ? 'active' : '' }}">
             <i class="nav-icon fas fa-id-card"></i>
             Profile
           </a>
