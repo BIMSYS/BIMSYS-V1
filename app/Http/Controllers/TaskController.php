@@ -21,13 +21,16 @@ class TaskController extends Controller
      */
     public function index(Module $module)
     {
-        $task = Task::where('module_id', $module->id)->firstOrFail();
+        $task = Task::where('module_id', $module->id)->first();
 
-        
+        $lesson = Lesson::where('id', $module->lesson_id)->first();
+
+        $students = $lesson->students()->orderBy('student_fullname')->paginate(5);
 
         return view('pages.teacher.task.index', [
             'task' => $task,
-            'module' => $module
+            'module' => $module,
+            'students' => $students
         ]);
     }
 
@@ -187,10 +190,24 @@ class TaskController extends Controller
         }
     }
 
-    public function download(Task $task)
+    public function task_download(Task $task)
     {
         $path = public_path("uploads/$task->task_file");
         $fileName = $task->task_file;
+        $headers = [
+            'Content-Type: application/pdf',
+            'Content-Type: application/msword',
+            'Content-Type: application/vnd.ms-excel',
+            'Content-Type: application/vnd.ms-powerpoint'
+        ];
+
+        return response()->download($path, $fileName, $headers);
+    }
+
+    public function result_download(Task $task)
+    {
+        $path = public_path("uploads/$task->task_result");
+        $fileName = $task->task_result;
         $headers = [
             'Content-Type: application/pdf',
             'Content-Type: application/msword',
