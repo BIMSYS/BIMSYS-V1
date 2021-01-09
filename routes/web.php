@@ -21,12 +21,12 @@ use App\Http\Controllers\TeacherController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::view('studentlesson','pages/student/lesson/index');
+
 // guest home
 Route::view('/', 'pages.index')->middleware('guest');
 
-Route::view('/studentlesson', 'pages.student.lesson.index');
 Route::view('/student/module','pages.student.module.index');
+Route::view('student/lesson','pages/student/lesson/index');
 // auth
 Auth::routes();
 Route::view('/profileguru', 'pages/teacher/profile/profileguru');
@@ -51,6 +51,8 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::get('/profile/{auth}/password', [PasswordController::class, 'index'])->name('password.edit');
         Route::patch('/profile/{auth}/password', [PasswordController::class, 'update'])->name('password.edit');
+
+       
     });
 
     // Role Teacher

@@ -52,14 +52,15 @@
                 <th scope="col">MODULE FILE</th>
                 <th scope="col">LINK</th>
                 <th scope="col">TASK MODULE</th>
+                <th scope="col">TASK RESULT</th>
                 
             </tr>
         </thead>
         <tbody>
             
             <tr class="align-middle">
-                <td></td>
-                <td></td>
+                <td>MODULE TITLE</td>
+                <td>MODULE DESCRIPTION</td>
                 <td>
                     <a href="">
                         <span class="fas fa-file-download" style="font-size: 35px"></span>
@@ -73,8 +74,71 @@
                    
                 </td>
                 <td>
-                    <a href="" role="button">Click here for ur task</a>
+                    <a href="" role="button" data-toggle="modal" data-target="#uploadtask">Click here for upload ur task</a>
+                    <div class="modal fade" id="uploadtask" tabindex="-1" aria-labelledby="uploadtask" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="delete">Enroll Class</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <div class="row no-gutters">
+                                        <div class="col">
+
+                                            <div class="form-group ">
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text bg-primary">
+                                                            <span class="fas fa-book"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <input type="text" name="Lesson Code" class="form-control @error('Lesson Code') is-invalid @enderror" placeholder="Lesson Code" value="{{ old('Lesson Code') }}" autocomplete="Lesson Code" autofocus>
+
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong></strong>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group ">
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text bg-primary">
+                                                            <span class="fas fa-book"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <input type="text" name="Enroll Code" class="form-control @error('Enroll Code') is-invalid @enderror" placeholder="Enroll Code" value="{{ old('Enroll Code') }}" autocomplete="Enroll Code" autofocus>
+
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong></strong>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <ul class="nav justify-content-center">
+                                        <button type="submit" class="border-0 bg-transparent"><img src="{{ URL::asset('/img/check.png') }}" style="width: 40px; height: 40px;" class="mb-2 mr-3 mt-3" alt="Submit"></button>
+                                        <button type="reset" class="border-0 bg-transparent"><img src="{{ URL::asset('/img/cancel.png') }}" style="width: 40px; height: 40px;" class="mb-2 mr-3 mt-3" alt="Cancel"></button>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </td>
+                <td>disini ntar yang udah diupload ya</td>
                 
             </tr>
 
