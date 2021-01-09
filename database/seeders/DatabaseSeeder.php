@@ -22,11 +22,11 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         $this->call(UserSeeder::class);
-        User::factory()->times(10)->create();
-        // $lesson = Lesson::factory()->count(10)->create();
-        Student::factory()->times(10)->has(Lesson::factory()->count(5))->create();
-        Teacher::factory()->times(10)->has(Lesson::factory()->count(5))->create();
-        Module::factory()->times(10)->create();
-        Grade::factory()->times(10)->create();
+        // User::factory()->times(10)->create();
+        // // $lesson = Lesson::factory()->count(10)->create();
+        // Student::factory()->times(10)->has(Lesson::factory()->count(5))->create();
+        // Teacher::factory()->times(10)->has(Lesson::factory()->count(5))->create();
+        // Module::factory()->times(10)->create();
+        // Grade::factory()->times(10)->create();
     }
 }

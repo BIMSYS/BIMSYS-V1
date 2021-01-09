@@ -32,7 +32,7 @@
                         <div class="col-8">
                             {{-- count module --}}
                             <span class="text-end"><b style="font-size: 50px;">
-                                   
+
                                 </b> Tasks</span>
                         </div>
                     </div>
@@ -44,17 +44,16 @@
             <a class="btn btn-primary mt-5" href="" role="button" data-toggle="modal" data-target="#create">
                 <img src="{{ URL::asset('/img/plus.png') }}" alt="Create New Data" style="width: 35px; height: 35px;">
                 &nbsp; Create New Task</a>
-                <!-- Delete Modal -->
-            <div class="modal fade" id="create" tabindex="-1" aria-labelledby="create"
-                aria-hidden="true">
+            <!-- Delete Modal -->
+            <div class="modal fade" id="create" tabindex="-1" aria-labelledby="create" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
-                    
+
                         <div class="modal-header">
                             <h5 class="modal-title" id="delete">Create New Task</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
 
                         <div class="modal-body">
@@ -70,9 +69,10 @@
                                             </div>
 
                                             <input type="text" name="task_title"
-                                                class="form-control @error('task_title') is-invalid @enderror" 
-                                                placeholder="Task Title" value="{{ old('task_title') }}" autocomplete="task_title" autofocus>
-                                       
+                                                class="form-control @error('task_title') is-invalid @enderror"
+                                                placeholder="Task Title" value="{{ old('task_title') }}"
+                                                autocomplete="task_title" autofocus>
+
                                             <span class="invalid-feedback" role="alert">
                                                 <strong></strong>
                                             </span>
@@ -134,9 +134,10 @@
                                                 </div>
 
                                                 <input type="date" name="task_due"
-                                                    class="form-control @error('task_due') is-invalid @enderror" 
-                                                    placeholder="Task Due" value="{{ old('task_due') }}" autocomplete="task_due" autofocus>
-                                        
+                                                    class="form-control @error('task_due') is-invalid @enderror"
+                                                    placeholder="Task Due" value="{{ old('task_due') }}"
+                                                    autocomplete="task_due" autofocus>
+
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong></strong>
                                                 </span>
@@ -151,9 +152,10 @@
                                                 </div>
 
                                                 <input type="date" name="task_due"
-                                                    class="form-control @error('task_due') is-invalid @enderror" 
-                                                    placeholder="Task Due" value="{{ old('task_due') }}" autocomplete="task_due" autofocus>
-                                        
+                                                    class="form-control @error('task_due') is-invalid @enderror"
+                                                    placeholder="Task Due" value="{{ old('task_due') }}"
+                                                    autocomplete="task_due" autofocus>
+
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong></strong>
                                                 </span>
@@ -196,7 +198,7 @@
             </tr>
         </thead>
         <tbody>
-          
+
             <tr class="align-middle">
                 <td>task title</td>
                 <td>
@@ -205,9 +207,9 @@
                     </a>
                 </td>
                 <td>
-         
+
                     <a href="">Link</a>
-                 
+
                 </td>
                 <td>
                     task due
@@ -216,9 +218,8 @@
                     task date
                 </td>
                 <td>
-                    <a href="" role="button"><img
-                            src="{{ URL::asset('/img/edit.png') }}" style="width: 30px; height: 30px;"
-                            class="mb-2 mr-3 mt-3" alt="Edit"></a>
+                    <a href="" role="button"><img src="{{ URL::asset('/img/edit.png') }}"
+                            style="width: 30px; height: 30px;" class="mb-2 mr-3 mt-3" alt="Edit"></a>
                     <a data-toggle="modal" data-target="#delete" role="button"><img
                             src="{{ URL::asset('/img/delete.png') }}" style="width: 30px; height: 30px;"
                             class="mb-2 mt-3" alt="Delete"></a>
@@ -226,8 +227,7 @@
             </tr>
 
             <!-- Delete Modal -->
-            <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="delete"
-                aria-hidden="true">
+            <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="delete" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -250,24 +250,24 @@
                     </div>
                 </div>
             </div>
-       
+
             <tr>
                 <td colspan="5">
                     <h4 class="text-center">Data Empty</h4>
                 </td>
             </tr>
-           
+
 
         </tbody>
     </table>
     <div class="col-6 d-flex" style="height: 100px;">
-                <a class="btn btn-primary mt-5" href="{{ route('teacher.lesson.index') }}" role="button"> <img
-                        src="{{ URL::asset('/img/back.png') }}" alt="Create New Data" style="width: 35px; height: 35px;">
-                    &nbsp; Back</a>
+        <a class="btn btn-primary mt-5" href="{{ route('teacher.lesson.index') }}" role="button"> <img
+                src="{{ URL::asset('/img/back.png') }}" alt="Create New Data" style="width: 35px; height: 35px;">
+            &nbsp; Back</a>
     </div>
-    
+
     <div class="d-flex justify-content-center">
-      
+
     </div>
 </div>
 @endsection
