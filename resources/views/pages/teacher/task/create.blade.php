@@ -24,7 +24,7 @@
     <div class="col-md-12 d-flex justify-content-center">
         <div class="card" style="width: 50rem;">
             <div class="card-header bg-primary">
-                <h1 style="text-align:center;">Create New Module</h1>
+                <h1 style="text-align:center;">Create New Task</h1>
             </div>
 
             <div class="card-body">
