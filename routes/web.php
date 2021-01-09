@@ -25,12 +25,13 @@ use App\Http\Controllers\TeacherController;
 // guest home
 Route::view('/', 'pages.index')->middleware('guest');
 
+Route::view('/studentlesson', 'pages.student.lesson.index');
 // auth
 Auth::routes();
 Route::view('/profileguru', 'pages/teacher/profile/profileguru');
 // middleware login auth
 Route::group(['middleware' => ['auth']], function () {
-    // Route::get('/home', [HomeController::class, 'index'])->name('home');
+     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     // Role Student
     Route::group(['middleware' => 'student', 'prefix' => 'student'], function () {
