@@ -72,12 +72,13 @@ Route::group(['middleware' => ['auth']], function () {
 
             // lesson task
             Route::group(['prefix' => 'task'], function () {
-                Route::get('/', [TaskController::class, 'index'])->name('teacher.task.index');
-                Route::get('/create', [TaskController::class, 'create'])->name('teacher.task.create');
+                Route::get('/{module?}', [TaskController::class, 'index'])->name('teacher.task.index');
+                Route::get('/{module?}/create', [TaskController::class, 'create'])->name('teacher.task.create');
                 Route::post('/store', [TaskController::class, 'store'])->name('teacher.task.store');
                 Route::get('/{task?}/edit', [TaskController::class, 'edit'])->name('teacher.task.edit');
                 Route::patch('/{task?}/update', [TaskController::class, 'update'])->name('teacher.task.update');
                 Route::delete('/{task?}/destroy', [TaskController::class, 'destroy'])->name('teacher.task.destroy');
+                Route::get('/{task?}/download', [TaskController::class, 'download'])->name('teacher.task.download');
             });
         });
     });
