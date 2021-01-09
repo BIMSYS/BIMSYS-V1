@@ -29,6 +29,7 @@ Route::view('/studentlesson', 'pages.student.lesson.index');
 // auth
 Auth::routes();
 Route::view('/profileguru', 'pages/teacher/profile/profileguru');
+
 // middleware login auth
 Route::group(['middleware' => ['auth']], function () {
      Route::get('/home', [HomeController::class, 'index'])->name('home');
