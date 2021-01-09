@@ -86,20 +86,24 @@
                     @endif
                 </td>
                 <td>
-                    <a href="" role="button"><img src="{{ URL::asset('/img/edit.png') }}"
+                    <a href="{{ route('teacher.task.edit', [
+                        'task' => $task,
+                        'module' => $module
+                    ]) }}" role="button"><img src="{{ URL::asset('/img/edit.png') }}"
                             style="width: 30px; height: 30px;" class="mb-2 mr-3 mt-3" alt="Edit"></a>
-                    <a data-toggle="modal" data-target="#delete" role="button"><img
+                    <a data-toggle="modal" data-target="#delete{{ $task->id }}" role="button"><img
                             src="{{ URL::asset('/img/delete.png') }}" style="width: 30px; height: 30px;"
                             class="mb-2 mt-3" alt="Delete"></a>
                 </td>
             </tr>
 
             <!-- Delete Modal -->
-            <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="delete" aria-hidden="true">
+            <div class="modal fade" id="delete{{ $task->id }}" tabindex="-1" aria-labelledby="delete{{ $task->id }}"
+                aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="delete">Delete task</h5>
+                            <h5 class="modal-title" id="delete{{ $task->id }}">Delete task</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -107,7 +111,10 @@
                         <div class="modal-body">
                             Are You Sure Want to Delete?
                         </div>
-                        <form action="" method="POST">
+                        <form action="{{ route('teacher.task.destroy', [
+                            'task' => $task,
+                            'module' => $module
+                        ]) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <div class="modal-footer text-right">

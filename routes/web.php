@@ -75,9 +75,9 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/{module?}', [TaskController::class, 'index'])->name('teacher.task.index');
                 Route::get('/{module?}/create', [TaskController::class, 'create'])->name('teacher.task.create');
                 Route::post('/store', [TaskController::class, 'store'])->name('teacher.task.store');
-                Route::get('/{task?}/edit', [TaskController::class, 'edit'])->name('teacher.task.edit');
+                Route::get('/{task?}/edit/{module?}', [TaskController::class, 'edit'])->name('teacher.task.edit');
                 Route::patch('/{task?}/update', [TaskController::class, 'update'])->name('teacher.task.update');
-                Route::delete('/{task?}/destroy', [TaskController::class, 'destroy'])->name('teacher.task.destroy');
+                Route::delete('/{task?}/destroy/{module?}', [TaskController::class, 'destroy'])->name('teacher.task.destroy');
                 Route::get('/{task?}/download', [TaskController::class, 'download'])->name('teacher.task.download');
             });
         });
