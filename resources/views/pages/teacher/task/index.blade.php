@@ -240,7 +240,7 @@
     </div>
 
     <div class="d-flex justify-content-center">
-        {{ $students    ->links('vendor.pagination.bootstrap-4', ['elements' => $students   ]) }}
+        {{ $students->links('vendor.pagination.bootstrap-4', ['elements' => $students]) }}
     </div>
 </div>
 @endsection

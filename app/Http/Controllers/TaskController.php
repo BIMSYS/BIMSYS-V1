@@ -25,13 +25,20 @@ class TaskController extends Controller
 
         $lesson = Lesson::where('id', $module->lesson_id)->first();
 
-        $students = $lesson->students()->orderBy('student_fullname')->paginate(5);
+        if (auth()->user()->role === 'teacher') {
+            $students = $lesson->students()->orderBy('student_fullname')->paginate(5);
 
-        return view('pages.teacher.task.index', [
-            'task' => $task,
-            'module' => $module,
-            'students' => $students
-        ]);
+            return view('pages.teacher.task.index', [
+                'task' => $task,
+                'module' => $module,
+                'students' => $students
+            ]);
+        } elseif (auth()->user()->role === 'student') {
+            return view('pages.student.task.index', [
+                'task' => $task,
+                'module' => $module
+            ]);
+        }
     }
 
     /**
@@ -216,5 +223,43 @@ class TaskController extends Controller
         ];
 
         return response()->download($path, $fileName, $headers);
+    }
+
+    public function result_upload(Request $request, Task $task, Module $module)
+    {
+        $request->validate([
+            'task_result' => 'required|mimetypes:application/pdf,application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint'
+        ]);
+
+        // cek file
+        $file = $request->file('task_result');
+        $fileName = rand() . '_' . $file->getClientOriginalName();
+        $file->move('uploads', $fileName);
+
+        if ($request['task_result'] !== null) {
+            $oldFile = "uploads/$task->task_result";
+
+            // file
+            $task->task_result = $fileName;
+
+            // delete file from public
+            if (File::exists(public_path($oldFile))) {
+                File::delete(public_path($oldFile));
+            }
+        } else {
+            // file
+            $task->task_result = $fileName;
+        }
+
+        $task->task_date = date('Y-m-d');
+        
+        // save
+        $task->save();
+
+        if ($task) {
+            return redirect(route("student.task.index", $module))->with('success', 'Task Result berhasil Diupload!');
+        } else {
+            return redirect(route("student.task.index", $module))->with('danger', 'Task Result gagal Diupload!');
+        }
     }
 }

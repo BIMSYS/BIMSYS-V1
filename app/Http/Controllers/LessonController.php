@@ -150,11 +150,19 @@ class LessonController extends Controller
 
         $modules = $modules->paginate(5);
 
-        return view('pages.teacher.module.index', [
-            'lesson' => $lesson,
-            'modules' => $modules,
-            'modules_count' => $modules_count
-        ]);
+        if (auth()->user()->role === 'teacher') {
+            return view('pages.teacher.module.index', [
+                'lesson' => $lesson,
+                'modules' => $modules,
+                'modules_count' => $modules_count
+            ]);
+        } elseif (auth()->user()->role === 'student') {
+            return view('pages.student.module.index', [
+                'lesson' => $lesson,
+                'modules' => $modules,
+                'modules_count' => $modules_count
+            ]);
+        }
     }
 
     /**

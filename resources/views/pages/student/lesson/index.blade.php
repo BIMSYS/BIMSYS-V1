@@ -58,7 +58,6 @@
 
                         <form action="{{ route('student.lesson.add') }}" method="POST">
                             @csrf
-                            {{-- @method('PATCH') --}}
                             <div class="modal-body">
                                 <div class="row no-gutters">
                                     <div class="col">
@@ -144,7 +143,7 @@
                 <td>{{ $lesson->lesson_code }}</td>
                 <td>{{ $lesson->lesson_description }}</td>
                 <td>
-                    <a href="" role="button">
+                    <a href="{{ route('student.lesson.show', $lesson) }}" role="button">
                         <i class="fas fa-eye mr-2 text-info" style="font-size: 28px"></i>
                     </a>
                 </td>

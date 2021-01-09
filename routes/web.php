@@ -44,6 +44,18 @@ Route::group(['middleware' => ['auth']], function () {
             Route::group(['prefix' => 'lesson'], function () {
                 Route::get('/', [LessonController::class, 'index'])->name('student.lesson.index');
                 Route::post('/add', [LessonController::class, 'lesson_add'])->name('student.lesson.add');
+
+                // module
+                Route::get('/{lesson?}/show', [LessonController::class, 'show'])->name('student.lesson.show');
+                Route::get('/{module?}/download', [ModuleController::class, 'download'])->name('student.module.download');
+
+                // task
+                Route::group(['prefix' => 'task'], function () {
+                    Route::get('/{module?}', [TaskController::class, 'index'])->name('student.task.index');
+                    Route::get('/{task?}/download', [TaskController::class, 'task_download'])->name('student.task.download');
+                    Route::patch('/{task?}/upload/{module?}', [TaskController::class, 'result_upload'])->name('student.task.result.upload');
+                    Route::get('/{task?}/download/result', [TaskController::class, 'result_download'])->name('student.task.result.download');
+                });
             });
         });
     });
