@@ -34,9 +34,9 @@
           <li class="nav-item">
             <a href="{{ route('teacher.lesson.index') }}"
               class="nav-link {{ request()->is('teacher/lesson') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-book-reader"></i>
+              <i class="nav-icon fas fa-book-reader"> </i>
               <p>
-                Lessons
+              Lessons
               </p>
             </a>
           </li>
