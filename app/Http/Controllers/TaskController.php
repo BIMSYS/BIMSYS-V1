@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Grade;
 use App\Models\Task;
 use App\Models\Lesson;
 use App\Models\Module;
+use App\Models\Student;
 use App\Models\Teacher;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -19,14 +21,14 @@ class TaskController extends Controller
      */
     public function index(Module $module)
     {
-        if (auth()->user()->role === 'teacher') {
-            $tasks = Task::all();
+        $task = Task::where('module_id', $module->id)->firstOrFail();
 
-            return view('pages.teacher.task.index', [
-                'tasks' => $tasks,
-                'module' => $module
-            ]);
-        }
+        
+
+        return view('pages.teacher.task.index', [
+            'task' => $task,
+            'module' => $module
+        ]);
     }
 
     /**
@@ -125,7 +127,8 @@ class TaskController extends Controller
             'task_title' => 'required|max:255',
             'task_file' => 'mimetypes:application/pdf,application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint',
             'task_link' => 'max:255',
-            'task_due' => 'required|date'
+            'task_due' => 'required|date',
+            'task_grade' => 'required|double'
         ]);
 
         // update task

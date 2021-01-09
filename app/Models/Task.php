@@ -17,7 +17,7 @@ class Task extends Model
 
     public function module()
     {
-        return $this->belongsTo(Module::class);
+        return $this->hasOne(Module::class);
     }
 
     public function grade()

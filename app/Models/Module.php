@@ -20,8 +20,8 @@ class Module extends Model
         return $this->belongsTo(Lesson::class);
     }
 
-    public function tasks()
+    public function task()
     {
-        return $this->hasMany(Task::class);
+        return $this->hasOne(Task::class);
     }
 }

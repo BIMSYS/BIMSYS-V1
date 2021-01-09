@@ -29,7 +29,8 @@
 
             <div class="card-body">
                 <fieldset>
-                    <form method="POST" action="{{ route('teacher.task.update', $task) }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('teacher.task.update', $task) }}"
+                        enctype="multipart/form-data">
                         @csrf
                         @method('PATCH')
                         <input type="hidden" name="task_module" value="{{ $module->id }}">

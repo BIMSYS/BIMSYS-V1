@@ -20,7 +20,8 @@ use App\Http\Controllers\TeacherController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::view('studentlesson','pages/student/lesson/index');
+
+Route::view('studentlesson', 'pages/student/lesson/index');
 // guest home
 Route::view('/', 'pages.index')->middleware('guest');
 
@@ -81,6 +82,11 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::patch('/{task?}/update', [TaskController::class, 'update'])->name('teacher.task.update');
                 Route::delete('/{task?}/destroy/{module?}', [TaskController::class, 'destroy'])->name('teacher.task.destroy');
                 Route::get('/{task?}/download', [TaskController::class, 'download'])->name('teacher.task.download');
+
+                // task participant grade
+                Route::group(['prefix' => 'participant'], function () {
+                    
+                });
             });
         });
     });

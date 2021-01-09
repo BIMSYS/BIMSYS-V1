@@ -39,13 +39,7 @@
                 </div>
             </div>
         </div>
-
-        {{-- <div class="col-5 d-flex justify-content-end ml-4" style="height: 100px;">
-            <a class="btn btn-primary mt-5" href="{{ route('admin.user.create') }}" role="button"> <img
-            src="{{ URL::asset('/img/plus.png') }}" alt="Create New Data" style="width: 35px; height: 35px;">
-        &nbsp; Create New Data</a>
-    </div> --}}
-</div>
+    </div>
 </div>
 
 <div class="container-start ml-3 mr-5">
@@ -111,6 +105,13 @@
             @endforelse
         </tbody>
     </table>
+
+    <div class="col-6 d-flex" style="height: 100px;">
+        <a class="btn btn-primary mt-5" href="{{ route('teacher.lesson.index') }}" role="button"> <img
+                src="{{ URL::asset('/img/back.png') }}" alt="Create New Data" style="width: 35px; height: 35px;">
+            &nbsp; Back</a>
+    </div>
+
     <div class="d-flex justify-content-center">
         {{ $students->links('vendor.pagination.bootstrap-4', ['elements' => $students]) }}
     </div>
