@@ -80,7 +80,7 @@
                             <div class="modal-content">
 
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="delete">Enroll Class</h5>
+                                    <h5 class="modal-title" id="delete">Task Result</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -89,41 +89,27 @@
                                 <div class="modal-body">
                                     <div class="row no-gutters">
                                         <div class="col">
+                                                <div class="form-group ">
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <div class="input-group-text bg-primary">
+                                                                <span class="fas fa-book-open"></span>
+                                                            </div>
+                                                        </div>
 
-                                            <div class="form-group ">
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text bg-primary">
-                                                            <span class="fas fa-book"></span>
+                                                        <div class="custom-file">
+                                                            <input type="file" class="custom-file-input @error('module_file') is-invalid @enderror"
+                                                                id="module_file" name="module_file" value="">
+                                                            <label class="custom-file-label" for="module_file">Choose File</label>
+
+                                                            
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong></strong>
+                                                            </span>
+                                                            
                                                         </div>
                                                     </div>
-
-                                                    <input type="text" name="Lesson Code" class="form-control @error('Lesson Code') is-invalid @enderror" placeholder="Lesson Code" value="{{ old('Lesson Code') }}" autocomplete="Lesson Code" autofocus>
-
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong></strong>
-                                                    </span>
                                                 </div>
-                                            </div>
-
-
-                                            <div class="form-group ">
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text bg-primary">
-                                                            <span class="fas fa-book"></span>
-                                                        </div>
-                                                    </div>
-
-                                                    <input type="text" name="Enroll Code" class="form-control @error('Enroll Code') is-invalid @enderror" placeholder="Enroll Code" value="{{ old('Enroll Code') }}" autocomplete="Enroll Code" autofocus>
-
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong></strong>
-                                                    </span>
-                                                </div>
-                                            </div>
-
-                                            
                                         </div>
                                     </div>
                                 </div>
