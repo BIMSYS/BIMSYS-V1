@@ -26,6 +26,7 @@ Route::view('studentlesson','pages/student/lesson/index');
 Route::view('/', 'pages.index')->middleware('guest');
 
 Route::view('/studentlesson', 'pages.student.lesson.index');
+Route::view('/student/module','pages.student.module.index');
 // auth
 Auth::routes();
 Route::view('/profileguru', 'pages/teacher/profile/profileguru');
