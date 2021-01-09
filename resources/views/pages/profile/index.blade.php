@@ -34,29 +34,29 @@
         </div>
 </section>
 
-<section class="content">
+<section>
     <div class="container">
-        <div class="card card-primary card-tabs">
-            <div class="card-header p-0 pt-1">
+            <div class="card card-primary card-tabs">
+              <div class="card-header p-0 pt-1">
                 <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill"
+                  <li class="nav-item">
+                    <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill"
                             href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home"
                             aria-selected="true">About Me</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
                             href="#custom-tabs-one-profile" role="tab" aria-controls="custom-tabs-one-profile"
                             aria-selected="false">Edit Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="custom-tabs-one-password-tab" data-toggle="pill"
-                            href="#custom-tabs-one-password" role="tab" aria-controls="custom-tabs-one-password"
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill"
+                            href="#custom-tabs-one-messages" role="tab" aria-controls="custom-tabs-one-messages"
                             aria-selected="false">Change Password</a>
-                    </li>
+                  </li>
                 </ul>
-            </div>
-            <div class="card-body">
+              </div>
+              <div class="card-body">
                 <div class="tab-content" id="custom-tabs-one-tabContent">
                     <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel"
                         aria-labelledby="custom-tabs-one-home-tab">
@@ -66,8 +66,8 @@
                         <h6 style="font-weight: bold;">Email Address</h6>
                         <p>{{ auth()->user()->email }}</p>
                         <hr>
-
                     </div>
+
                     <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel"
                         aria-labelledby="custom-tabs-one-profile-tab">
                         <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
@@ -156,13 +156,11 @@
                                 </div>
                         </form>
                     </div>
-                    <div class="tab-pane fade" id="custom-tabs-one-password" role="tabpanel"
-                        aria-labelledby="custom-tabs-one-password-tab">
-                        {{-- <form action="" method="POST">
-                            @csrf
-                            @method('PATCH')
+                  </div>
+
+                  <div class="tab-pane fade" id="custom-tabs-one-messages" role="tabpanel" aria-labelledby="custom-tabs-one-messages-tab">
                             <div class="container">
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3" style="margin-left:300px;">
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text bg-primary">
@@ -172,37 +170,42 @@
 
                                         <input type="password" name="password"
                                             class="form-control @error('password') is-invalid @enderror" name="password"
-                                            placeholder="Password" autocomplete="password" autofocus>
-                                        @error('password')
+                                            placeholder="New Password" autocomplete="password" autofocus>
+
+                                     
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                </div>
+                                            <strong></strong>
+                                        </span>
+                                    </div>
+                                </div>
 
-                <div class="col-md-6 mb-3">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text bg-primary">
-                                <span class="fas fa-check-circle"></span>
+                                <div class="col-md-6 mb-3" style="margin-left:300px;">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text bg-primary">
+                                                <span class="fas fa-lock"></span>
+                                            </div>
+                                        </div>
+
+                                        <input type="password" name="confirmpassword"
+                                            class="form-control @error('password') is-invalid @enderror" name="confirmpassword"
+                                            placeholder="Confirm New Password" autocomplete="confirmpassword" autofocus>
+
+                                     
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong></strong>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary" style="border-radius: 5%; margin-left:310px;"><img
+                                            src="{{URL::asset('/img/edit.png')}}" style="width: 25px; height: 25px;"
+                                            class="mb-1" alt="">&nbsp; &nbsp; OK</button>
                             </div>
-                        </div>
-
-                        <input id="password_confirmation" type="password" class="form-control"
-                            name="password_confirmation" placeholder="Confirm Password" autocomplete="new-password">
-                    </div>
+                  </div>
                 </div>
-            </div>
-            </form> --}}
-
-        </div>
-    </div>
-
-    </div>
-    </div>
-    <!-- /.card -->
-    </div>
+              </div>
+              <!-- /.card -->
     </div>
 </section>
 @endsection

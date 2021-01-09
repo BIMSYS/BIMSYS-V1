@@ -51,7 +51,7 @@
         <div class="card-body mt-3">
           <h5 class="card-title" style="font-size: xx-large;">PELAJAR JUARA</h5>
           <br> <br>
-          <p class="card-text">Bimbigan belajar dengan kualitas guru dan materi terbaik!</p>
+          <p class="card-text">Bimbingan belajar dengan kualitas guru dan materi terbaik! Pejuang Juara Pilihannya !</p>
         </div>
       </div>
     </div>
