@@ -18,7 +18,7 @@ class CreateTasksTable extends Migration
             $table->foreignId('module_id')->constrained('modules')->onUpdate("cascade")->onDelete("cascade");
             $table->string('task_title');
             $table->string('task_file');
-            $table->string('task_link')->default('-');
+            $table->string('task_link')->nullable();
             $table->date('task_due');
             $table->date('task_date')->nullable();
             $table->timestamps();

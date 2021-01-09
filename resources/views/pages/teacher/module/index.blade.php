@@ -78,7 +78,7 @@
                     @endif
                 </td>
                 <td>
-                    <a href="{{ route('teacher.task.index') }}" role="button">Click here for ur task</a>
+                    <a href="{{ route('teacher.task.index', $module) }}" role="button">Click here for ur task</a>
                 </td>
                 <td>
                     <a href="{{ route('teacher.module.edit', $module) }}" role="button"><img

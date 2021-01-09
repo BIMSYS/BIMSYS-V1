@@ -10,8 +10,9 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('teacher.task.index') }}">Tasks</a></li>
-                    <li class="breadcrumb-item active">Task Modules</li>
+                    <li class="breadcrumb-item"><a href="{{ route('teacher.lesson.index') }}">Lessons</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('teacher.lesson.show', $module) }}">Modules</a></li>
+                    <li class="breadcrumb-item active">Tasks</li>
                 </ol>
             </div>
         </div>
@@ -32,7 +33,7 @@
                         <div class="col-8">
                             {{-- count module --}}
                             <span class="text-end"><b style="font-size: 50px;">
-
+                                    {{ $tasks->count() }}
                                 </b> Tasks</span>
                         </div>
                     </div>
@@ -41,146 +42,9 @@
         </div>
 
         <div class="col-5 d-flex justify-content-end" style="height: 100px; left:400px;">
-            <a class="btn btn-primary mt-5" href="" role="button" data-toggle="modal" data-target="#create">
+            <a class="btn btn-primary mt-5" href="{{ route('teacher.task.create', $module) }}" role="button">
                 <img src="{{ URL::asset('/img/plus.png') }}" alt="Create New Data" style="width: 35px; height: 35px;">
                 &nbsp; Create New Task</a>
-            <!-- Delete Modal -->
-            <div class="modal fade" id="create" tabindex="-1" aria-labelledby="create" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="delete">Create New Task</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-
-                        <div class="modal-body">
-                            <div class="row no-gutters">
-                                <div class="col">
-
-                                    <div class="form-group ">
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text bg-primary">
-                                                    <span class="fas fa-book"></span>
-                                                </div>
-                                            </div>
-
-                                            <input type="text" name="task_title"
-                                                class="form-control @error('task_title') is-invalid @enderror"
-                                                placeholder="Task Title" value="{{ old('task_title') }}"
-                                                autocomplete="task_title" autofocus>
-
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong></strong>
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group ">
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text bg-primary">
-                                                    <span class="fas fa-book-open"></span>
-                                                </div>
-                                            </div>
-
-                                            <div class="custom-file">
-                                                <input type="file"
-                                                    class="custom-file-input @error('module_file') is-invalid @enderror"
-                                                    id="task_file" name="task_file" value="{{ old('task_file') }}">
-                                                <label class="custom-file-label" for="module_file">Choose File</label>
-
-                                                @error('task_file')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group ">
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text bg-primary">
-                                                    <span class="fas fa-link"></span>
-                                                </div>
-                                            </div>
-
-                                            <input type="text" name="task_link"
-                                                class="form-control @error('task_link') is-invalid @enderror"
-                                                placeholder="Link Task" value="{{ old('task_link') }}"
-                                                autocomplete="task_link" autofocus>
-                                            @error('task_link')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    <h6 class="ml">Task Due/Task Date</h6>
-
-                                    <div class="form-row ">
-                                        <div class="col-md-6 mb-3">
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text bg-primary">
-                                                        <span class="fas fa-book"></span>
-                                                    </div>
-                                                </div>
-
-                                                <input type="date" name="task_due"
-                                                    class="form-control @error('task_due') is-invalid @enderror"
-                                                    placeholder="Task Due" value="{{ old('task_due') }}"
-                                                    autocomplete="task_due" autofocus>
-
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong></strong>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text bg-primary">
-                                                        <span class="fas fa-book"></span>
-                                                    </div>
-                                                </div>
-
-                                                <input type="date" name="task_due"
-                                                    class="form-control @error('task_due') is-invalid @enderror"
-                                                    placeholder="Task Due" value="{{ old('task_due') }}"
-                                                    autocomplete="task_due" autofocus>
-
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong></strong>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="modal-footer">
-                            <ul class="nav justify-content-center">
-                                <button type="submit" class="border-0 bg-transparent"><img
-                                        src="{{ URL::asset('/img/check.png') }}" style="width: 40px; height: 40px;"
-                                        class="mb-2 mr-3 mt-3" alt="Submit"></button>
-                                <button type="reset" class="border-0 bg-transparent"><img
-                                        src="{{ URL::asset('/img/cancel.png') }}" style="width: 40px; height: 40px;"
-                                        class="mb-2 mr-3 mt-3" alt="Cancel"></button>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 </div>
@@ -198,24 +62,28 @@
             </tr>
         </thead>
         <tbody>
-
+            @forelse ($tasks as $task)
             <tr class="align-middle">
-                <td>task title</td>
+                <td>{{ $task->task_title }}</td>
                 <td>
-                    <a href="">
+                    <a href="{{ route('teacher.task.download', $task) }}">
                         <span class="fas fa-file-download" style="font-size: 35px"></span>
                     </a>
                 </td>
                 <td>
-
-                    <a href="">Link</a>
-
+                    @if (!empty($task->task_link))
+                    <a href="{{ $task->task_link }}">Link</a>
+                    @else
+                    -
+                    @endif
                 </td>
+                <td>{{ $task->task_due }}</td>
                 <td>
-                    task due
-                </td>
-                <td>
-                    task date
+                    @if (!empty($task->task_date))
+                    {{ $task->task_date }}
+                    @else
+                    -
+                    @endif
                 </td>
                 <td>
                     <a href="" role="button"><img src="{{ URL::asset('/img/edit.png') }}"
@@ -250,18 +118,17 @@
                     </div>
                 </div>
             </div>
-
+            @empty
             <tr>
                 <td colspan="5">
                     <h4 class="text-center">Data Empty</h4>
                 </td>
             </tr>
-
-
+            @endforelse
         </tbody>
     </table>
     <div class="col-6 d-flex" style="height: 100px;">
-        <a class="btn btn-primary mt-5" href="{{ route('teacher.lesson.index') }}" role="button"> <img
+        <a class="btn btn-primary mt-5" href="{{ route('teacher.lesson.show', $module) }}" role="button"> <img
                 src="{{ URL::asset('/img/back.png') }}" alt="Create New Data" style="width: 35px; height: 35px;">
             &nbsp; Back</a>
     </div>
