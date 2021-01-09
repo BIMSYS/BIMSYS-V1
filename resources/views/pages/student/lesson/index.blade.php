@@ -1,6 +1,8 @@
+
 @extends('layouts.contentLayout', ['title' => 'Student Lesson'])
 
 @section('content')
+
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -9,13 +11,16 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
+
                     <li class="breadcrumb-item">Home</li>
                     <li class="breadcrumb-item active">Lessons Menu</li>
+
                 </ol>
             </div>
         </div>
     </div><!-- /.container-fluid -->
 </section>
+
 
 <div class="container-start ml-3">
     <div class="row">
@@ -62,7 +67,7 @@
                                                 </div>
                                             </div>
 
-                                            <input type="text" name="task_title" class="form-control @error('task_title') is-invalid @enderror" placeholder="Task Title" value="{{ old('task_title') }}" autocomplete="task_title" autofocus>
+                                            <input type="text" name="Lesson Code" class="form-control @error('Lesson Code') is-invalid @enderror" placeholder="Lesson Code" value="{{ old('Lesson Code') }}" autocomplete="Lesson Code" autofocus>
 
                                             <span class="invalid-feedback" role="alert">
                                                 <strong></strong>
@@ -70,79 +75,24 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group ">
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text bg-primary">
-                                                    <span class="fas fa-book-open"></span>
-                                                </div>
-                                            </div>
-
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input @error('module_file') is-invalid @enderror" id="task_file" name="task_file" value="{{ old('task_file') }}">
-                                                <label class="custom-file-label" for="module_file">Choose File</label>
-
-                                                @error('task_file')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
 
                                     <div class="form-group ">
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text bg-primary">
-                                                    <span class="fas fa-link"></span>
+                                                    <span class="fas fa-book"></span>
                                                 </div>
                                             </div>
 
-                                            <input type="text" name="task_link" class="form-control @error('task_link') is-invalid @enderror" placeholder="Link Task" value="{{ old('task_link') }}" autocomplete="task_link" autofocus>
-                                            @error('task_link')
+                                            <input type="text" name="Enroll Code" class="form-control @error('Enroll Code') is-invalid @enderror" placeholder="Enroll Code" value="{{ old('Enroll Code') }}" autocomplete="Enroll Code" autofocus>
+
                                             <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
+                                                <strong></strong>
                                             </span>
-                                            @enderror
                                         </div>
                                     </div>
 
-                                    <h6 class="ml">Task Due/Task Date</h6>
-
-                                    <div class="form-row ">
-                                        <div class="col-md-6 mb-3">
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text bg-primary">
-                                                        <span class="fas fa-book"></span>
-                                                    </div>
-                                                </div>
-
-                                                <input type="date" name="task_due" class="form-control @error('task_due') is-invalid @enderror" placeholder="Task Due" value="{{ old('task_due') }}" autocomplete="task_due" autofocus>
-
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong></strong>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text bg-primary">
-                                                        <span class="fas fa-book"></span>
-                                                    </div>
-                                                </div>
-
-                                                <input type="date" name="task_due" class="form-control @error('task_due') is-invalid @enderror" placeholder="Task Due" value="{{ old('task_due') }}" autocomplete="task_due" autofocus>
-
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong></strong>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                    
                                 </div>
                             </div>
                         </div>
@@ -179,9 +129,7 @@
                     <a href="" role="button">
                         <i class="fas fa-eye mr-2 text-info" style="font-size: 28px"></i>
                     </a>
-                    <a href="" role="button">
-                        <i class="fas fa-users text-success" style="font-size: 28px"></i>
-                    </a>
+                    
                 </td>
             </tr>
 
@@ -197,4 +145,5 @@
 
     </div>
 </div>
+
 @endsection
