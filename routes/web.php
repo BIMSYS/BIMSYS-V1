@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ModuleController;
+use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TeacherController;
@@ -20,16 +21,20 @@ use App\Http\Controllers\TeacherController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::view('studentlesson','pages/student/lesson/index');
 // guest home
 Route::view('/', 'pages.index')->middleware('guest');
 
+Route::view('/studentlesson', 'pages.student.lesson.index');
+Route::view('/student/module','pages.student.module.index');
 // auth
 Auth::routes();
+Route::view('/profileguru', 'pages/teacher/profile/profileguru');
 
 // middleware login auth
 Route::group(['middleware' => ['auth']], function () {
-    // home
+
+    //home
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     // profile teacher and student
@@ -37,16 +42,24 @@ Route::group(['middleware' => ['auth']], function () {
     Route::patch('/profile/update', [UserController::class, 'update'])->name('profile.update')->middleware('role:student,teacher');
 
     // Role Student
-    Route::group(['middleware' => 'role:student'], function () {
-        // profile
-        Route::get('/student/profile', [UserController::class, 'profile_index'])->name('profile.student');
-        Route::patch('/profile/update', [UserController::class, 'update'])->name('profile.update');
+    Route::group(['middleware' => 'student', 'prefix' => 'student'], function () {
+        Route::get('/profile/{auth}', [ProfileController::class, 'show'])->name('profile');
+
+        Route::get('/profile/{student}', [StudentsController::class, 'show'])->name('profile');
+        Route::get('/profile/{auth}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile/{auth}/edit', [ProfileController::class, 'update'])->name('profile.edit');
+
+        Route::get('/profile/{auth}/password', [PasswordController::class, 'index'])->name('password.edit');
+        Route::patch('/profile/{auth}/password', [PasswordController::class, 'update'])->name('password.edit');
     });
 
     // Role Teacher
     Route::group(['middleware' => 'role:teacher'], function () {
+
+
         // profile
         Route::get('/teacher/profile', [UserController::class, 'profile_index'])->name('profile.teacher');
+
         Route::patch('/profile/update', [UserController::class, 'update'])->name('profile.update');
 
         Route::group(['prefix' => 'teacher'], function () {
