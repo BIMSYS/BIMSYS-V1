@@ -1,4 +1,4 @@
-@extends('layouts.contentLayout', ['title' => 'Create Task'])
+@extends('layouts.contentLayout', ['title' => 'Update Task'])
 
 @section('content')
 <section class="content-header">
@@ -13,7 +13,7 @@
                     <li class="breadcrumb-item"><a href="{{ route('teacher.lesson.index') }}">Lessons</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('teacher.lesson.show', $module) }}">Modules</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('teacher.task.index', $module) }}">Task</a></li>
-                    <li class="breadcrumb-item active">Create Task</li>
+                    <li class="breadcrumb-item active">Update Task</li>
                 </ol>
             </div>
         </div>
@@ -24,13 +24,14 @@
     <div class="col-md-12 d-flex justify-content-center">
         <div class="card" style="width: 50rem;">
             <div class="card-header bg-primary">
-                <h1 style="text-align:center;">Create New Task</h1>
+                <h1 style="text-align:center;">Update Task</h1>
             </div>
 
             <div class="card-body">
                 <fieldset>
-                    <form method="POST" action="{{ route('teacher.task.store') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('teacher.task.update', $task) }}" enctype="multipart/form-data">
                         @csrf
+                        @method('PATCH')
                         <input type="hidden" name="task_module" value="{{ $module->id }}">
 
                         <div class="form-group ">
@@ -43,7 +44,7 @@
 
                                 <input type="text" name="task_title"
                                     class="form-control @error('task_title') is-invalid @enderror"
-                                    placeholder="Task Title" value="{{ old('task_title') }}" autocomplete="task_title"
+                                    placeholder="Task Title" value="{{ $task->task_title }}" autocomplete="task_title"
                                     autofocus>
 
                                 @error('task_title')
@@ -65,9 +66,8 @@
                                 <div class="custom-file">
                                     <input type="file"
                                         class="custom-file-input @error('task_file') is-invalid @enderror"
-                                        id="task_file" name="task_file" value="{{ old('task_file') }}">
-                                    <label class="custom-file-label" for="task_file">Choose
-                                        File</label>
+                                        id="task_file" name="task_file" value="{{ $task->task_file }}">
+                                    <label class="custom-file-label" for="task_file">{{ $task->task_file }}</label>
 
                                     @error('task_file')
                                     <span class="invalid-feedback" role="alert">
@@ -89,7 +89,7 @@
 
                                 <input type="date" name="task_due"
                                     class="form-control @error('task_due') is-invalid @enderror" placeholder="Task Due"
-                                    value="{{ old('task_due') }}" autocomplete="task_due" autofocus>
+                                    value="{{ $task->task_due }}" autocomplete="task_due" autofocus>
 
                                 @error('task_link')
                                 <span class="invalid-feedback" role="alert">
@@ -110,7 +110,7 @@
 
                                 <input type="text" name="task_link"
                                     class="form-control @error('task_link') is-invalid @enderror"
-                                    placeholder="Link Task" value="{{ old('task_link') }}" autocomplete="task_link"
+                                    placeholder="Link Task" value="{{ $task->task_link }}" autocomplete="task_link"
                                     autofocus>
 
                                 @error('task_link')
