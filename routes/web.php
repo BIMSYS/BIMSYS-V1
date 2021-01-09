@@ -20,7 +20,7 @@ use App\Http\Controllers\TeacherController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::view('studentlesson','pages/student/lesson/index');
 // guest home
 Route::view('/', 'pages.index')->middleware('guest');
 
@@ -29,7 +29,7 @@ Auth::routes();
 
 // middleware login auth
 Route::group(['middleware' => ['auth']], function () {
-    // home
+    //home
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     // profile teacher and student
@@ -45,8 +45,10 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Role Teacher
     Route::group(['middleware' => 'role:teacher'], function () {
+
         // profile
         Route::get('/teacher/profile', [UserController::class, 'profile_index'])->name('profile.teacher');
+
         Route::patch('/profile/update', [UserController::class, 'update'])->name('profile.update');
 
         Route::group(['prefix' => 'teacher'], function () {
