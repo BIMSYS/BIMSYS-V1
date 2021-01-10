@@ -11,7 +11,7 @@
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('student.lesson.index') }}">Lessons</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('student.lesson.show', $module) }}">Modules</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('student.lesson.show', $module->lesson) }}">Modules</a></li>
                     <li class="breadcrumb-item active">Tasks</li>
                 </ol>
             </div>
@@ -163,7 +163,7 @@
     </table>
     @endif
     <div class="col-6 d-flex" style="height: 100px;">
-        <a class="btn btn-primary mt-5" href="{{ route('student.lesson.show', $module) }}" role="button"> <img
+        <a class="btn btn-primary mt-5" href="{{ route('student.lesson.show', $module->lesson) }}" role="button"> <img
                 src="{{ URL::asset('/img/back.png') }}" alt="Create New Data" style="width: 35px; height: 35px;">
             &nbsp; Back</a>
     </div>

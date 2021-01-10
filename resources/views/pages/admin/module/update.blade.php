@@ -87,8 +87,8 @@
                                 <div class="custom-file">
                                     <input type="file"
                                         class="custom-file-input @error('module_file') is-invalid @enderror"
-                                        id="module_file" name="module_file" value="{{ $file }}">
-                                    <label class="custom-file-label" for="module_file">{{ $file }}</label>
+                                        id="module_file" name="module_file" value="{{ $module->module_file }}">
+                                    <label class="custom-file-label" for="module_file">{{ $module->module_file }}</label>
 
                                     @error('module_file')
                                     <span class="invalid-feedback" role="alert">

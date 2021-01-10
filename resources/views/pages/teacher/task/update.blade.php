@@ -92,7 +92,7 @@
                                     class="form-control @error('task_due') is-invalid @enderror" placeholder="Task Due"
                                     value="{{ $task->task_due }}" autocomplete="task_due" autofocus>
 
-                                @error('task_link')
+                                @error('task_due')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
