@@ -35,6 +35,7 @@
           </li>
         </div>
 
+        {{-- role teacher --}}
         @elseif(Auth::user()->role === 'teacher')
         <div class="teacher">
           <li class="nav-item">
@@ -47,6 +48,8 @@
             </a>
           </li>
         </div>
+
+        {{-- role admin --}}
         @else
         <div class="admin">
           <li class="nav-item">

@@ -65,7 +65,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::group(['prefix' => 'teacher'], function () {
             // teacher profile
             Route::get('/profile', [UserController::class, 'profile_index'])->name('profile.teacher');
-            Route::patch('/profile/update', [UserController::class, 'update'])->name('profile.teacher.update');
+            Route::patch('/profile/{user?}/update', [UserController::class, 'profile_update'])->name('profile.teacher.update');
+            Route::patch('/password/{user?}/update', [UserController::class, 'password_update'])->name('password.teacher.update');
 
             Route::group(['prefix' => 'lesson'], function () {
                 // lesson index and detail
