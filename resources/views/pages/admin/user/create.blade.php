@@ -38,8 +38,7 @@
                                 </div>
 
                                 <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                                    name="name" placeholder="Name" value="{{ old('name') }}" autocomplete="name"
-                                    autofocus>
+                                    placeholder="Name" value="{{ old('name') }}" autocomplete="name" autofocus>
                                 @error('name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -79,9 +78,8 @@
                                 </div>
 
                                 <input type="text" name="username"
-                                    class="form-control @error('username') is-invalid @enderror" name="username"
-                                    placeholder="Username" value="{{ old('username') }}" autocomplete="username"
-                                    autofocus>
+                                    class="form-control @error('username') is-invalid @enderror" placeholder="Username"
+                                    value="{{ old('username') }}" autocomplete="username" autofocus>
                                 @error('username')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -99,8 +97,8 @@
                                 </div>
 
                                 <input type="email" name="email"
-                                    class="form-control @error('email') is-invalid @enderror" name="email"
-                                    placeholder="Email" value="{{ old('email') }}" autocomplete="email" autofocus>
+                                    class="form-control @error('email') is-invalid @enderror" placeholder="Email"
+                                    value="{{ old('email') }}" autocomplete="email" autofocus>
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -119,7 +117,7 @@
                                     </div>
 
                                     <input type="password" name="password"
-                                        class="form-control @error('password') is-invalid @enderror" name="password"
+                                        class="form-control @error('password') is-invalid @enderror"
                                         placeholder="Password" autocomplete="password" autofocus>
                                     @error('password')
                                     <span class="invalid-feedback" role="alert">

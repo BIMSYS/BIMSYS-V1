@@ -8,9 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ModuleController;
-use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\StudentController;
-use App\Http\Controllers\TeacherController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,15 +21,11 @@ use App\Http\Controllers\TeacherController;
 |
 */
 
-
 // guest home
 Route::view('/', 'pages.index')->middleware('guest');
 
-Route::view('/student/module','pages.student.module.index');
-Route::view('student/lesson','pages/student/lesson/index');
 // auth
 Auth::routes();
-Route::view('/profileguru', 'pages/teacher/profile/profileguru');
 
 // middleware login auth
 Route::group(['middleware' => ['auth']], function () {
@@ -39,34 +33,43 @@ Route::group(['middleware' => ['auth']], function () {
     //home
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-    // profile teacher and student
-    Route::get('/profile', [UserController::class, 'profile_index'])->name('profile')->middleware('role:student,teacher');
-    Route::patch('/profile/update', [UserController::class, 'update'])->name('profile.update')->middleware('role:student,teacher');
-
     // Role Student
-    Route::group(['middleware' => 'student', 'prefix' => 'student'], function () {
-        Route::get('/profile/{auth}', [ProfileController::class, 'show'])->name('profile');
 
-        Route::get('/profile/{student}', [StudentsController::class, 'show'])->name('profile');
-        Route::get('/profile/{auth}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-        Route::patch('/profile/{auth}/edit', [ProfileController::class, 'update'])->name('profile.edit');
+    Route::group(['middleware' => 'role:student'], function () {
+        Route::group(['prefix' => 'student'], function () {
+            // student profile
+            Route::get('/profile', [UserController::class, 'profile_index'])->name('profile.student');
+            Route::patch('/profile/{user?}/update', [UserController::class, 'profile_update'])->name('profile.student.update');
+            Route::patch('/password/{user?}/update', [UserController::class, 'password_update'])->name('password.student.update');
 
-        Route::get('/profile/{auth}/password', [PasswordController::class, 'index'])->name('password.edit');
-        Route::patch('/profile/{auth}/password', [PasswordController::class, 'update'])->name('password.edit');
+            // lesson
+            Route::group(['prefix' => 'lesson'], function () {
+                Route::get('/', [LessonController::class, 'index'])->name('student.lesson.index');
+                Route::post('/add', [LessonController::class, 'lesson_add'])->name('student.lesson.add');
 
-       
+                // module
+                Route::get('/{lesson?}/show', [LessonController::class, 'show'])->name('student.lesson.show');
+                Route::get('/{module?}/download', [ModuleController::class, 'download'])->name('student.module.download');
+
+                // task
+                Route::group(['prefix' => 'task'], function () {
+                    Route::get('/{module?}', [TaskController::class, 'index'])->name('student.task.index');
+                    Route::get('/{task?}/download', [TaskController::class, 'task_download'])->name('student.task.download');
+                    Route::patch('/{task?}/upload/{module?}', [TaskController::class, 'result_upload'])->name('student.task.result.upload');
+                    Route::get('/{task?}/download/result', [TaskController::class, 'result_download'])->name('student.task.result.download');
+                });
+            });
+        });
     });
 
     // Role Teacher
     Route::group(['middleware' => 'role:teacher'], function () {
-
-
-        // profile
-        Route::get('/teacher/profile', [UserController::class, 'profile_index'])->name('profile.teacher');
-
-        Route::patch('/profile/update', [UserController::class, 'update'])->name('profile.update');
-
         Route::group(['prefix' => 'teacher'], function () {
+            // teacher profile
+            Route::get('/profile', [UserController::class, 'profile_index'])->name('profile.teacher');
+            Route::patch('/profile/{user?}/update', [UserController::class, 'profile_update'])->name('profile.teacher.update');
+            Route::patch('/password/{user?}/update', [UserController::class, 'password_update'])->name('password.teacher.update');
+
             Route::group(['prefix' => 'lesson'], function () {
                 // lesson index and detail
                 Route::get('/', [LessonController::class, 'index'])->name('teacher.lesson.index');

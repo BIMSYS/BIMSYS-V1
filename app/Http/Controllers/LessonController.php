@@ -4,12 +4,43 @@ namespace App\Http\Controllers;
 
 use App\Models\Lesson;
 use App\Models\Module;
+use App\Models\Student;
 use App\Models\Teacher;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class LessonController extends Controller
 {
+    public function lesson_add(Request $request)
+    {
+        $request->validate([
+            'lesson_code' => 'required|max:3|min:3',
+            'enroll_code' => 'required'
+        ]);
+
+        // cek lesson_code
+        $lesson = Lesson::where('lesson_code', $request['lesson_code'])->first();
+
+        if (empty($lesson)) {
+            return redirect(route('student.lesson.index'))->with('danger', 'Lesson Code tidak Sesuai!');
+        } else {
+            $student = Student::where('user_id', auth()->user()->id)->firstOrFail();
+
+            if ($request['enroll_code'] === $lesson->lesson_enroll) {
+                // attach
+                $lesson->students()->attach($student);
+
+                if ($lesson) {
+                    return redirect(route('student.lesson.index'))->with('success', 'Lesson berhasil ditambah!');
+                } else {
+                    return redirect(route('student.lesson.index'))->with('danger', 'Lesson gagal ditambah!');
+                }
+            } else {
+                return redirect(route('student.lesson.index'))->with('danger', 'Enroll Code tidak Sesuai!');
+            }
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -44,6 +75,14 @@ class LessonController extends Controller
             return view('pages.teacher.lesson.index', [
                 'lessons' => $lessons,
                 'lessons_count' => $lessons_count
+            ]);
+        } elseif (auth()->user()->role === 'student') {
+            $student = auth()->user()->student;
+            // lessons
+            $lessons = $student->lessons()->orderBy('lesson_name')->paginate(5);
+
+            return view('pages.student.lesson.index', [
+                'lessons' => $lessons
             ]);
         }
     }
@@ -111,11 +150,19 @@ class LessonController extends Controller
 
         $modules = $modules->paginate(5);
 
-        return view('pages.teacher.module.index', [
-            'lesson' => $lesson,
-            'modules' => $modules,
-            'modules_count' => $modules_count
-        ]);
+        if (auth()->user()->role === 'teacher') {
+            return view('pages.teacher.module.index', [
+                'lesson' => $lesson,
+                'modules' => $modules,
+                'modules_count' => $modules_count
+            ]);
+        } elseif (auth()->user()->role === 'student') {
+            return view('pages.student.module.index', [
+                'lesson' => $lesson,
+                'modules' => $modules,
+                'modules_count' => $modules_count
+            ]);
+        }
     }
 
     /**

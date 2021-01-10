@@ -12,7 +12,7 @@ class Task extends Model
     use HasFactory;
 
     protected $fillable = [
-        'module_id', 'task_title', 'task_file', 'task_link', ' task_due', 'task_date'
+        'module_id', 'task_title', 'task_file', 'task_link', ' task_due', 'task_date', 'task_result'
     ];
 
     public function module()

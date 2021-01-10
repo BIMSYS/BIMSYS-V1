@@ -78,7 +78,7 @@
             <div class="icon">
               <i class="fas fa-book-reader"></i>
             </div>
-            <a href="" class="small-box-footer">
+            <a href="{{ route('student.lesson.show', $lesson) }}" class="small-box-footer">
               More info <i class="fas fa-arrow-circle-right"></i>
             </a>
           </div>
@@ -101,7 +101,7 @@
           $i = 0;
           @endphp
           @foreach ($student->lessons as $lesson)
-          <a href="" class="list-group-item 
+          <a href="{{ route('student.lesson.show', $lesson) }}" class="list-group-item 
             list-group-item-action 
             d-flex 
             justify-content-between 
