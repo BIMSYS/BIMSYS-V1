@@ -49,7 +49,7 @@
                 <th scope="col">FOTO</th>
                 <th scope="col">NAMA LENGKAP</th>
                 <th scope="col">EMAIL</th>
-                <th scope="col">ACTION</th>
+                {{-- <th scope="col">ACTION</th> --}}
             </tr>
         </thead>
         <tbody>
@@ -65,14 +65,14 @@
                     {{-- <a href="" role="button"><img
                             src="{{ URL::asset('/img/edit.png') }}" style="width: 30px; height: 30px;"
                     class="mb-2 mr-3 mt-3" alt="Edit"></a> --}}
-                    <a data-toggle="modal" data-target="#delete{{ $student->id }}" role="button"><img
+                    {{-- <a data-toggle="modal" data-target="#delete{{ $student->id }}" role="button"><img
                             src="{{ URL::asset('/img/delete.png') }}" style="width: 30px; height: 30px;"
-                            class="mb-2 mt-3" alt="Delete"></a>
+                            class="mb-2 mt-3" alt="Delete"></a> --}}
                 </td>
             </tr>
 
             <!-- Delete Modal -->
-            <div class="modal fade" id="delete{{ $student->id }}" tabindex="-1"
+            {{-- <div class="modal fade" id="delete{{ $student->id }}" tabindex="-1"
                 aria-labelledby="delete{{ $student->id }}" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -95,7 +95,7 @@
                         </form>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             @empty
             <tr>
                 <td colspan="5">

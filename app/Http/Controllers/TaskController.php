@@ -138,7 +138,6 @@ class TaskController extends Controller
             'task_file' => 'mimetypes:application/pdf,application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint',
             'task_link' => 'max:255',
             'task_due' => 'required|date',
-            'task_grade' => 'required|double'
         ]);
 
         // update task
@@ -252,7 +251,7 @@ class TaskController extends Controller
         }
 
         $task->task_date = date('Y-m-d');
-        
+
         // save
         $task->save();
 
