@@ -69,7 +69,7 @@
 
                                         <input type="text" name="role"
                                             class="form-control-plaintext ml-2 @error('role') is-invalid @enderror"
-                                            name="role" placeholder="Role" value="{{ $user->role }}" autocomplete="role"
+                                            name="role" readonly placeholder="Role" value="{{ $user->role }}" autocomplete="role"
                                             autofocus>
                                         @error('role')
                                         <span class="invalid-feedback" role="alert">
