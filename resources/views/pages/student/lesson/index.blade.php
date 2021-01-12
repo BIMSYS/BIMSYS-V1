@@ -113,9 +113,6 @@
                                     <button type="submit" class="border-0 bg-transparent"><img
                                             src="{{ URL::asset('/img/check.png') }}" style="width: 40px; height: 40px;"
                                             class="mb-2 mr-3 mt-3" alt="Submit"></button>
-                                    <button type="reset" class="border-0 bg-transparent"><img
-                                            src="{{ URL::asset('/img/cancel.png') }}" style="width: 40px; height: 40px;"
-                                            class="mb-2 mr-3 mt-3" alt="Cancel"></button>
                                 </ul>
                             </div>
                         </form>
