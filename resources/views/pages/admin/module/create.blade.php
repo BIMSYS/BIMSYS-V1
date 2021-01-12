@@ -10,7 +10,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('admin.module.index') }}">Lesson</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.module.index') }}">Module</a></li>
                     <li class="breadcrumb-item active">Create Module</li>
                 </ol>
             </div>
@@ -141,9 +141,9 @@
                                 <button type="submit" class="border-0 bg-transparent"><img
                                         src="{{ URL::asset('/img/check.png') }}" style="width: 50px; height: 50px;"
                                         class="mb-2 mr-3 mt-3" alt="Submit"></button>
-                                <button type="reset" class="border-0 bg-transparent"><img
-                                        src="{{ URL::asset('/img/cancel.png') }}" style="width: 50px; height: 50px;"
-                                        class="mb-2 mr-3 mt-3" alt="Cancel"></button>
+                                <a href="{{ route('admin.module.index') }}"><img
+                                            src="{{ URL::asset('/img/cancel.png') }}" style="width: 50px; height: 50px;"
+                                            class="mb-2 mr-3 mt-3" alt="Cancel"></a>
                             </ul>
                         </div>
                     </form>

@@ -52,12 +52,15 @@
                 <th scope="col">MODULE FILE</th>
                 <th scope="col">LINK</th>
                 <th scope="col">TASK MODULE</th>
+                <th scope="col">TASK RESULT</th>
+                
 
             </tr>
         </thead>
         <tbody>
             @forelse ($modules as $module)
             <tr class="align-middle">
+
                 <td>{{ $module->module_title }}</td>
                 <td>{{ $module->module_description }}</td>
                 <td>
