@@ -127,7 +127,7 @@
 
 {{-- index table --}}
 <div class="container-start ml-3 mr-5">
-    <table class="table bg-white">
+    <table class="table bg-white"> 
         <thead>
             <tr>
                 <th scope="col">LESSON NAME</th>
