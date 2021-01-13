@@ -11,8 +11,7 @@
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('teacher.lesson.index') }}">Lessons</a></li>
-                    <li class="breadcrumb-item"><a
-                            href="{{ route('teacher.lesson.show', $module->lesson) }}">Modules</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('teacher.lesson.show', $module->lesson) }}">Modules</a></li>
                     <li class="breadcrumb-item active">Tasks</li>
                 </ol>
             </div>
@@ -28,8 +27,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-4">
-                            <img src="{{ URL::asset('/img/task.png') }}" class="mt-2" width="50px" height="50px"
-                                alt="Murid">
+                            <img src="{{ URL::asset('/img/task.png') }}" class="mt-2" width="50px" height="50px" alt="Murid">
                         </div>
                         <div class="col-8">
                             {{-- count module --}}
@@ -84,17 +82,13 @@
                     <a href="{{ route('teacher.task.edit', [
                         'task' => $task,
                         'module' => $module
-                    ]) }}" role="button"><img src="{{ URL::asset('/img/edit.png') }}"
-                            style="width: 30px; height: 30px;" class="mb-2 mr-3 mt-3" alt="Edit"></a>
-                    <a data-toggle="modal" data-target="#delete{{ $task->id }}" role="button"><img
-                            src="{{ URL::asset('/img/delete.png') }}" style="width: 30px; height: 30px;"
-                            class="mb-2 mt-3" alt="Delete"></a>
+                    ]) }}" role="button"><img src="{{ URL::asset('/img/edit.png') }}" style="width: 30px; height: 30px;" class="mb-2 mr-3 mt-3" alt="Edit"></a>
+                    <a data-toggle="modal" data-target="#delete{{ $task->id }}" role="button"><img src="{{ URL::asset('/img/delete.png') }}" style="width: 30px; height: 30px;" class="mb-2 mt-3" alt="Delete"></a>
                 </td>
             </tr>
 
             <!-- Delete Modal -->
-            <div class="modal fade" id="delete{{ $task->id }}" tabindex="-1" aria-labelledby="delete{{ $task->id }}"
-                aria-hidden="true">
+            <div class="modal fade" id="delete{{ $task->id }}" tabindex="-1" aria-labelledby="delete{{ $task->id }}" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -155,15 +149,14 @@
                     @endif
                 </td>
                 <td>
-                    @if ($task->task_date > $task->task_due)
-                    <p>{{ $task->task_date }} <strong class="text-danger">Overdue</strong></p>
-                    @else
-                    @if (!empty($task->task_date))
+                    @if(!empty($task->task_date))
                     {{ $task->task_date }}
-                    @else
-                    -
-                    @endif
-                    @endif
+                    @if($task->task_date > $task->task_result)
+                    <p><strong class="text-danger"> Overdue</strong>
+                        @endif
+                        @else
+                        -
+                        @endif
                 </td>
                 <td>
                     @if (!empty($task->grade->grade))
@@ -187,8 +180,7 @@
             </tr>
 
             {{-- grade modal --}}
-            <div class="modal fade" id="grade{{ $grade }}" tabindex="-1" aria-labelledby="grade{{ $grade }}"
-                aria-hidden="true">
+            <div class="modal fade" id="grade{{ $grade }}" tabindex="-1" aria-labelledby="grade{{ $grade }}" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -226,11 +218,7 @@
                                                 </div>
                                             </div>
 
-                                            <input type="number" name="task_grade" step=".01"
-                                                class="form-control @error('task_grade') is-invalid @enderror"
-                                                placeholder="Task Grade"
-                                                value="@if(!empty($task->grade)){{ $task->grade->grade }}@else{{ old('task_result') }}@endif"
-                                                autocomplete="task_grade" autofocus>
+                                            <input type="number" name="task_grade" step=".01" class="form-control @error('task_grade') is-invalid @enderror" placeholder="Task Grade" value="@if(!empty($task->grade)){{ $task->grade->grade }}@else{{ old('task_result') }}@endif" autocomplete="task_grade" autofocus>
 
                                             @error('task_grade')
                                             <span class="invalid-feedback" role="alert">
@@ -265,8 +253,7 @@
         </tbody>
     </table>
     <div class="col-6 d-flex" style="height: 100px;">
-        <a class="btn btn-primary mt-5" href="{{ route('teacher.lesson.show', $module->lesson) }}" role="button"> <img
-                src="{{ URL::asset('/img/back.png') }}" alt="Create New Data" style="width: 35px; height: 35px;">
+        <a class="btn btn-primary mt-5" href="{{ route('teacher.lesson.show', $module->lesson) }}" role="button"> <img src="{{ URL::asset('/img/back.png') }}" alt="Create New Data" style="width: 35px; height: 35px;">
             &nbsp; Back</a>
     </div>
 
