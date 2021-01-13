@@ -121,9 +121,9 @@
                                 <button type="submit" class="border-0 bg-transparent"><img
                                         src="{{ URL::asset('/img/check.png') }}" style="width: 50px; height: 50px;"
                                         class="mb-2 mr-3 mt-3" alt="Submit"></button>
-                                <button type="reset" class="border-0 bg-transparent"><img
-                                        src="{{ URL::asset('/img/cancel.png') }}" style="width: 50px; height: 50px;"
-                                        class="mb-2 mr-3 mt-3" alt="Cancel"></button>
+                                <a href="{{ route('admin.lesson.index') }}"><img
+                                            src="{{ URL::asset('/img/cancel.png') }}" style="width: 50px; height: 50px;"
+                                            class="mb-2 mr-3 mt-3" alt="Cancel"></a>
                             </ul>
                         </div>
                     </form>

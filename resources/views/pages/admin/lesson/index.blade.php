@@ -1,4 +1,4 @@
-@extends('layouts.contentLayout', ['title' => 'Lessson'])
+@extends('layouts.contentLayout', ['title' => 'Lesson'])
 
 @section('content')
 <section class="content-header">

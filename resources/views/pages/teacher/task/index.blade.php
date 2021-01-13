@@ -149,14 +149,14 @@
                     @endif
                 </td>
                 <td>
-                    @if(!empty($task->task_date))
-                    {{ $task->task_date }}
-                    @if($task->task_date > $task->task_result)
-                    <p><strong class="text-danger"> Overdue</strong>
-                        @endif
-                        @else
-                        -
-                        @endif
+                @if(!empty($task->task_date))
+                {{ $task->task_date }} 
+                @if($task->task_date > $task->task_result) 
+                <p><strong class="text-danger"> Overdue</strong>
+                @endif
+                @else
+                -
+                @endif
                 </td>
                 <td>
                     @if (!empty($task->grade->grade))
